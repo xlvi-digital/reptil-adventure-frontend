@@ -1,0 +1,6 @@
+{
+  "name": "Hoodie Store",
+  "description": "A premium high-fidelity streetwear cyberpunk apparel store featuring interactive sizing configurations, a secure shopping cart system, model showcases, and a live AI Cyber Stylist powered by Gemini.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,2856 @@
+{
+  "products": [
+    {
+      "id": "RA-TAS-001",
+      "name": "Tas Daypack Backpack Ransel Pria/Wanita Reptil Adventure MAMBA 25 series",
+      "category": "Tas & Carrier",
+      "brand": "REPTIL ADVENTURE",
+      "price": {
+        "original": 265000,
+        "discounted": 265000,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": "25 L",
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 5,
+        "reviews_count": 30
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-8224r-mifyfoczpcsm5d@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-8224r-mifyfoczpcsm5d"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/Tas-Daypack-Backpack-Ransel-Pria-Wanita-Reptil-Adventure-MAMBA-25-series-i.1165776670.24919836946?extraParams=%7B%22display_model_id%22%3A240506251487%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-TAS-002",
+      "name": "Tas Gunung/Carrier Ultralight Pria/Wanita Reptil Adventure BURMA series",
+      "category": "Tas & Carrier",
+      "brand": "REPTIL ADVENTURE",
+      "price": {
+        "original": 375000,
+        "discounted": 375000,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": null,
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 4.8,
+        "reviews_count": 80
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-8224t-miecci4st2x4db@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-8224t-miecci4st2x4db"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/Tas-Gunung-Carrier-Ultralight-Pria-Wanita-Reptil-Adventure-BURMA-series-i.1165776670.24926939405?extraParams=%7B%22display_model_id%22%3A340993965819%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-TAS-003",
+      "name": "DAYPACK REPTIL ADVENTURE BOA 15 series",
+      "category": "Tas & Carrier",
+      "brand": "REPTIL ADVENTURE",
+      "price": {
+        "original": 185000,
+        "discounted": 185000,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": "15 L",
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 4.9,
+        "reviews_count": 97
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-822wn-mlr8n8qt179ef6@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-822wn-mlr8n8qt179ef6"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/DAYPACK-REPTIL-ADVENTURE-BOA-15-series-i.1165776670.25569347428?extraParams=%7B%22display_model_id%22%3A255491286810%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-TAS-004",
+      "name": "BACKPACK/ RANSEL PRIA/WANITA REPTIL ADVENTURE TAIPAN 25 series",
+      "category": "Tas & Carrier",
+      "brand": "REPTIL ADVENTURE",
+      "price": {
+        "original": 265000,
+        "discounted": 265000,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": "25 L",
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 4.9,
+        "reviews_count": 28
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-822wo-mn3y90eruo05b7@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-822wo-mn3y90eruo05b7"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/BACKPACK-RANSEL-PRIA-WANITA-REPTIL-ADVENTURE-TAIPAN-25-series-i.1165776670.24719459029?extraParams=%7B%22display_model_id%22%3A236143704144%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-AKS-001",
+      "name": "Matras SPONS YOGA | Matras Camping | Matras Spons | Matras MURAH | Alas Tidur | Matras Outdoor | Matras",
+      "category": "Aksesoris",
+      "brand": "REPTIL ADVENTURE",
+      "price": {
+        "original": 35000,
+        "discounted": 35000,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": null,
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 5,
+        "reviews_count": 13
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-8224v-mftoemidiw3sae@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-8224v-mftoemidiw3sae"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/Matras-SPONS-YOGA-Matras-Camping-Matras-Spons-Matras-MURAH-Alas-Tidur-Matras-Outdoor-Matras-i.1165776670.42924127004?extraParams=%7B%22display_model_id%22%3A291958809805%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-PAK-001",
+      "name": "Reptil Adventure | Rompi Tactical Casual | Rompi Lapangan Pria/Wanita",
+      "category": "Pakaian",
+      "brand": "REPTIL ADVENTURE",
+      "price": {
+        "original": 145000,
+        "discounted": 145000,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": null,
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 4.9,
+        "reviews_count": 59
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-81zti-mfb3i09gvw2384@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-81zti-mfb3i09gvw2384"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/Reptil-Adventure-Rompi-Tactical-Casual-Rompi-Lapangan-Pria-Wanita-i.1165776670.29576202233?extraParams=%7B%22display_model_id%22%3A306505089171%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-PAK-002",
+      "name": "Celana Outdoor Pria/Wanita Reptil Adventure Series BUNGARUS",
+      "category": "Pakaian",
+      "brand": "REPTIL ADVENTURE",
+      "price": {
+        "original": 145000,
+        "discounted": 145000,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": null,
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 5,
+        "reviews_count": 57
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-822wl-mlrkc8nl6ej3bc@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-822wl-mlrkc8nl6ej3bc"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/Celana-Outdoor-Pria-Wanita-Reptil-Adventure-Series-BUNGARUS-i.1165776670.28070581371?extraParams=%7B%22display_model_id%22%3A149127954175%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-PAK-003",
+      "name": "JAKET GUNUNG/OUTDOOR PRIA/WANITA|Reptil Adventure Taipan Series",
+      "category": "Pakaian",
+      "brand": "REPTIL ADVENTURE",
+      "price": {
+        "original": 265000,
+        "discounted": 265000,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": null,
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 4.9,
+        "reviews_count": 52
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-8224x-mih8fth2vcp0bf@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-8224x-mih8fth2vcp0bf"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/JAKET-GUNUNG-OUTDOOR-PRIA-WANITA-Reptil-Adventure-Taipan-Series-i.1165776670.24892709365?extraParams=%7B%22display_model_id%22%3A129283261795%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-TEN-001",
+      "name": "Reptil Adventure - Flysheet Tenda Premium Waterproof 3x3 3x4 | Flysheet Shelter Darurat",
+      "category": "Tenda & Shelter",
+      "brand": "REPTIL ADVENTURE",
+      "price": {
+        "original": 135000,
+        "discounted": 121500,
+        "discount_percentage": 10
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": null,
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 5,
+        "reviews_count": 12
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-822wi-mnebtpfb3s3sd8@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-822wi-mnebtpfb3s3sd8"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/Reptil-Adventure-Flysheet-Tenda-Premium-Waterproof-3x3-3x4-Flysheet-Shelter-Darurat-i.1165776670.26730276896?extraParams=%7B%22display_model_id%22%3A244232987989%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-PAK-004",
+      "name": "CELANA HIKING SAMBUNG REPTIL ADVENTURE COASTAL Series",
+      "category": "Pakaian",
+      "brand": "REPTIL ADVENTURE",
+      "price": {
+        "original": 155000,
+        "discounted": 155000,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": null,
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 4.9,
+        "reviews_count": 91
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-8224q-mie1j54e27eoa4@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-8224q-mie1j54e27eoa4"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/CELANA-HIKING-SAMBUNG-REPTIL-ADVENTURE-COASTAL-Series-i.1165776670.25469413096?extraParams=%7B%22display_model_id%22%3A128924425814%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-PAK-005",
+      "name": "Jaket Gunung - Jaket Outdoor - Jaket Gorpcore Pria Wanita Reptil Adventure Python Series",
+      "category": "Pakaian",
+      "brand": "REPTIL ADVENTURE",
+      "price": {
+        "original": 295000,
+        "discounted": 295000,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": null,
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 4.9,
+        "reviews_count": 224
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-822wq-mn40fgd4ybr475@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-822wq-mn40fgd4ybr475"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/Jaket-Gunung-Jaket-Outdoor-Jaket-Gorpcore-Pria-Wanita-Reptil-Adventure-Python-Series-i.1165776670.25021195282?extraParams=%7B%22display_model_id%22%3A250547190651%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-TAS-005",
+      "name": "Tas Hydropack / Vest Trail Running Reptil Adventure Turtle 12L Series",
+      "category": "Tas & Carrier",
+      "brand": "REPTIL ADVENTURE",
+      "price": {
+        "original": 265000,
+        "discounted": 265000,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": "12L",
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 5,
+        "reviews_count": 10
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-8224p-mickhg6uv01tb2@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-8224p-mickhg6uv01tb2"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/Tas-Hydropack-Vest-Trail-Running-Reptil-Adventure-Turtle-12L-Series-i.1165776670.51402932718?extraParams=%7B%22display_model_id%22%3A350282886470%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-PAK-006",
+      "name": "Reptil Adventure - Jaket Casual - Jaket Outdoor - Jaket Gunung Pria/Wanita Jaket Packable ACRO LITE Series",
+      "category": "Pakaian",
+      "brand": "REPTIL ADVENTURE",
+      "price": {
+        "original": 165000,
+        "discounted": 165000,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": null,
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 5,
+        "reviews_count": 48
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-822wm-mlrami5fm5fl6f@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-822wm-mlrami5fm5fl6f"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/Reptil-Adventure-Jaket-Casual-Jaket-Outdoor-Jaket-Gunung-Pria-Wanita-Jaket-Packable-ACRO-LITE-Series-i.1165776670.44401438832?extraParams=%7B%22display_model_id%22%3A305117499277%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-TAS-006",
+      "name": "Reptil Adventure Hydropack / Vest Running Careta - Running Vest - Tas Lari & Sepeda",
+      "category": "Tas & Carrier",
+      "brand": "REPTIL ADVENTURE",
+      "price": {
+        "original": 245000,
+        "discounted": 245000,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": null,
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 5,
+        "reviews_count": 14
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-82252-mijwr9kui9s86d@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-82252-mijwr9kui9s86d"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/Reptil-Adventure-Hydropack-Vest-Running-Careta-Running-Vest-Tas-Lari-Sepeda-i.1165776670.25996844619?extraParams=%7B%22display_model_id%22%3A325955967901%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-PAK-007",
+      "name": "Celana Outdoor Pria/Wanita Reptil Adventure NERODIA Series",
+      "category": "Pakaian",
+      "brand": "REPTIL ADVENTURE",
+      "price": {
+        "original": 145000,
+        "discounted": 145000,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": null,
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 4.8,
+        "reviews_count": 25
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-822wh-mlrsw1lltxj945@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-822wh-mlrsw1lltxj945"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/Celana-Outdoor-Pria-Wanita-Reptil-Adventure-NERODIA-Series-i.1165776670.28670567954?extraParams=%7B%22display_model_id%22%3A320462782324%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-PAK-008",
+      "name": "Jaket Gunung Outdoor Pria/Wanita Reptil Adventure SANCA Series",
+      "category": "Pakaian",
+      "brand": "REPTIL ADVENTURE",
+      "price": {
+        "original": 265000,
+        "discounted": 265000,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": null,
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 5,
+        "reviews_count": 61
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-822wh-mlqg0ukh9atrfb@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-822wh-mlqg0ukh9atrfb"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/Jaket-Gunung-Outdoor-Pria-Wanita-Reptil-Adventure-SANCA-Series-i.1165776670.24669343873?extraParams=%7B%22display_model_id%22%3A241893538046%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-PAK-009",
+      "name": "CELANA PENDEK CARGO REPTIL ADVENTURE KOBRA series",
+      "category": "Pakaian",
+      "brand": "REPTIL ADVENTURE",
+      "price": {
+        "original": 115000,
+        "discounted": 115000,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": null,
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 5,
+        "reviews_count": 6
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-7r98w-lt0jmzoe8mkm96@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-7r98w-lt0jmzoe8mkm96"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/CELANA-PENDEK-CARGO-REPTIL-ADVENTURE-KOBRA-series-i.1165776670.25469464614?extraParams=%7B%22display_model_id%22%3A137870109395%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-TAS-007",
+      "name": "Reptil Adventure - Rain Cover Cover Bag 20L 40L 60L | Jas Hujan Tas",
+      "category": "Tas & Carrier",
+      "brand": "REPTIL ADVENTURE",
+      "price": {
+        "original": 65000,
+        "discounted": 58500,
+        "discount_percentage": 10
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": "20L 40L 60L",
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 5,
+        "reviews_count": 32
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-7rbk8-m9fj25sqi4nxea@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-7rbk8-m9fj25sqi4nxea"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/Reptil-Adventure-Rain-Cover-Cover-Bag-20L-40L-60L-Jas-Hujan-Tas-i.1165776670.25795022423?extraParams=%7B%22display_model_id%22%3A186070205695%2C%22model_selection_logic%22%3A2%7D"
+    },
+    {
+      "id": "RA-PAK-010",
+      "name": "Reptil Adventure - Jaket Waterproof - Jaket Windproof - Jaket Gunung Pria/Wanita KOBRA Series",
+      "category": "Pakaian",
+      "brand": "REPTIL ADVENTURE",
+      "price": {
+        "original": 265000,
+        "discounted": 265000,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": null,
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 5,
+        "reviews_count": 62
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-822ws-mm72n407sz5u06@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-822ws-mm72n407sz5u06"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/Reptil-Adventure-Jaket-Waterproof-Jaket-Windproof-Jaket-Gunung-Pria-Wanita-KOBRA-Series-i.1165776670.25619342863?extraParams=%7B%22display_model_id%22%3A178110365438%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-PAK-011",
+      "name": "Jaket Gunung Puffer Gelembung Ecodown Jacket Musim Dingin Pria/Wanita Reptil Adventure GAVIAL SERIES",
+      "category": "Pakaian",
+      "brand": "REPTIL ADVENTURE",
+      "price": {
+        "original": 345000,
+        "discounted": 345000,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": null,
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 4.9,
+        "reviews_count": 18
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-822wq-mojjls4ehsej55@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-822wq-mojjls4ehsej55"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/Jaket-Gunung-Puffer-Gelembung-Ecodown-Jacket-Musim-Dingin-Pria-Wanita-Reptil-Adventure-GAVIAL-SERIES-i.1165776670.28083980957?extraParams=%7B%22display_model_id%22%3A258221470072%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-PAK-012",
+      "name": "Reptil Adventure - Celana Gunung Quickdry Strech Pendek Pria/Wanita PYTHON series",
+      "category": "Pakaian",
+      "brand": "REPTIL ADVENTURE",
+      "price": {
+        "original": 115000,
+        "discounted": 115000,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": null,
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 4.9,
+        "reviews_count": 49
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-822wk-mlr8z9gg0iyq30@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-822wk-mlr8z9gg0iyq30"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/Reptil-Adventure-Celana-Gunung-Quickdry-Strech-Pendek-Pria-Wanita-PYTHON-series-i.1165776670.25724889131?extraParams=%7B%22display_model_id%22%3A240655212259%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-PAK-013",
+      "name": "[Reptil Adventure Official Store] JAKET GUNUNG PRIA/WANITA|JAKET GELEMBUNG|JAKET OUTDOOR | JAKET PUFFER GECKO SERIES",
+      "category": "Pakaian",
+      "brand": "REPTIL ADVENTURE",
+      "price": {
+        "original": 295000,
+        "discounted": 295000,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": null,
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 5,
+        "reviews_count": 11
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-8224r-micvxluxep6v9f@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-8224r-micvxluxep6v9f"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/-Reptil-Adventure-Official-Store-JAKET-GUNUNG-PRIA-WANITA-JAKET-GELEMBUNG-JAKET-OUTDOOR-JAKET-PUFFER-GECKO-SERIES-i.1165776670.27578335976?extraParams=%7B%22display_model_id%22%3A243759254412%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-PAK-014",
+      "name": "Celana Outdoor Pria/Wanita Reptil Adventure ACRO Seris",
+      "category": "Pakaian",
+      "brand": "REPTIL ADVENTURE",
+      "price": {
+        "original": 155000,
+        "discounted": 155000,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": null,
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 5,
+        "reviews_count": 42
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-822wo-mlrpjydkplag3f@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-822wo-mlrpjydkplag3f"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/Celana-Outdoor-Pria-Wanita-Reptil-Adventure-ACRO-Seris-i.1165776670.27870539937?extraParams=%7B%22display_model_id%22%3A59530023548%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-PAK-015",
+      "name": "Celana Outdoor/Gunung Pria/Wanita Reptil Adventure NAJA series",
+      "category": "Pakaian",
+      "brand": "REPTIL ADVENTURE",
+      "price": {
+        "original": 135000,
+        "discounted": 135000,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": null,
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 4.8,
+        "reviews_count": 51
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-8224y-miny0stilkaqfe@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-8224y-miny0stilkaqfe"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/Celana-Outdoor-Gunung-Pria-Wanita-Reptil-Adventure-NAJA-series-i.1165776670.25069420178?extraParams=%7B%22display_model_id%22%3A204975456674%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-TAS-008",
+      "name": "AUTHENTIC - Tas Slempang Pria Wanita Terrapene 8 Reptil Adventure",
+      "category": "Tas & Carrier",
+      "brand": "REPTIL ADVENTURE",
+      "price": {
+        "original": 215000,
+        "discounted": 215000,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": "8 L",
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 5,
+        "reviews_count": 1
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-8224u-mktcb1on8ykk45@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-8224u-mktcb1on8ykk45"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/AUTHENTIC-Tas-Slempang-Pria-Wanita-Terrapene-8-Reptil-Adventure-i.1165776670.45706267838?extraParams=%7B%22display_model_id%22%3A249168807797%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-TAS-009",
+      "name": "SLEEPING BAG BULU ANGSA SINTETIS ECODOWN THERMAL REPTIL ADVENTURE || CHAMELEON SERIES",
+      "category": "Tas & Carrier",
+      "brand": "REPTIL ADVENTURE",
+      "price": {
+        "original": 385950,
+        "discounted": 347355,
+        "discount_percentage": 10
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": null,
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 4.8,
+        "reviews_count": 15
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-82251-mjqlx0x87u2o36@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-82251-mjqlx0x87u2o36"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/SLEEPING-BAG-BULU-ANGSA-SINTETIS-ECODOWN-THERMAL-REPTIL-ADVENTURE-CHAMELEON-SERIES-i.1165776670.28227841173?extraParams=%7B%22display_model_id%22%3A218649799604%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-AKS-002",
+      "name": "Cooking Set DS 308 Alat Masak Camping Cooking Set Outdoor Portable Kompor Camping DS 311",
+      "category": "Aksesoris",
+      "brand": "REPTIL ADVENTURE",
+      "price": {
+        "original": 120000,
+        "discounted": 120000,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": null,
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 4.9,
+        "reviews_count": 0
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-82252-mftmd1z3670v8d@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-82252-mftmd1z3670v8d"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/Cooking-Set-DS-308-Alat-Masak-Camping-Cooking-Set-Outdoor-Portable-Kompor-Camping-DS-311-i.1165776670.29742912972?extraParams=%7B%22display_model_id%22%3A296958448108%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-PAK-016",
+      "name": "REPTIL ADVENTURE - Jaket Gunung Pria/Wanita Outdoor Leopard Series",
+      "category": "Pakaian",
+      "brand": "REPTIL ADVENTURE",
+      "price": {
+        "original": 295000,
+        "discounted": 295000,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": null,
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 5,
+        "reviews_count": 13
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-8224p-mickhg6r1cef40@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-8224p-mickhg6r1cef40"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/REPTIL-ADVENTURE-Jaket-Gunung-Pria-Wanita-Outdoor-Leopard-Series-i.1165776670.29838271302?extraParams=%7B%22display_model_id%22%3A270597485622%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-TAS-010",
+      "name": "Tas Hydropack/Vest Running Reptil Adventure PLUMBEA Series",
+      "category": "Tas & Carrier",
+      "brand": "REPTIL ADVENTURE",
+      "price": {
+        "original": 165000,
+        "discounted": 165000,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": null,
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 5,
+        "reviews_count": 18
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-822wo-mlr8tsnal1cf88@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-822wo-mlr8tsnal1cf88"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/Tas-Hydropack-Vest-Running-Reptil-Adventure-PLUMBEA-Series-i.1165776670.26906749198?extraParams=%7B%22display_model_id%22%3A166601638212%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-PAK-017",
+      "name": "Jaket Outdoor/Gunung Pria/Wanita Reptil Adventure GARTER Series",
+      "category": "Pakaian",
+      "brand": "REPTIL ADVENTURE",
+      "price": {
+        "original": 265000,
+        "discounted": 265000,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": null,
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 5,
+        "reviews_count": 56
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-8224s-mio4orcswdfs21@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-8224s-mio4orcswdfs21"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/Jaket-Outdoor-Gunung-Pria-Wanita-Reptil-Adventure-GARTER-Series-i.1165776670.24121954019?extraParams=%7B%22display_model_id%22%3A236258873412%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-TAS-011",
+      "name": "Tas Daypack Backpack Ransel Pria/Wanita Reptil Adventure MAMBA 25 series",
+      "category": "Tas & Carrier",
+      "brand": "Reptil Adventure",
+      "price": {
+        "original": 265000,
+        "discounted": 265000,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": "25 L",
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 5,
+        "reviews_count": 30
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-8224r-mifyfoczpcsm5d@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-8224r-mifyfoczpcsm5d"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/Tas-Daypack-Backpack-Ransel-Pria-Wanita-Reptil-Adventure-MAMBA-25-series-i.1165776670.24919836946?extraParams=%7B%22display_model_id%22%3A240506251487%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-TAS-012",
+      "name": "Tas Gunung/Carrier Ultralight Pria/Wanita Reptil Adventure BURMA series",
+      "category": "Tas & Carrier",
+      "brand": "Reptil Adventure",
+      "price": {
+        "original": 375000,
+        "discounted": 375000,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": null,
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 4.8,
+        "reviews_count": 80
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-8224t-miecci4st2x4db@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-8224t-miecci4st2x4db"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/Tas-Gunung-Carrier-Ultralight-Pria-Wanita-Reptil-Adventure-BURMA-series-i.1165776670.24926939405?extraParams=%7B%22display_model_id%22%3A340993965819%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-TAS-013",
+      "name": "DAYPACK REPTIL ADVENTURE BOA 15 series",
+      "category": "Tas & Carrier",
+      "brand": "Reptil Adventure",
+      "price": {
+        "original": 185000,
+        "discounted": 185000,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": "15 L",
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 4.9,
+        "reviews_count": 97
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-822wn-mlr8n8qt179ef6@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-822wn-mlr8n8qt179ef6"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/DAYPACK-REPTIL-ADVENTURE-BOA-15-series-i.1165776670.25569347428?extraParams=%7B%22display_model_id%22%3A255491286810%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-TAS-014",
+      "name": "BACKPACK/ RANSEL PRIA/WANITA REPTIL ADVENTURE TAIPAN 25 series",
+      "category": "Tas & Carrier",
+      "brand": "Reptil Adventure",
+      "price": {
+        "original": 265000,
+        "discounted": 265000,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": "25 L",
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 4.9,
+        "reviews_count": 28
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-822wo-mn3y90eruo05b7@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-822wo-mn3y90eruo05b7"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/BACKPACK-RANSEL-PRIA-WANITA-REPTIL-ADVENTURE-TAIPAN-25-series-i.1165776670.24719459029?extraParams=%7B%22display_model_id%22%3A236143704144%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-AKS-003",
+      "name": "Matras SPONS YOGA | Matras Camping | Matras Spons | Matras MURAH | Alas Tidur | Matras Outdoor | Matras",
+      "category": "Aksesoris",
+      "brand": "REPTIL ADVENTURE",
+      "price": {
+        "original": 35000,
+        "discounted": 35000,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": null,
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 5,
+        "reviews_count": 13
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-8224v-mftoemidiw3sae@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-8224v-mftoemidiw3sae"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/Matras-SPONS-YOGA-Matras-Camping-Matras-Spons-Matras-MURAH-Alas-Tidur-Matras-Outdoor-Matras-i.1165776670.42924127004?extraParams=%7B%22display_model_id%22%3A291958809805%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-PAK-018",
+      "name": "Reptil Adventure | Rompi Tactical Casual | Rompi Lapangan Pria/Wanita",
+      "category": "Pakaian",
+      "brand": "Reptil Adventure",
+      "price": {
+        "original": 145000,
+        "discounted": 145000,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": null,
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 4.9,
+        "reviews_count": 59
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-81zti-mfb3i09gvw2384@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-81zti-mfb3i09gvw2384"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/Reptil-Adventure-Rompi-Tactical-Casual-Rompi-Lapangan-Pria-Wanita-i.1165776670.29576202233?extraParams=%7B%22display_model_id%22%3A306505089171%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-PAK-019",
+      "name": "Celana Outdoor Pria/Wanita Reptil Adventure Series BUNGARUS",
+      "category": "Pakaian",
+      "brand": "Reptil Adventure",
+      "price": {
+        "original": 145000,
+        "discounted": 145000,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": null,
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 5,
+        "reviews_count": 57
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-822wl-mlrkc8nl6ej3bc@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-822wl-mlrkc8nl6ej3bc"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/Celana-Outdoor-Pria-Wanita-Reptil-Adventure-Series-BUNGARUS-i.1165776670.28070581371?extraParams=%7B%22display_model_id%22%3A149127954175%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-PAK-020",
+      "name": "JAKET GUNUNG/OUTDOOR PRIA/WANITA|Reptil Adventure Taipan Series",
+      "category": "Pakaian",
+      "brand": "Reptil Adventure",
+      "price": {
+        "original": 265000,
+        "discounted": 265000,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": null,
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 4.9,
+        "reviews_count": 52
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-8224x-mih8fth2vcp0bf@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-8224x-mih8fth2vcp0bf"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/JAKET-GUNUNG-OUTDOOR-PRIA-WANITA-Reptil-Adventure-Taipan-Series-i.1165776670.24892709365?extraParams=%7B%22display_model_id%22%3A129283261795%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-TEN-002",
+      "name": "Reptil Adventure - Flysheet Tenda Premium Waterproof 3x3 3x4 | Flysheet Shelter Darurat",
+      "category": "Tenda & Shelter",
+      "brand": "Reptil Adventure",
+      "price": {
+        "original": 135000,
+        "discounted": 121500,
+        "discount_percentage": 10
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": null,
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 5,
+        "reviews_count": 12
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-822wi-mnebtpfb3s3sd8@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-822wi-mnebtpfb3s3sd8"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/Reptil-Adventure-Flysheet-Tenda-Premium-Waterproof-3x3-3x4-Flysheet-Shelter-Darurat-i.1165776670.26730276896?extraParams=%7B%22display_model_id%22%3A244232987989%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-TAS-015",
+      "name": "AUTHENTIC - Tas Slempang Ghook - Tas Canvas - Tas Slempang Pria WanitaTiliqua 6L Reptil Adventure",
+      "category": "Tas & Carrier",
+      "brand": "Reptil Adventure",
+      "price": {
+        "original": 175000,
+        "discounted": 175000,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": "Kanvas",
+        "size_capacity": "6 L",
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 4.9,
+        "reviews_count": 0
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-8224z-mktd0kzvtb0n2b@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-8224z-mktd0kzvtb0n2b"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/AUTHENTIC-Tas-Slempang-Ghook-Tas-Canvas-Tas-Slempang-Pria-WanitaTiliqua-6L-Reptil-Adventure-i.1165776670.54406244059?extraParams=%7B%22display_model_id%22%3A385566411823%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-AKS-004",
+      "name": "Kompor Camping Teratai dan Persegi Windproof Portable Gas Stove Mini Alat Masak Gunung",
+      "category": "Aksesoris",
+      "brand": "REPTIL ADVENTURE",
+      "price": {
+        "original": 75000,
+        "discounted": 75000,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": null,
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 5,
+        "reviews_count": 5
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-8224x-mftmd1z4gjre4e@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-8224x-mftmd1z4gjre4e"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/Kompor-Camping-Teratai-dan-Persegi-Windproof-Portable-Gas-Stove-Mini-Alat-Masak-Gunung-i.1165776670.24185244070?extraParams=%7B%22display_model_id%22%3A118438204670%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-PAK-021",
+      "name": "JAKET OUTDOOR PRIA/WANITA REPTIL ADVENTURE ATRAC Series",
+      "category": "Pakaian",
+      "brand": "Reptil Adventure",
+      "price": {
+        "original": 265000,
+        "discounted": 265000,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": null,
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 5,
+        "reviews_count": 10
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-8224v-mid18j9j4cn871@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-8224v-mid18j9j4cn871"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/JAKET-OUTDOOR-PRIA-WANITA-REPTIL-ADVENTURE-ATRAC-Series-i.1165776670.28821374534?extraParams=%7B%22display_model_id%22%3A237183370365%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-PAK-022",
+      "name": "Jaket Gunung Ultralight Running Cycling Hiking Reptil Adventure Acrolite Pria Wanita Unisex",
+      "category": "Pakaian",
+      "brand": "Reptil Adventure",
+      "price": {
+        "original": 145000,
+        "discounted": 145000,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": null,
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 4.9,
+        "reviews_count": 55
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-822wm-mlrkc8neqmtgee@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-822wm-mlrkc8neqmtgee"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/Jaket-Gunung-Ultralight-Running-Cycling-Hiking-Reptil-Adventure-Acrolite-Pria-Wanita-Unisex-i.1165776670.24127301261?extraParams=%7B%22display_model_id%22%3A360427926715%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-PAK-023",
+      "name": "CELANA HIKING REPTIL ADVENTURE BOA series",
+      "category": "Pakaian",
+      "brand": "Reptil Adventure",
+      "price": {
+        "original": 125000,
+        "discounted": 125000,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": null,
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 4.6,
+        "reviews_count": 14
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-7r98x-lsy6fupbyc8p15@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-7r98x-lsy6fupbyc8p15"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/CELANA-HIKING-REPTIL-ADVENTURE-BOA-series-i.1165776670.25719412618?extraParams=%7B%22display_model_id%22%3A250493235179%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-AKS-005",
+      "name": "KEMEJA OUTDOOR PRIA/WANITA REPTIL ADVENTURE GARTER Series",
+      "category": "Aksesoris",
+      "brand": "Reptil Adventure",
+      "price": {
+        "original": 155000,
+        "discounted": 139500,
+        "discount_percentage": 10
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": null,
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 5,
+        "reviews_count": 5
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-7rasj-m43gth1n287wd0@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-7rasj-m43gth1n287wd0"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/KEMEJA-OUTDOOR-PRIA-WANITA-REPTIL-ADVENTURE-GARTER-Series-i.1165776670.28471374746?extraParams=%7B%22display_model_id%22%3A242310188957%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-TAS-016",
+      "name": "AUTHENTIC - Tas Slempang Pria Wanita Terrapene 6 Reptil Adventure",
+      "category": "Tas & Carrier",
+      "brand": "Reptil Adventure",
+      "price": {
+        "original": 185000,
+        "discounted": 185000,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": "6 L",
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 4.9,
+        "reviews_count": 0
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-8224r-mkjeiebdr94zfb@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-8224r-mkjeiebdr94zfb"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/AUTHENTIC-Tas-Slempang-Pria-Wanita-Terrapene-6-Reptil-Adventure-i.1165776670.55906043325?extraParams=%7B%22display_model_id%22%3A435550867896%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-PAK-024",
+      "name": "CELANAOUTDOOR PENDEK PRIA/WANITA REPTIL ADVENTURE Series NERODIA",
+      "category": "Pakaian",
+      "brand": "Reptil Adventure",
+      "price": {
+        "original": 95000,
+        "discounted": 95000,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": null,
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 4.9,
+        "reviews_count": 15
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-7rasa-m1p9ftskmdenb6@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-7rasa-m1p9ftskmdenb6"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/CELANAOUTDOOR-PENDEK-PRIA-WANITA-REPTIL-ADVENTURE-Series-NERODIA-i.1165776670.26815007272?extraParams=%7B%22display_model_id%22%3A223360355280%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-TAS-017",
+      "name": "Waistbag Reptil Adventure Contia Nilon Premium",
+      "category": "Tas & Carrier",
+      "brand": "Reptil Adventure",
+      "price": {
+        "original": 115000,
+        "discounted": 115000,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": "Nilon",
+        "size_capacity": null,
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 5,
+        "reviews_count": 3
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-7r991-lxqdykne6mgab1@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-7r991-lxqdykne6mgab1"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/Waistbag-Reptil-Adventure-Contia-Nilon-Premium-i.1165776670.24033505737?extraParams=%7B%22display_model_id%22%3A251198698025%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-TAS-018",
+      "name": "TAS SELEMPANG REPTIL ADVENTURE GARTER 2 series",
+      "category": "Tas & Carrier",
+      "brand": "Reptil Adventure",
+      "price": {
+        "original": 95000,
+        "discounted": 95000,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": null,
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 5,
+        "reviews_count": 4
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-7r98x-lxqdyklq3fyl9c@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-7r98x-lxqdyklq3fyl9c"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/TAS-SELEMPANG-REPTIL-ADVENTURE-GARTER-2-series-i.1165776670.22689697772?extraParams=%7B%22display_model_id%22%3A59757280835%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-AKS-006",
+      "name": "KEMEJA OUTDOOR REPTIL ADVENTURE MAMBA series",
+      "category": "Aksesoris",
+      "brand": "Reptil Adventure",
+      "price": {
+        "original": 155000,
+        "discounted": 139500,
+        "discount_percentage": 10
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": null,
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 5,
+        "reviews_count": 1
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-7r98p-ltbwhyrsc9fxa2@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-7r98p-ltbwhyrsc9fxa2"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/KEMEJA-OUTDOOR-REPTIL-ADVENTURE-MAMBA-series-i.1165776670.25120937774?extraParams=%7B%22display_model_id%22%3A197396561726%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-PAK-025",
+      "name": "CELANA HIKING REPTIL ADVENTURE TAIPAN series",
+      "category": "Pakaian",
+      "brand": "Reptil Adventure",
+      "price": {
+        "original": 135000,
+        "discounted": 135000,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": null,
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 4.9,
+        "reviews_count": 25
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-7rasd-m1s3r50zmdr2aa@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-7rasd-m1s3r50zmdr2aa"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/CELANA-HIKING-REPTIL-ADVENTURE-TAIPAN-series-i.1165776670.24169418737?extraParams=%7B%22display_model_id%22%3A207378331340%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-TAS-019",
+      "name": "AUTHENTIC - Waistbag - Tas Pinggang Pria/Wanita - Reptil Adventure Tiliqua 2L",
+      "category": "Tas & Carrier",
+      "brand": "Reptil Adventure",
+      "price": {
+        "original": 145000,
+        "discounted": 145000,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": "2 L",
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 4.9,
+        "reviews_count": 0
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-8224z-mkj6wl8w9347c1@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-8224z-mkj6wl8w9347c1"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/AUTHENTIC-Waistbag-Tas-Pinggang-Pria-Wanita-Reptil-Adventure-Tiliqua-2L-i.1165776670.53306043037?extraParams=%7B%22display_model_id%22%3A345550729194%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-AKS-007",
+      "name": "Head Lamp / Senter Kepala",
+      "category": "Aksesoris",
+      "brand": "REPTIL ADVENTURE",
+      "price": {
+        "original": 35000,
+        "discounted": 35000,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": null,
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 5,
+        "reviews_count": 1
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-7rasa-m0wtoix4wmihbe@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-7rasa-m0wtoix4wmihbe"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/Head-Lamp-Senter-Kepala-i.1165776670.29462998523?extraParams=%7B%22display_model_id%22%3A226839503412%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-PAK-026",
+      "name": "Reptil Adventure T-Shirt Katun Combed 24s S-XXL",
+      "category": "Pakaian",
+      "brand": "Reptil Adventure",
+      "price": {
+        "original": 110000,
+        "discounted": 99000,
+        "discount_percentage": 10
+      },
+      "specs": {
+        "material": "Katun Combed 24s",
+        "size_capacity": null,
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 4.9,
+        "reviews_count": 0
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-8224u-mijxuv9v632c9d@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-8224u-mijxuv9v632c9d"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/Reptil-Adventure-T-Shirt-Katun-Combed-24s-S-XXL-i.1165776670.43468199880?extraParams=%7B%22display_model_id%22%3A271497164122%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-PAK-027",
+      "name": "Jaket Gunung Puffer Gelembung Ecodown Jacket Musim Dingin Pria/Wanita Reptil Adventure NAJA SERIES",
+      "category": "Pakaian",
+      "brand": "Reptil Adventure",
+      "price": {
+        "original": 325000,
+        "discounted": 325000,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": null,
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 4.9,
+        "reviews_count": 0
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-822wq-motg3qm8g74f70@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-822wq-motg3qm8g74f70"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/Jaket-Gunung-Puffer-Gelembung-Ecodown-Jacket-Musim-Dingin-Pria-Wanita-Reptil-Adventure-NAJA-SERIES-i.1165776670.40281288953?extraParams=%7B%22display_model_id%22%3A430987054718%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-TAS-020",
+      "name": "Tas Hydropack/Vest Running Reptil Adventure Lizard 8 - Running Vest - Tas Lari & Sepeda",
+      "category": "Tas & Carrier",
+      "brand": "Reptil Adventure",
+      "price": {
+        "original": 225000,
+        "discounted": 225000,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": "8 L",
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 5,
+        "reviews_count": 6
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-8224q-mifp6y0r90xv75@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-8224q-mifp6y0r90xv75"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/Tas-Hydropack-Vest-Running-Reptil-Adventure-Lizard-8-Running-Vest-Tas-Lari-Sepeda-i.1165776670.42162548772?extraParams=%7B%22display_model_id%22%3A276052293006%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-AKS-008",
+      "name": "TOPI REPTIL X SANGALAKI | TOPI OUTDOOR | TOPI PRIA/WANITA",
+      "category": "Aksesoris",
+      "brand": "Reptil Adventure",
+      "price": {
+        "original": 159000,
+        "discounted": 143100,
+        "discount_percentage": 10
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": null,
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 4.9,
+        "reviews_count": 0
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-7ra0m-mdlgy73v7zbge8@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-7ra0m-mdlgy73v7zbge8"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/TOPI-REPTIL-X-SANGALAKI-TOPI-OUTDOOR-TOPI-PRIA-WANITA-i.1165776670.40013933415?extraParams=%7B%22display_model_id%22%3A296148071825%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-TAS-021",
+      "name": "AUTHENTIC - Simple slingpack - Slingbag - Tas Selempang Pria Wanita - Reptil Adventure",
+      "category": "Tas & Carrier",
+      "brand": "Reptil Adventure",
+      "price": {
+        "original": 115000,
+        "discounted": 115000,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": null,
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 4.5,
+        "reviews_count": 2
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-8224s-mk3c17pjy77m4e@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-8224s-mk3c17pjy77m4e"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/AUTHENTIC-Simple-slingpack-Slingbag-Tas-Selempang-Pria-Wanita-Reptil-Adventure-i.1165776670.49155628805?extraParams=%7B%22display_model_id%22%3A430507559113%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-TAS-022",
+      "name": "Totebag/Tas Laptop Tas Kerja Pria/Wanita REPTIL ADVENTURE",
+      "category": "Tas & Carrier",
+      "brand": "Reptil Adventure",
+      "price": {
+        "original": 85000,
+        "discounted": 85000,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": null,
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 5,
+        "reviews_count": 10
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-8224q-mil5fjq8wvm08a@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-8224q-mil5fjq8wvm08a"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/Totebag-Tas-Laptop-Tas-Kerja-Pria-Wanita-REPTIL-ADVENTURE-i.1165776670.24920764631?extraParams=%7B%22display_model_id%22%3A275352950726%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "P-AKS-009",
+      "name": "Petualang Towuti Clip - Sandal Gunung/Hiking Jepit Petualang Original",
+      "category": "Aksesoris",
+      "brand": "Petualang",
+      "price": {
+        "original": 119900,
+        "discounted": 119900,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": null,
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 4.9,
+        "reviews_count": 0
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-7r98t-lz8kaf36rx0b1f@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-7r98t-lz8kaf36rx0b1f"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/Petualang-Towuti-Clip-Sandal-Gunung-Hiking-Jepit-Petualang-Original-i.1165776670.28558700099?extraParams=%7B%22display_model_id%22%3A251434461520%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "P-AKS-010",
+      "name": "Petualang Towuti Clip Strap 2.0 - Sandal Gunung/Hiking Jepit Pria Dewasa",
+      "category": "Aksesoris",
+      "brand": "Petualang",
+      "price": {
+        "original": 179900,
+        "discounted": 179900,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": null,
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 5,
+        "reviews_count": 1
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-7r98u-lyytuanveyst6b@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-7r98u-lyytuanveyst6b"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/Petualang-Towuti-Clip-Strap-2.0-Sandal-Gunung-Hiking-Jepit-Pria-Dewasa-i.1165776670.25784798572?extraParams=%7B%22display_model_id%22%3A223104011435%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "P-AKS-011",
+      "name": "Petualang Towuti Strap 2.0 Brick Stone - Sandal Gunung/Hiking Jepit Pria Dewasa Petualang Original",
+      "category": "Aksesoris",
+      "brand": "Petualang",
+      "price": {
+        "original": 179900,
+        "discounted": 179900,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": null,
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 5,
+        "reviews_count": 1
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-7r98u-lzc0ogwromi08a@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-7r98u-lzc0ogwromi08a"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/Petualang-Towuti-Strap-2.0-Brick-Stone-Sandal-Gunung-Hiking-Jepit-Pria-Dewasa-Petualang-Original-i.1165776670.29809027909?extraParams=%7B%22display_model_id%22%3A256455798587%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-TAS-023",
+      "name": "Tas Gunung/Carrier 60L Pria/Wanita Reptil Adventure KOBRA Series",
+      "category": "Tas & Carrier",
+      "brand": "Reptil Adventure",
+      "price": {
+        "original": 612999,
+        "discounted": 612999,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": "60 L",
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 4.9,
+        "reviews_count": 1000
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-8224x-mifeaes4bh8o70@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-8224x-mifeaes4bh8o70"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/Tas-Gunung-Carrier-60L-Pria-Wanita-Reptil-Adventure-KOBRA-Series-i.1165776670.25369750504?extraParams=%7B%22display_model_id%22%3A226148841500%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-TAS-024",
+      "name": "Tas Gunung/Carrier 65L Pria/Wanita Keril Reptil Adventure ANACONDA 65 Series",
+      "category": "Tas & Carrier",
+      "brand": "Reptil Adventure",
+      "price": {
+        "original": 867600,
+        "discounted": 867600,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": "65 L",
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 5,
+        "reviews_count": 16
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-822wr-moguob2a9ij08f@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-822wr-moguob2a9ij08f"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/Tas-Gunung-Carrier-65L-Pria-Wanita-Keril-Reptil-Adventure-ANACONDA-65-Series-i.1165776670.47060874657?extraParams=%7B%22display_model_id%22%3A380948302001%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-TAS-025",
+      "name": "Reptil Adventure - Tas Gunung 60L - Carrier 60L - Tas Ransel Pria Wanita Python Series",
+      "category": "Tas & Carrier",
+      "brand": "Reptil Adventure",
+      "price": {
+        "original": 557000,
+        "discounted": 557000,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": "60 L",
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 4.9,
+        "reviews_count": 396
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-8224o-miecci4t1ibsca@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-8224o-miecci4t1ibsca"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/Reptil-Adventure-Tas-Gunung-60L-Carrier-60L-Tas-Ransel-Pria-Wanita-Python-Series-i.1165776670.24269785716?extraParams=%7B%22display_model_id%22%3A222612934482%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-TAS-026",
+      "name": "Tas Gunung/Carrier 45L Pria/Wanita Reptil Adventure BUNGLON Series",
+      "category": "Tas & Carrier",
+      "brand": "Reptil Adventure",
+      "price": {
+        "original": 476000,
+        "discounted": 476000,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": "45 L",
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 4.8,
+        "reviews_count": 588
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-8224x-mik0vlba99twf3@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-8224x-mik0vlba99twf3"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/Tas-Gunung-Carrier-45L-Pria-Wanita-Reptil-Adventure-BUNGLON-Series-i.1165776670.24433497099?extraParams=%7B%22display_model_id%22%3A218094949612%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-TAS-027",
+      "name": "AUTHENTIC - Backpack - Tas Ransel Pria Wanita - Backpack Bushcraft R35 Reptil Adventure",
+      "category": "Tas & Carrier",
+      "brand": "Reptil Adventure",
+      "price": {
+        "original": 395000,
+        "discounted": 395000,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": "35 L",
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 5,
+        "reviews_count": 7
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-82252-mktdirxpjldt7a@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-82252-mktdirxpjldt7a"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/AUTHENTIC-Backpack-Tas-Ransel-Pria-Wanita-Backpack-Bushcraft-R35-Reptil-Adventure-i.1165776670.54406250390?extraParams=%7B%22display_model_id%22%3A345566408870%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-TAS-028",
+      "name": "Backpack/Daypack Ransel Reptil Adventure BUNGARUS 40L Series",
+      "category": "Tas & Carrier",
+      "brand": "Reptil Adventure",
+      "price": {
+        "original": 295000,
+        "discounted": 295000,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": "40 L",
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 4.9,
+        "reviews_count": 39
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-8224s-mifyfoczxs7a9c@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-8224s-mifyfoczxs7a9c"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/Backpack-Daypack-Ransel-Reptil-Adventure-BUNGARUS-40L-Series-i.1165776670.23689704386?extraParams=%7B%22display_model_id%22%3A207397282756%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-PAK-028",
+      "name": "Celana Outdoor Gunung Pria/Wanita Reptil Adventure SALVATOR Series",
+      "category": "Pakaian",
+      "brand": "Reptil Adventure",
+      "price": {
+        "original": 175000,
+        "discounted": 175000,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": null,
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 4.8,
+        "reviews_count": 13
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-822ws-mlrsw1lpxf5s92@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-822ws-mlrsw1lpxf5s92"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/Celana-Outdoor-Gunung-Pria-Wanita-Reptil-Adventure-SALVATOR-Series-i.1165776670.53551155288?extraParams=%7B%22display_model_id%22%3A79599008786%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-TAS-029",
+      "name": "AUTHENTIC - Backpack - Tas Ransel Pria Wanita - Tas Bushcraft Cordylus 30 Reptil Adventure",
+      "category": "Tas & Carrier",
+      "brand": "Reptil Adventure",
+      "price": {
+        "original": 365000,
+        "discounted": 365000,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": "30 L",
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 5,
+        "reviews_count": 4
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-8224y-mktdirxqaa68fc@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-8224y-mktdirxqaa68fc"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/AUTHENTIC-Backpack-Tas-Ransel-Pria-Wanita-Tas-Bushcraft-Cordylus-30-Reptil-Adventure-i.1165776670.49806267890?extraParams=%7B%22display_model_id%22%3A390566417849%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-AKS-012",
+      "name": "Reptil Adventure - Jas Hujan Ponco Multifungsi 3 in 1 Waterproof - Rain Coat Pria/Wanita - Jas Hujan Kelalawar",
+      "category": "Aksesoris",
+      "brand": "Reptil Adventure",
+      "price": {
+        "original": 165000,
+        "discounted": 165000,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": null,
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 4.3,
+        "reviews_count": 3
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-82250-mjs1u1lqj5dtf4@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-82250-mjs1u1lqj5dtf4"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/Reptil-Adventure-Jas-Hujan-Ponco-Multifungsi-3-in-1-Waterproof-Rain-Coat-Pria-Wanita-Jas-Hujan-Kelalawar-i.1165776670.47205073969?extraParams=%7B%22display_model_id%22%3A320465879861%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-TAS-030",
+      "name": "Reptil Adventure - Tenda WildSheel Navageo 2 Frame Alloy | Tenda Dome Kapasitas 2 Orang Double Layer Frame Alloy",
+      "category": "Tas & Carrier",
+      "brand": "Reptil Adventure",
+      "price": {
+        "original": 750000,
+        "discounted": 750000,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": null,
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 5,
+        "reviews_count": 17
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-7rbkb-m9pmvubj65jm9a@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-7rbkb-m9pmvubj65jm9a"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/Reptil-Adventure-Tenda-WildSheel-Navageo-2-Frame-Alloy-Tenda-Dome-Kapasitas-2-Orang-Double-Layer-Frame-Alloy-i.1165776670.43350719901?extraParams=%7B%22display_model_id%22%3A208516855173%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-PAK-029",
+      "name": "Reptil Adventure | Caiman Series Celana Pendek Camping Outdoor Gunung Quickdry",
+      "category": "Pakaian",
+      "brand": "Reptil Adventure",
+      "price": {
+        "original": 100000,
+        "discounted": 100000,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": null,
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 4.9,
+        "reviews_count": 14
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-81ztc-mf99rymarqbv42@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-81ztc-mf99rymarqbv42"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/Reptil-Adventure-Caiman-Series-Celana-Pendek-Camping-Outdoor-Gunung-Quickdry-i.1165776670.42256253531?extraParams=%7B%22display_model_id%22%3A248565177479%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "W-TAS-031",
+      "name": "WILDSHELL Tenda Sembalun Series Kapasitas 2 Person",
+      "category": "Tas & Carrier",
+      "brand": "WILDSHELL",
+      "price": {
+        "original": 985000,
+        "discounted": 985000,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": null,
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 5,
+        "reviews_count": 3
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-81zto-me124hoycxs301@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-81zto-me124hoycxs301"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/WILDSHELL-Tenda-Sembalun-Series-Kapasitas-2-Person-i.1165776670.41716024930?extraParams=%7B%22display_model_id%22%3A276320600546%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-TAS-032",
+      "name": "REPTIL ADVENTURE - TENDA WILDSHELL JAYADIPA 4 Person Frame Fiber | Tenda Dome Kapasitas 4 Orang",
+      "category": "Tas & Carrier",
+      "brand": "Reptil Adventure",
+      "price": {
+        "original": 775000,
+        "discounted": 775000,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": null,
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 4.9,
+        "reviews_count": 83
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-7rbk1-m9pmdp270pwd00@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-7rbk1-m9pmdp270pwd00"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/REPTIL-ADVENTURE-TENDA-WILDSHELL-JAYADIPA-4-Person-Frame-Fiber-Tenda-Dome-Kapasitas-4-Orang-i.1165776670.40500716543?extraParams=%7B%22display_model_id%22%3A253415827351%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-TAS-033",
+      "name": "Reptil Adventure - Tenda Wildsheel Rote 4 Person Frame Alloy | Tenda Dome Kapasitas 4 Orang Alloy",
+      "category": "Tas & Carrier",
+      "brand": "Reptil Adventure",
+      "price": {
+        "original": 875000,
+        "discounted": 875000,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": null,
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 5,
+        "reviews_count": 2
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-7rbka-m9pmvubiux02a5@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-7rbka-m9pmvubiux02a5"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/Reptil-Adventure-Tenda-Wildsheel-Rote-4-Person-Frame-Alloy-Tenda-Dome-Kapasitas-4-Orang-Alloy-i.1165776670.40250728741?extraParams=%7B%22display_model_id%22%3A275057542214%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-TAS-034",
+      "name": "TAS TRAVEL ORGANIZER REPTIL ADVENTURE | STORAGE BAG | LUGGAGE BAG | TAS PENYIMPANAN PAKAIAN | STUFF SACK",
+      "category": "Tas & Carrier",
+      "brand": "Reptil Adventure",
+      "price": {
+        "original": 100000,
+        "discounted": 100000,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": null,
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 5,
+        "reviews_count": 6
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-7rbk5-m8czrt1hqw3199@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-7rbk5-m8czrt1hqw3199"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/TAS-TRAVEL-ORGANIZER-REPTIL-ADVENTURE-STORAGE-BAG-LUGGAGE-BAG-TAS-PENYIMPANAN-PAKAIAN-STUFF-SACK-i.1165776670.29982664225?extraParams=%7B%22display_model_id%22%3A208402612796%2C%22model_selection_logic%22%3A2%7D"
+    },
+    {
+      "id": "RA-PAK-030",
+      "name": "Celana Outdoor Pria/Wanita Quickdry Reptil Adventure",
+      "category": "Pakaian",
+      "brand": "Reptil Adventure",
+      "price": {
+        "original": 85000,
+        "discounted": 85000,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": null,
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 5,
+        "reviews_count": 28
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-7ras8-m2nkgn59ui1d29@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-7ras8-m2nkgn59ui1d29"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/Celana-Outdoor-Pria-Wanita-Quickdry-Reptil-Adventure-i.1165776670.29867796238?extraParams=%7B%22display_model_id%22%3A207981037791%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-AKS-013",
+      "name": "TOPI REPTIL ADVENTURE Series LOGO REPTIL",
+      "category": "Aksesoris",
+      "brand": "Reptil Adventure",
+      "price": {
+        "original": 115000,
+        "discounted": 115000,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": null,
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 5,
+        "reviews_count": 3
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-7r98v-lzsn5nei72g095@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-7r98v-lzsn5nei72g095"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/TOPI-REPTIL-ADVENTURE-Series-LOGO-REPTIL-i.1165776670.29760261725?extraParams=%7B%22display_model_id%22%3A246532141559%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "P-AKS-014",
+      "name": "Petualang Sawarna - Sandal Strap Palang Pria Wanita Unisex",
+      "category": "Aksesoris",
+      "brand": "Petualang",
+      "price": {
+        "original": 189900,
+        "discounted": 189900,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": null,
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 5,
+        "reviews_count": 3
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-7r98r-lyywuglkpyam34@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-7r98r-lyywuglkpyam34"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/Petualang-Sawarna-Sandal-Strap-Palang-Pria-Wanita-Unisex-i.1165776670.29257983112?extraParams=%7B%22display_model_id%22%3A256385451348%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-TAS-035",
+      "name": "Sleeping Bag SB Polar Bulu Tebal - REPTIL ADVENTURE",
+      "category": "Tas & Carrier",
+      "brand": "Reptil Adventure",
+      "price": {
+        "original": 120000,
+        "discounted": 120000,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": "Polar Bulu Tebal",
+        "size_capacity": null,
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 4.9,
+        "reviews_count": 12
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-8224t-mjjoqsvhsdflad@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-8224t-mjjoqsvhsdflad"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/Sleeping-Bag-SB-Polar-Bulu-Tebal-REPTIL-ADVENTURE-i.1165776670.28780881666?extraParams=%7B%22display_model_id%22%3A375513810907%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "P-AKS-015",
+      "name": "Petualang Bunaken Legion Blue - Sandal Gunung/Hiking Slide Pria Wanita Petualang",
+      "category": "Aksesoris",
+      "brand": "Petualang",
+      "price": {
+        "original": 169000,
+        "discounted": 169000,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": null,
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 5,
+        "reviews_count": 2
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-7r98w-lyytuanvdk8d78@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-7r98w-lyytuanvdk8d78"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/Petualang-Bunaken-Legion-Blue-Sandal-Gunung-Hiking-Slide-Pria-Wanita-Petualang-i.1165776670.28507974034?extraParams=%7B%22display_model_id%22%3A246384643703%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-PAK-031",
+      "name": "CELANA HIKING REPTIL ADVENTURE PLUMBEA series",
+      "category": "Pakaian",
+      "brand": "Reptil Adventure",
+      "price": {
+        "original": 135000,
+        "discounted": 135000,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": null,
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 5,
+        "reviews_count": 11
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-7r992-lybsg7ia59ad65@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-7r992-lybsg7ia59ad65"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/CELANA-HIKING-REPTIL-ADVENTURE-PLUMBEA-series-i.1165776670.28206571482?extraParams=%7B%22display_model_id%22%3A127997570092%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-AKS-016",
+      "name": "TOPI REPTIL ADVENTURE",
+      "category": "Aksesoris",
+      "brand": "Reptil Adventure",
+      "price": {
+        "original": 115000,
+        "discounted": 115000,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": null,
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 4.9,
+        "reviews_count": 0
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-7r98z-lzu7c1dzgb1kb4@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-7r98z-lzu7c1dzgb1kb4"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/TOPI-REPTIL-ADVENTURE-i.1165776670.26810389834?extraParams=%7B%22display_model_id%22%3A223549359084%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-TAS-036",
+      "name": "Reptil Adventure - Tenda Mandala 6 Pro WildSheel | Tenda Dome Kapasitas 6-7 Orang",
+      "category": "Tas & Carrier",
+      "brand": "Reptil Adventure",
+      "price": {
+        "original": 1325000,
+        "discounted": 1325000,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": null,
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 5,
+        "reviews_count": 6
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-7rbka-m9pnzp9l2ewy62@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-7rbka-m9pnzp9l2ewy62"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/Reptil-Adventure-Tenda-Mandala-6-Pro-WildSheel-Tenda-Dome-Kapasitas-6-7-Orang-i.1165776670.26586543794?extraParams=%7B%22display_model_id%22%3A305057922889%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-PAK-032",
+      "name": "CELANA HIKING REPTIL ADVENTURE CONTIA series",
+      "category": "Pakaian",
+      "brand": "Reptil Adventure",
+      "price": {
+        "original": 115000,
+        "discounted": 115000,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": null,
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 4.9,
+        "reviews_count": 44
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-7r98w-lwcmag76czz2b2@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-7r98w-lwcmag76czz2b2"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/CELANA-HIKING-REPTIL-ADVENTURE-CONTIA-series-i.1165776670.26402316214?extraParams=%7B%22display_model_id%22%3A236426596246%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-TAS-037",
+      "name": "Slingbag Reptil Adventure Coastal Series Nilon Premium",
+      "category": "Tas & Carrier",
+      "brand": "Reptil Adventure",
+      "price": {
+        "original": 115000,
+        "discounted": 115000,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": "Nilon",
+        "size_capacity": null,
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 4.8,
+        "reviews_count": 4
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-7r98z-lxxqqc80yljh99@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-7r98z-lxxqqc80yljh99"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/Slingbag-Reptil-Adventure-Coastal-Series-Nilon-Premium-i.1165776670.26155798178?extraParams=%7B%22display_model_id%22%3A197664679741%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "W-TEN-003",
+      "name": "Tenda Camping Wildshell Raya 4 Pro Aluminium Alloy UPF 50+",
+      "category": "Tenda & Shelter",
+      "brand": "Wildshell",
+      "price": {
+        "original": 1095000,
+        "discounted": 1095000,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": "Aluminium Alloy",
+        "size_capacity": null,
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 5,
+        "reviews_count": 3
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-81ztk-me11ts69iygy5f@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-81ztk-me11ts69iygy5f"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/Tenda-Camping-Wildshell-Raya-4-Pro-Aluminium-Alloy-UPF-50--i.1165776670.26140721987?extraParams=%7B%22display_model_id%22%3A228049003004%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-TAS-038",
+      "name": "WAISTBAG REPTIL ADVENTURE COASTAL series",
+      "category": "Tas & Carrier",
+      "brand": "Reptil Adventure",
+      "price": {
+        "original": 110000,
+        "discounted": 110000,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": null,
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 5,
+        "reviews_count": 4
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-7r98v-lt1zdm348ch315@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-7r98v-lt1zdm348ch315"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/WAISTBAG-REPTIL-ADVENTURE-COASTAL-series-i.1165776670.25669843676?extraParams=%7B%22display_model_id%22%3A255506432498%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-PAK-033",
+      "name": "CELANA OUTDOOR PRIA/WANITA REPTIL ADVENTURE MAMBA series",
+      "category": "Pakaian",
+      "brand": "Reptil Adventure",
+      "price": {
+        "original": 135000,
+        "discounted": 135000,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": null,
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 5,
+        "reviews_count": 13
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-7rasi-m42qqlfuypmifa@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-7rasi-m42qqlfuypmifa"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/CELANA-OUTDOOR-PRIA-WANITA-REPTIL-ADVENTURE-MAMBA-series-i.1165776670.25569461630?extraParams=%7B%22display_model_id%22%3A89530502591%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-PAK-034",
+      "name": "Celana Outdoor Pria/Wanita REPTIL ADVENTURE Garter Series",
+      "category": "Pakaian",
+      "brand": "Reptil Adventure",
+      "price": {
+        "original": 135000,
+        "discounted": 135000,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": null,
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 4.8,
+        "reviews_count": 128
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-7r98v-luk4qvw0bbuk02@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-7r98v-luk4qvw0bbuk02"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/Celana-Outdoor-Pria-Wanita-REPTIL-ADVENTURE-Garter-Series-i.1165776670.25419411831?extraParams=%7B%22display_model_id%22%3A222606607319%2C%22model_selection_logic%22%3A3%7D"
+    },
+    {
+      "id": "RA-PAK-035",
+      "name": "Celana Hiking Reptil Adventure Sanca Quickdry Unisex",
+      "category": "Pakaian",
+      "brand": "Reptil Adventure",
+      "price": {
+        "original": 145000,
+        "discounted": 145000,
+        "discount_percentage": 0
+      },
+      "specs": {
+        "material": null,
+        "size_capacity": null,
+        "origin": "Indonesia"
+      },
+      "rating": {
+        "score": 4.8,
+        "reviews_count": 138
+      },
+      "images": [
+        "https://down-id.img.susercontent.com/file/id-11134207-8224o-miny0stg9a87aa@resize_w320_nl.webp\nhttps://down-id.img.susercontent.com/file/id-11134207-8224o-miny0stg9a87aa"
+      ],
+      "availability": {
+        "status": "in_stock",
+        "transaction_options": [
+          "jual beli",
+          "sewa"
+        ]
+      },
+      "shopee_url": "https://shopee.co.id/Celana-Hiking-Reptil-Adventure-Sanca-Quickdry-Unisex-i.1165776670.25319353195?extraParams=%7B%22display_model_id%22%3A147392732709%2C%22model_selection_logic%22%3A3%7D"
+    }
+  ]
+}
