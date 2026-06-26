@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect, useMemo, useRef } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import API from "../api/axios";
@@ -147,6 +147,8 @@ export default function UserAccount({ cartCount, onCartOpen, onSearchOpen }) {
   });
 
   const [transactions, setTransactions] = useState([]);
+  const [productCatalog, setProductCatalog] = useState([]);
+  const [productMap, setProductMap] = useState({});
 
   // ─── STATE LIST DATA WILAYAH DARI DATABASE/API ───
   const [provincesList, setProvincesList] = useState([]);
@@ -154,6 +156,241 @@ export default function UserAccount({ cartCount, onCartOpen, onSearchOpen }) {
   const [districtsList, setDistrictsList] = useState([]);
 
   const token = localStorage.getItem("token");
+  const [avatarRefreshKey, setAvatarRefreshKey] = useState(Date.now());
+
+  const profileImageUrl = useMemo(() => {
+    if (!userData.profile_picture) return null;
+    if (userData.profile_picture.startsWith("http")) {
+      return userData.profile_picture;
+    }
+    return `http://localhost:8080/uploads/${userData.profile_picture}?t=${avatarRefreshKey}`;
+  }, [userData.profile_picture, avatarRefreshKey]);
+
+  const fetchUserOrders = async () => {
+    try {
+      const [ordersRes, productsRes] = await Promise.all([
+        API.get("/user/orders"),
+        API.get("/products"),
+      ]);
+
+      const orders = Array.isArray(ordersRes.data) ? ordersRes.data : [];
+      const catalog = Array.isArray(productsRes.data) ? productsRes.data : [];
+      const map = catalog.reduce((acc, product) => {
+        const keys = [
+          product.id,
+          product.product_id,
+          product.sku,
+          product.code,
+          product.title,
+          product.name,
+        ];
+        keys.forEach((key) => {
+          if (key) acc[String(key).split("_")[0]] = product;
+        });
+        return acc;
+      }, {});
+
+      setTransactions(orders);
+      setProductCatalog(catalog);
+      setProductMap(map);
+    } catch (orderErr) {
+      console.warn("Gagal mengambil data transaksi:", orderErr.message);
+    }
+  };
+
+  const getOrderItemImageUrl = (item) => {
+    const rawImage =
+      item.product?.image ||
+      item.product_image ||
+      item.image ||
+      item.image_url ||
+      item.product?.image_url ||
+      item.product?.thumbnail ||
+      item.image?.primary ||
+      item.primary_image ||
+      item.thumbnail;
+
+    if (!rawImage) return null;
+    if (typeof rawImage === "string" && rawImage.startsWith("{")) {
+      try {
+        const parsed = JSON.parse(rawImage);
+        if (parsed.primary)
+          return parsed.primary.startsWith("http")
+            ? parsed.primary
+            : `http://localhost:8080${parsed.primary}`;
+        if (Array.isArray(parsed) && parsed.length > 0)
+          return parsed[0].startsWith("http")
+            ? parsed[0]
+            : `http://localhost:8080${parsed[0]}`;
+      } catch (e) {
+        return rawImage.startsWith("http")
+          ? rawImage
+          : `http://localhost:8080${rawImage}`;
+      }
+    }
+
+    if (typeof rawImage === "object") {
+      if (rawImage.primary)
+        return rawImage.primary.startsWith("http")
+          ? rawImage.primary
+          : `http://localhost:8080${rawImage.primary}`;
+      if (Array.isArray(rawImage) && rawImage.length > 0)
+        return rawImage[0].startsWith("http")
+          ? rawImage[0]
+          : `http://localhost:8080${rawImage[0]}`;
+      return rawImage.url
+        ? rawImage.url.startsWith("http")
+          ? rawImage.url
+          : `http://localhost:8080${rawImage.url}`
+        : null;
+    }
+
+    return rawImage.startsWith("http")
+      ? rawImage
+      : `http://localhost:8080${rawImage}`;
+  };
+
+  const getOrderItemProductId = (item) => {
+    if (!item || typeof item !== "object") return null;
+
+    const rawId =
+      item.product_id ||
+      item.product?.id ||
+      item.product?.product_id ||
+      item.product?.sku ||
+      item.sku ||
+      item.id ||
+      item.product?.code ||
+      item.code;
+
+    if (!rawId) return null;
+    if (typeof rawId === "string") return rawId.split("_")[0];
+    return String(rawId);
+  };
+
+  const findCatalogProduct = (item) => {
+    const productId = getOrderItemProductId(item);
+    if (!productId) return null;
+    return (
+      productMap[productId] ||
+      productMap[String(productId)] ||
+      Object.values(productMap).find(
+        (product) =>
+          String(
+            product.id || product.product_id || product.sku || product.code,
+          ).split("_")[0] === String(productId).split("_")[0],
+      ) ||
+      null
+    );
+  };
+
+  const getOrderItems = (order) => {
+    if (!order || typeof order !== "object") return [];
+
+    const knownOrderArrays = [
+      order.items,
+      order.order_items,
+      order.order_details,
+      order.line_items,
+      order.cart_items,
+      order.products,
+      order.order_item_list,
+      order.items_list,
+    ];
+
+    for (const arr of knownOrderArrays) {
+      if (Array.isArray(arr) && arr.length > 0) return arr;
+      if (typeof arr === "string") {
+        try {
+          const parsed = JSON.parse(arr);
+          if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+        } catch (err) {
+          continue;
+        }
+      }
+    }
+
+    const firstArray = Object.values(order).find(
+      (value) => Array.isArray(value) && value.length > 0,
+    );
+    return firstArray || [];
+  };
+
+  const syncUserProfileState = async (profileData, provData = []) => {
+    const safeAddress = profileData.shipping_address || {};
+
+    setUserData({
+      name: profileData.name || "",
+      email: profileData.email || "",
+      phone: profileData.phone || "",
+      gender: profileData.gender || "Laki-laki",
+      birth_date: profileData.birth_date
+        ? profileData.birth_date.substring(0, 10)
+        : "",
+      profile_picture: profileData.profile_picture || "",
+      shipping_address: {
+        province: safeAddress.province || "",
+        city: safeAddress.city || "",
+        district: safeAddress.district || "",
+        village: safeAddress.village || "",
+        postal_code: safeAddress.postal_code || "",
+        coordinates: safeAddress.coordinates || "",
+        map_reference: safeAddress.map_reference || "",
+        manual_details: safeAddress.manual_details || "",
+      },
+    });
+
+    if (safeAddress.province) {
+      const foundProvince = provData.find(
+        (p) => p.nama?.toLowerCase() === safeAddress.province.toLowerCase(),
+      );
+
+      if (foundProvince) {
+        setActiveRegionIds((prev) => ({
+          ...prev,
+          provinceId: foundProvince.id,
+        }));
+
+        try {
+          const citiesRes = await API.get(
+            `/regencies?province_id=${foundProvince.id}`,
+          );
+          const citiesData = citiesRes.data;
+          setCitiesList(citiesData);
+
+          const foundCity = citiesData.find(
+            (c) => c.nama?.toLowerCase() === safeAddress.city.toLowerCase(),
+          );
+
+          if (foundCity) {
+            setActiveRegionIds((prev) => ({
+              ...prev,
+              cityId: foundCity.id,
+            }));
+
+            const distRes = await API.get(
+              `/districts?regency_id=${foundCity.id}`,
+            );
+            setDistrictsList(distRes.data);
+          }
+        } catch (regionErr) {
+          console.warn(
+            "Gagal sinkronisasi otomatis alamat terdaftar:",
+            regionErr.message,
+          );
+        }
+      }
+    }
+  };
+
+  const fetchUserProfile = async (provData = []) => {
+    try {
+      const profileRes = await API.get("/user/profile");
+      await syncUserProfileState(profileRes.data, provData);
+    } catch (err) {
+      console.error("Gagal memuat profil pengguna:", err.message || err);
+    }
+  };
 
   // ─── HOOK 1: FETCH DATA UTAMA DAN SINKRONISASI ALAMAT USER (VERSI AXIOS) ───
   useEffect(() => {
@@ -166,91 +403,13 @@ export default function UserAccount({ cartCount, onCartOpen, onSearchOpen }) {
       try {
         setPageLoading(true);
 
-        // A. Fetch Master Data Provinsi (Otomatis ke port 8080)
         const provRes = await API.get("/provinces");
         const provData = provRes.data;
         setProvincesList(provData);
 
-        // B. Fetch Data Profil Pengguna (Token otomatis disisipkan oleh interceptor)
-        const profileRes = await API.get("/user/profile");
-        const profileData = profileRes.data;
-
-        const safeAddress = profileData.shipping_address || {};
-
-        setUserData({
-          name: profileData.name || "",
-          email: profileData.email || "",
-          phone: profileData.phone || "",
-          gender: profileData.gender || "Laki-laki",
-          birth_date: profileData.birth_date
-            ? profileData.birth_date.substring(0, 10)
-            : "",
-          shipping_address: {
-            province: safeAddress.province || "",
-            city: safeAddress.city || "",
-            district: safeAddress.district || "",
-            village: safeAddress.village || "",
-            postal_code: safeAddress.postal_code || "",
-            coordinates: safeAddress.coordinates || "",
-            map_reference: safeAddress.map_reference || "",
-            manual_details: safeAddress.manual_details || "",
-          },
-        });
-
-        // C. STRATEGI SINKRONISASI ALAMAT TERDAFTAR
-        if (safeAddress.province) {
-          const foundProvince = provData.find(
-            (p) => p.nama?.toLowerCase() === safeAddress.province.toLowerCase(),
-          );
-
-          if (foundProvince) {
-            setActiveRegionIds((prev) => ({
-              ...prev,
-              provinceId: foundProvince.id,
-            }));
-
-            try {
-              // Ambil list Kota/Kabupaten ke Gin Golang
-              const citiesRes = await API.get(
-                `/regencies?province_id=${foundProvince.id}`,
-              );
-              const citiesData = citiesRes.data;
-              setCitiesList(citiesData);
-
-              const foundCity = citiesData.find(
-                (c) => c.nama?.toLowerCase() === safeAddress.city.toLowerCase(),
-              );
-
-              if (foundCity) {
-                setActiveRegionIds((prev) => ({
-                  ...prev,
-                  cityId: foundCity.id,
-                }));
-
-                // Ambil list Kecamatan
-                const distRes = await API.get(
-                  `/districts?regency_id=${foundCity.id}`,
-                );
-                setDistrictsList(distRes.data);
-              }
-            } catch (regionErr) {
-              console.warn(
-                "Gagal sinkronisasi otomatis alamat terdaftar:",
-                regionErr.message,
-              );
-            }
-          }
-        }
-
-        // D. Fetch Riwayat Transaksi
-        try {
-          const ordersRes = await API.get("/user/orders");
-          setTransactions(ordersRes.data);
-        } catch (orderErr) {
-          console.warn("Gagal mengambil data transaksi:", orderErr.message);
-        }
+        await fetchUserProfile(provData);
+        await fetchUserOrders();
       } catch (err) {
-        // Deteksi error spesifik dari Axios jika backend Gin memberikan pesan error JSON
         const errorMsg = err.response?.data?.message || err.message;
         console.error("Detail kegagalan memuat data akun:", errorMsg);
       } finally {
@@ -282,101 +441,6 @@ export default function UserAccount({ cartCount, onCartOpen, onSearchOpen }) {
         console.error("Gagal memuat data kecamatan dari Gin:", err.message),
       );
   }, [activeRegionIds.cityId]);
-
-  useEffect(() => {
-    // 🔍 DEBUG: Cek apakah token Anda benar-benar ada atau malah undefined / null
-    console.log("=== DEBUG USER ACCOUNT LFC ===");
-    console.log("Token yang terbaca saat ini:", token);
-    console.log("Tab yang sedang aktif saat ini:", activeTab);
-
-    if (!token) {
-      console.warn(
-        "⚠️ Peringatan: Token tidak ditemukan! Proses fetch dibatalkan.",
-      );
-      return; // Berhenti di sini jika token tidak ada
-    }
-
-    const fetchUserProfile = async () => {
-      try {
-        console.log("Mengirim request ke /profile...");
-        const response = await fetch(
-          "http://localhost:8080/api/v1/user/profile",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          },
-        );
-
-        if (response.ok) {
-          const result = await response.json();
-          console.log("✅ Data profil berhasil didapat:", result);
-          setUserData({
-            name: result.name || "",
-            email: result.email || "",
-            phone: result.phone || "",
-            gender: result.gender || "Laki-laki",
-            birth_date: result.birth_date || "",
-            profile_picture: result.profile_picture || "",
-            shipping_address: {
-              province: result.shipping_address?.province || "",
-              city: result.shipping_address?.city || "",
-              district: result.shipping_address?.district || "",
-              village: result.shipping_address?.village || "",
-              postal_code: result.shipping_address?.postal_code || "",
-              coordinates: result.shipping_address?.coordinates || "",
-              map_reference: result.shipping_address?.map_reference || "",
-              manual_details: result.shipping_address?.manual_details || "",
-            },
-          });
-        } else {
-          console.error(
-            "❌ Backend menolak request profile. Status:",
-            response.status,
-          );
-        }
-      } catch (err) {
-        console.error("❌ Gagal network fetch profil:", err);
-      }
-    };
-
-    const fetchUserOrders = async () => {
-      try {
-        console.log("Mengirim request ke /orders...");
-        const response = await fetch(
-          "http://localhost:8080/api/v1/user/orders",
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          },
-        );
-
-        if (response.ok) {
-          const data = await response.json();
-          console.log("✅ Data riwayat order berhasil didapat:", data);
-          setTransactions(data);
-        } else {
-          console.error(
-            "❌ Backend menolak request orders. Status:",
-            response.status,
-          );
-        }
-      } catch (error) {
-        console.error("❌ Gagal network fetch order:", error);
-      }
-    };
-
-    // Jalankan fetch profile secara berkala jika token tersedia
-    fetchUserProfile();
-
-    // Hanya fetch order jika sedang berada di tab transactions
-    if (activeTab === "transactions") {
-      fetchUserOrders();
-    }
-  }, [token, activeTab]);
 
   const handleInputChange = (e) => {
     setUserData({ ...userData, [e.target.name]: e.target.value });
@@ -461,10 +525,19 @@ export default function UserAccount({ cartCount, onCartOpen, onSearchOpen }) {
 
       if (response.ok) {
         alert("Informasi akun Anda berhasil diperbarui di database!");
-        // 🚀 Trick jitu: Ambil data ulang dari server setelah sukses agar state sinkron
-        if (typeof fetchUserProfile === "function") {
-          fetchUserProfile();
-        }
+        localStorage.setItem(
+          "user_saved_address",
+          JSON.stringify({
+            provinceName: userData.shipping_address.province,
+            cityName: userData.shipping_address.city,
+            districtName: userData.shipping_address.district,
+            villageName: userData.shipping_address.village,
+            postalCode: userData.shipping_address.postal_code,
+            detailAddress: userData.shipping_address.manual_details,
+          }),
+        );
+        fetchUserProfile();
+        setAvatarRefreshKey(Date.now());
       } else {
         const errData = await response.json();
         alert(errData.error || "Gagal memperbarui data.");
@@ -520,13 +593,13 @@ export default function UserAccount({ cartCount, onCartOpen, onSearchOpen }) {
               <div className="h-10 w-10 rounded-full bg-neutral-900 text-white text-xs font-bold flex items-center justify-center uppercase tracking-wider overflow-hidden shrink-0 border border-neutral-100">
                 {userData.profile_picture ? (
                   <img
-                    src={
-                      userData.profile_picture.startsWith("http")
-                        ? userData.profile_picture
-                        : `http://localhost:8080/uploads/${userData.profile_picture}`
-                    }
+                    src={profileImageUrl}
                     alt="Avatar Sidebar"
                     className="w-full h-full object-cover"
+                    onError={(e) => {
+                      e.currentTarget.onerror = null;
+                      e.currentTarget.src = "/default-avatar.png";
+                    }}
                   />
                 ) : (
                   <span>
@@ -594,13 +667,13 @@ export default function UserAccount({ cartCount, onCartOpen, onSearchOpen }) {
                     <div className="relative group cursor-pointer w-16 h-16 rounded-full overflow-hidden border-2 border-white shadow-md bg-neutral-900 flex items-center justify-center text-white font-bold text-lg">
                       {userData.profile_picture ? (
                         <img
-                          src={
-                            userData.profile_picture.startsWith("http")
-                              ? userData.profile_picture
-                              : `http://localhost:8080/uploads/${userData.profile_picture}`
-                          }
+                          src={profileImageUrl}
                           alt="Avatar"
                           className="w-full h-full object-cover transition group-hover:scale-105"
+                          onError={(e) => {
+                            e.currentTarget.onerror = null;
+                            e.currentTarget.src = "/default-avatar.png";
+                          }}
                         />
                       ) : (
                         <span>
@@ -866,6 +939,113 @@ export default function UserAccount({ cartCount, onCartOpen, onSearchOpen }) {
                             </span>
                           </div>
                         </div>
+
+                        {getOrderItems(order).length > 0 && (
+                          <div className="pt-4 border-t border-neutral-100 space-y-3">
+                            <h5 className="text-[10px] uppercase tracking-widest text-neutral-500 font-semibold">
+                              Produk yang dipesan
+                            </h5>
+                            {getOrderItems(order).map((item, index) => {
+                              const catalogProduct = findCatalogProduct(item);
+                              const imageUrl =
+                                getOrderItemImageUrl(item) ||
+                                getOrderItemImageUrl(catalogProduct);
+                              const productName =
+                                item.product_name ||
+                                item.name ||
+                                item.title ||
+                                item.product?.name ||
+                                item.product?.title ||
+                                catalogProduct?.name ||
+                                catalogProduct?.title ||
+                                item.product?.name ||
+                                item.product?.title ||
+                                "Produk tidak dikenal";
+                              const productDesc =
+                                item.product_description ||
+                                item.description ||
+                                item.product?.description ||
+                                catalogProduct?.description ||
+                                "Detail produk tidak tersedia.";
+                              const productPrice = Number(
+                                item.price ||
+                                  item.unit_price ||
+                                  item.product?.price ||
+                                  item.product_price ||
+                                  catalogProduct?.price ||
+                                  0,
+                              );
+                              const productQty = item.quantity || item.qty || 1;
+                              const productLink =
+                                item.product?.id ||
+                                catalogProduct?.id ||
+                                item.product_id ||
+                                item.id ||
+                                null;
+
+                              return (
+                                <div
+                                  key={
+                                    item.id ||
+                                    item.product_id ||
+                                    productLink ||
+                                    index
+                                  }
+                                  className="rounded-2xl border border-neutral-200 bg-neutral-50 p-3"
+                                >
+                                  <div className="flex items-start gap-3">
+                                    {imageUrl ? (
+                                      <div className="w-16 h-16 rounded-2xl overflow-hidden bg-neutral-100 shrink-0">
+                                        <img
+                                          src={imageUrl}
+                                          alt={productName}
+                                          className="w-full h-full object-cover"
+                                          onError={(e) => {
+                                            e.currentTarget.onerror = null;
+                                            e.currentTarget.src =
+                                              "/default-product.png";
+                                          }}
+                                        />
+                                      </div>
+                                    ) : (
+                                      <div className="w-16 h-16 rounded-2xl bg-neutral-200 flex items-center justify-center text-[10px] text-neutral-500">
+                                        No Image
+                                      </div>
+                                    )}
+                                    <div className="flex-1">
+                                      <div className="flex justify-between gap-4">
+                                        <div>
+                                          {productLink ? (
+                                            <Link
+                                              to={`/product/${productLink}`}
+                                              className="text-xs font-bold text-neutral-900 hover:text-neutral-700"
+                                            >
+                                              {productName}
+                                            </Link>
+                                          ) : (
+                                            <p className="text-xs font-bold text-neutral-900">
+                                              {productName}
+                                            </p>
+                                          )}
+                                          <p className="text-[10px] text-neutral-500 mt-1">
+                                            {productDesc}
+                                          </p>
+                                        </div>
+                                        <p className="text-[10px] text-neutral-500">
+                                          Qty: {productQty}
+                                        </p>
+                                      </div>
+                                      <div className="mt-2 text-[10px] text-neutral-500">
+                                        Harga: Rp{" "}
+                                        {productPrice.toLocaleString("id-ID")}
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              );
+                            })}
+                          </div>
+                        )}
 
                         {/* STATUS TRACKING INDICATOR (STEPPER) */}
                         <div className="py-4 px-2">

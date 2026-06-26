@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 
 import { ShoppingBag, Search, Menu, X, User, ArrowRight } from "lucide-react";
 import Logo from "../../assets/images/logo.png";
@@ -8,15 +8,26 @@ export default function Navbar({ cartCount, onCartOpen, onSearchOpen }) {
   // State lokal untuk membuka/menutup Hamburger Menu di mobile
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const navigate = useNavigate();
+  // 🚀 Tambahkan state untuk mendeteksi otentikasi secara real-time
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  // Cek status login secara real-time dari localStorage
-  const isAuthenticated = localStorage.getItem("token") !== null;
+  const navigate = useNavigate();
+  const location = useLocation(); // Pantau perpindahan halaman
+
+  // 🚀 Efek untuk memperbarui status login setiap kali user pindah halaman
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    setIsAuthenticated(token !== null);
+  }, [location]); // Re-run effect setiap kali URL rute berubah
 
   // Handler klik tombol akun (berlaku untuk Desktop & Mobile)
   const handleAccountClick = () => {
     setMobileMenuOpen(false); // Pastikan drawer tertutup jika diklik dari mobile
-    if (isAuthenticated) {
+
+    // Membaca ulang token secara instan saat tombol diklik
+    const token = localStorage.getItem("token");
+
+    if (token) {
       navigate("/account"); // Jika sudah login, bawa ke halaman akun & tracking
     } else {
       navigate("/login"); // Jika belum login, paksa ke halaman login
@@ -70,13 +81,16 @@ export default function Navbar({ cartCount, onCartOpen, onSearchOpen }) {
             <Search className="h-5 w-5" />
           </button>
 
-          {/* 2. Tombol User Profile (Hanya muncul di DESKTOP - Terintegrasi dengan Alur Auth) */}
+          {/* 2. Tombol User Profile (Hanya muncul di DESKTOP) */}
           <button
             onClick={handleAccountClick}
-            className="hidden md:block p-2 text-neutral-600 hover:text-black hover:bg-neutral-50 rounded-full transition cursor-pointer"
+            className="p-2 text-neutral-600 hover:text-black hover:bg-neutral-50 rounded-full transition cursor-pointer"
             title={isAuthenticated ? "Akun Saya" : "Masuk / Registrasi"}
           >
-            <User className="h-5 w-5" />
+            {/* 💡 Opsional Visual: Jika sudah login, beri warna ikon berbeda atau border tipis */}
+            <User
+              className={`h-5 w-5 ${isAuthenticated ? "text-neutral-900 stroke-[2.5]" : "text-neutral-600"}`}
+            />
           </button>
 
           {/* 3. Tombol Cart (Muncul di semua device) */}
@@ -155,7 +169,7 @@ export default function Navbar({ cartCount, onCartOpen, onSearchOpen }) {
                 <ArrowRight className="h-3.5 w-3.5 text-neutral-300" />
               </Link>
 
-              {/* 🌟 USER MENU (Tampilan Mobile - Sekarang Terintegrasi dengan Fungsi handleAccountClick) */}
+              {/* USER MENU (Tampilan Mobile) */}
               <div className="border-t border-neutral-100 mt-4 pt-4">
                 <button
                   onClick={handleAccountClick}
