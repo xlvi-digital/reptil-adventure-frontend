@@ -4,30 +4,34 @@ import {
   LayoutDashboard,
   ShoppingBag,
   Layers,
-  Plus,
-  Trash2,
-  X,
+  TrendingUp,
+  Wallet,
+  CalendarRange,
 } from "lucide-react";
+import {
+  ResponsiveContainer,
+  LineChart,
+  Line,
+  CartesianGrid,
+  XAxis,
+  YAxis,
+  Tooltip,
+} from "recharts";
 
 import API from "../../api/axios";
-import Sidebar from "../../components/layouts/Sidebar";
-import Navbar from "../../components/layouts/Navbar";
-import Footer from "../../components/layouts/Footer";
+import AdminPageShell from "../../components/layouts/AdminPageShell";
 
 export default function Dashboard() {
   const navigate = useNavigate();
-  const [products, setProducts] = useState([]);
-  const [categories, setCategories] = useState([]);
   const [stats, setStats] = useState({ totalProducts: 0, totalCategories: 0 });
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const [formData, setFormData] = useState({
-    title: "",
-    description: "",
-    price: "",
-    category_id: "",
-    image: "",
+  const [dashboardStats, setDashboardStats] = useState({
+    todayOrders: 0,
+    monthOrders: 0,
+    todayRevenue: 0,
+    monthRevenue: 0,
+    salesChart: [],
   });
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -40,24 +44,25 @@ export default function Dashboard() {
 
   const fetchDashboardData = async () => {
     try {
-      const prodResponse = await API.get("/products");
+      setLoading(true);
+      const [prodResponse, catResponse, statsResponse] = await Promise.all([
+        API.get("/products"),
+        API.get("/categories"),
+        API.get("/admin/dashboard-stats"),
+      ]);
+
       const fetchedProducts = prodResponse.data || [];
-      setProducts(fetchedProducts);
-
-      const catResponse = await API.get("/categories");
       const fetchedCategories = catResponse.data || [];
-      setCategories(fetchedCategories);
-
-      if (fetchedCategories.length > 0 && !formData.category_id) {
-        setFormData((prev) => ({
-          ...prev,
-          category_id: fetchedCategories[0].id,
-        }));
-      }
-
       setStats({
         totalProducts: fetchedProducts.length,
         totalCategories: fetchedCategories.length,
+      });
+      setDashboardStats({
+        todayOrders: statsResponse.data?.today_orders || 0,
+        monthOrders: statsResponse.data?.month_orders || 0,
+        todayRevenue: statsResponse.data?.today_revenue || 0,
+        monthRevenue: statsResponse.data?.month_revenue || 0,
+        salesChart: statsResponse.data?.sales_chart || [],
       });
     } catch (error) {
       console.error("Gagal mengambil data dashboard", error);
@@ -65,312 +70,203 @@ export default function Dashboard() {
         localStorage.removeItem("token");
         navigate("/admin/login");
       }
+    } finally {
+      setLoading(false);
     }
   };
 
-  const handleCreateProduct = async (e) => {
-    e.preventDefault();
-    try {
-      const payload = {
-        title: formData.title,
-        description: formData.description,
-        price: parseInt(formData.price),
-        category_id: parseInt(formData.category_id),
-        image: formData.image
-          ? [formData.image]
-          : ["https://images.unsplash.com/photo-1548883354-7622d03aca27"],
-      };
+  const formatRupiah = (value) =>
+    new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR",
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(Number(value || 0));
 
-      const token = localStorage.getItem("token");
-      await API.post("/products", payload, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-
-      setFormData({
-        title: "",
-        description: "",
-        price: "",
-        category_id: categories[0]?.id || "",
-        image: "",
-      });
-      setIsModalOpen(false);
-      fetchDashboardData();
-      alert("Produk baru berhasil ditambahkan ke database!");
-    } catch (error) {
-      console.error("Gagal membuat produk:", error);
-      alert(
-        error.response?.data?.error ||
-          "Terjadi kesalahan unmarshal/validasi field backend.",
-      );
-    }
-  };
-
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    navigate("/admin/login");
-  };
+  const metricCards = [
+    {
+      title: "Pesanan Hari Ini",
+      value: dashboardStats.todayOrders,
+      subtitle: "Transaksi selesai hari ini",
+      icon: <ShoppingBag size={18} />,
+      accent: "bg-neutral-900 text-white",
+    },
+    {
+      title: "Pesanan Bulan Ini",
+      value: dashboardStats.monthOrders,
+      subtitle: "Transaksi bulan berjalan",
+      icon: <CalendarRange size={18} />,
+      accent: "bg-amber-50 text-amber-700 border border-amber-100",
+    },
+    {
+      title: "Pendapatan Hari Ini",
+      value: formatRupiah(dashboardStats.todayRevenue),
+      subtitle: "Total omzet hari ini",
+      icon: <Wallet size={18} />,
+      accent: "bg-emerald-50 text-emerald-700 border border-emerald-100",
+    },
+    {
+      title: "Pendapatan Bulan Ini",
+      value: formatRupiah(dashboardStats.monthRevenue),
+      subtitle: "Total omzet bulan berjalan",
+      icon: <TrendingUp size={18} />,
+      accent: "bg-sky-50 text-sky-700 border border-sky-100",
+    },
+  ];
 
   return (
-    <div className="flex min-h-screen font-sans antialiased bg-white text-neutral-800">
-      {/* SIDEBAR */}
-      <Sidebar darkMode={false} handleLogout={handleLogout} />
-
-      {/* MAIN CONTENT */}
-      <main className="flex-1 p-6 max-w-7xl mx-auto w-full min-h-screen bg-white">
-        {/* NAVBAR */}
-        <Navbar darkMode={false} />
-
-        {/* HEADER BRANDING */}
+    <AdminPageShell contentClassName="max-w-7xl mx-auto w-full">
+      <div className="rounded-3xl border border-neutral-200/70 bg-white p-4 sm:p-6 shadow-[0_12px_50px_-24px_rgba(15,23,42,0.25)]">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-neutral-100 mb-6">
           <div>
             <h1 className="text-xl font-black uppercase tracking-wider text-neutral-900 flex items-center gap-2">
-              <LayoutDashboard size={22} /> Ringkasan Inventori
+              <LayoutDashboard size={22} /> Ringkasan Penjualan & Operasional
             </h1>
             <p className="text-xs text-neutral-400 font-medium mt-1">
-              Kelola katalog produk, harga jual, beserta sinkronisasi kategori
-              utama toko.
+              Pantau performa penjualan, omzet harian, serta progres pesanan
+              yang sudah masuk alur pembayaran.
             </p>
           </div>
-          <div>
-            <button
-              onClick={() => setIsModalOpen(true)}
-              className="px-4 py-2.5 bg-neutral-900 hover:bg-neutral-800 text-white font-bold text-xs uppercase tracking-wider rounded-xl transition inline-flex items-center gap-1.5 cursor-pointer shadow-xs"
-            >
-              <Plus size={14} /> Tambah Item
-            </button>
-          </div>
         </div>
 
-        {/* KARTU STATISTIK SINKRON */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-          <div className="border border-neutral-200/60 p-6 rounded-xl flex items-center justify-between bg-white">
-            <div>
-              <p className="text-[10px] uppercase tracking-wider font-bold text-neutral-400 mb-1">
-                Total Produk Aktif
-              </p>
-              <h3 className="text-3xl font-black text-neutral-900 font-mono">
-                {stats.totalProducts}{" "}
-                <span className="text-xs font-bold text-neutral-400 uppercase tracking-wide">
-                  Items
-                </span>
-              </h3>
+          {metricCards.map((card) => (
+            <div
+              key={card.title}
+              className="border border-neutral-200/60 p-6 rounded-2xl bg-white"
+            >
+              <div className="flex items-start justify-between gap-3">
+                <div>
+                  <p className="text-[10px] uppercase tracking-wider font-bold text-neutral-400 mb-1">
+                    {card.title}
+                  </p>
+                  <h3 className="text-2xl sm:text-3xl font-black text-neutral-900 font-mono leading-tight">
+                    {card.value}
+                  </h3>
+                  <p className="text-[11px] text-neutral-500 mt-2">
+                    {card.subtitle}
+                  </p>
+                </div>
+                <div className={`p-3 rounded-xl ${card.accent}`}>
+                  {card.icon}
+                </div>
+              </div>
             </div>
-            <div className="p-3.5 bg-neutral-50 border border-neutral-100 rounded-xl text-neutral-600">
-              <ShoppingBag size={18} />
-            </div>
-          </div>
-
-          <div className="border border-neutral-200/60 p-6 rounded-xl flex items-center justify-between bg-white">
-            <div>
-              <p className="text-[10px] uppercase tracking-wider font-bold text-neutral-400 mb-1">
-                Kategori Utama
-              </p>
-              <h3 className="text-3xl font-black text-neutral-900 font-mono">
-                {stats.totalCategories}{" "}
-                <span className="text-xs font-bold text-neutral-400 uppercase tracking-wide">
-                  Grup
-                </span>
-              </h3>
-            </div>
-            <div className="p-3.5 bg-neutral-50 border border-neutral-100 rounded-xl text-neutral-600">
-              <Layers size={18} />
-            </div>
-          </div>
+          ))}
         </div>
 
-        {/* TABEL DATA INVENTORI CLEAN LUXURY */}
-        <div className="border border-neutral-200/60 rounded-xl overflow-hidden bg-white">
-          <div className="px-6 py-4 border-b border-neutral-100 flex justify-between items-center bg-neutral-50/50">
-            <h2 className="font-black text-xs uppercase tracking-wider text-neutral-900">
-              Daftar Inventori Live
-            </h2>
-            <span className="text-[10px] border border-neutral-200 bg-white px-2.5 py-1 font-bold uppercase tracking-wider text-neutral-400 rounded-full font-mono">
-              PostgreSQL Active
-            </span>
-          </div>
-
-          <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse">
-              <thead>
-                <tr className="bg-neutral-50 text-[10px] font-black uppercase tracking-wider text-neutral-400 border-b border-neutral-200">
-                  <th className="px-6 py-4">Detail Produk</th>
-                  <th className="px-6 py-4">Harga Jual</th>
-                  <th className="px-6 py-4 text-right">Opsi</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-neutral-100 text-xs font-medium">
-                {products.length === 0 ? (
-                  <tr>
-                    <td
-                      colSpan="3"
-                      className="text-center py-12 text-neutral-400 font-medium"
-                    >
-                      Belum ada item terdata di database.
-                    </td>
-                  </tr>
-                ) : (
-                  products.map((product) => (
-                    <tr
-                      key={product.id}
-                      className="hover:bg-neutral-50/50 transition"
-                    >
-                      <td className="px-6 py-4">
-                        <div className="flex flex-col">
-                          <span className="font-bold text-neutral-900 text-sm tracking-wide">
-                            {product.title}
-                          </span>
-                          <span className="text-[11px] text-neutral-400 font-medium mt-0.5 max-w-xl truncate leading-relaxed">
-                            {product.description}
-                          </span>
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 font-bold text-neutral-900 font-mono">
-                        Rp {product.price?.toLocaleString("id-ID")}
-                      </td>
-                      <td className="px-6 py-4 text-right">
-                        <button className="px-2.5 py-1.5 border border-neutral-200 rounded-lg text-neutral-400 hover:text-red-600 hover:bg-red-50 hover:border-red-100 transition cursor-pointer">
-                          <Trash2 size={13} />
-                        </button>
-                      </td>
-                    </tr>
-                  ))
-                )}
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        {/* FOOTER */}
-        <Footer darkMode={false} />
-      </main>
-
-      {/* POP-UP MODAL FORM CLEAN LIGHT */}
-      {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-xs p-4">
-          <div className="w-full max-w-xl bg-white rounded-2xl p-6 border border-neutral-100 shadow-xl max-h-[90vh] overflow-y-auto">
-            <div className="flex justify-between items-center pb-4 border-b border-neutral-100 mb-4">
+        <div className="grid grid-cols-1 xl:grid-cols-[1.4fr_0.6fr] gap-6">
+          <div className="border border-neutral-200/60 rounded-2xl p-4 sm:p-6 bg-white">
+            <div className="flex items-center justify-between mb-4">
               <div>
-                <h3 className="text-sm font-black uppercase tracking-wider text-neutral-900">
-                  Tambah Item Baru
-                </h3>
-                <p className="text-[11px] text-neutral-400 font-medium mt-0.5">
-                  Masukkan detail spesifikasi produk ke dalam katalog digital.
+                <p className="text-[10px] uppercase tracking-wider font-bold text-neutral-400">
+                  Tren Penjualan 7 Hari
                 </p>
+                <h2 className="text-sm font-black text-neutral-900">
+                  Grafik Omzet
+                </h2>
               </div>
-              <button
-                onClick={() => setIsModalOpen(false)}
-                className="text-xs font-bold text-neutral-400 hover:text-black cursor-pointer"
-              >
-                [X]
-              </button>
+              <span className="text-[10px] rounded-full border border-neutral-200 bg-neutral-50 px-2.5 py-1 font-semibold uppercase tracking-wider text-neutral-500">
+                Live
+              </span>
+            </div>
+            <div className="h-72">
+              {loading ? (
+                <div className="flex h-full items-center justify-center text-sm text-neutral-400">
+                  Memuat grafik...
+                </div>
+              ) : (
+                <ResponsiveContainer width="100%" height="100%">
+                  <LineChart data={dashboardStats.salesChart}>
+                    <CartesianGrid stroke="#f3f4f6" strokeDasharray="3 3" />
+                    <XAxis
+                      dataKey="label"
+                      tick={{ fontSize: 12, fill: "#6b7280" }}
+                    />
+                    <YAxis
+                      tick={{ fontSize: 12, fill: "#6b7280" }}
+                      tickFormatter={(value) => `Rp${value / 1000}k`}
+                    />
+                    <Tooltip formatter={(value) => formatRupiah(value)} />
+                    <Line
+                      type="monotone"
+                      dataKey="revenue"
+                      stroke="#111827"
+                      strokeWidth={3}
+                      dot={{ r: 4 }}
+                      activeDot={{ r: 6 }}
+                    />
+                  </LineChart>
+                </ResponsiveContainer>
+              )}
+            </div>
+          </div>
+
+          <div className="border border-neutral-200/60 rounded-2xl p-4 sm:p-6 bg-white space-y-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-[10px] uppercase tracking-wider font-bold text-neutral-400">
+                  Ringkasan Katalog
+                </p>
+                <h2 className="text-sm font-black text-neutral-900">
+                  Inventori Toko
+                </h2>
+              </div>
+              <span className="text-[10px] rounded-full border border-neutral-200 bg-neutral-50 px-2.5 py-1 font-semibold uppercase tracking-wider text-neutral-500">
+                {stats.totalProducts} item
+              </span>
             </div>
 
-            <form onSubmit={handleCreateProduct} className="space-y-4 text-xs">
-              <div>
-                <label className="block text-[10px] font-bold uppercase tracking-wider text-neutral-400 mb-1">
-                  Nama Produk
-                </label>
-                <input
-                  type="text"
-                  required
-                  placeholder="Contoh: REPTIL Jaket Waterproof Stormbreaker"
-                  value={formData.title}
-                  onChange={(e) =>
-                    setFormData({ ...formData, title: e.target.value })
-                  }
-                  className="w-full px-3 py-2 bg-white border border-neutral-200 text-xs rounded-lg outline-none focus:border-neutral-900 font-medium transition"
-                />
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="rounded-2xl border border-neutral-200/70 bg-neutral-50/70 p-4">
+              <div className="flex items-center justify-between">
                 <div>
-                  <label className="block text-[10px] font-bold uppercase tracking-wider text-neutral-400 mb-1">
-                    Harga Jual (Rp)
-                  </label>
-                  <input
-                    type="number"
-                    required
-                    placeholder="425000"
-                    value={formData.price}
-                    onChange={(e) =>
-                      setFormData({ ...formData, price: e.target.value })
-                    }
-                    className="w-full px-3 py-2 bg-white border border-neutral-200 text-xs rounded-lg outline-none focus:border-neutral-900 font-mono font-bold transition"
-                  />
+                  <p className="text-[10px] uppercase tracking-wider font-bold text-neutral-400">
+                    Produk aktif
+                  </p>
+                  <p className="text-2xl font-black text-neutral-900">
+                    {stats.totalProducts}
+                  </p>
                 </div>
-                <div>
-                  <label className="block text-[10px] font-bold uppercase tracking-wider text-neutral-400 mb-1">
-                    Kategori
-                  </label>
-                  <select
-                    value={formData.category_id}
-                    onChange={(e) =>
-                      setFormData({ ...formData, category_id: e.target.value })
-                    }
-                    className="w-full px-3 py-2 bg-white border border-neutral-200 text-xs rounded-lg outline-none focus:border-neutral-900 font-semibold text-neutral-600 transition"
-                  >
-                    {categories.length === 0 ? (
-                      <option disabled>Memuat kategori...</option>
-                    ) : (
-                      categories.map((cat) => (
-                        <option key={cat.id} value={cat.id}>
-                          {cat.name}
-                        </option>
-                      ))
-                    )}
-                  </select>
+                <div className="p-3 rounded-xl bg-white border border-neutral-200">
+                  <ShoppingBag size={18} className="text-neutral-700" />
                 </div>
               </div>
+            </div>
 
-              <div>
-                <label className="block text-[10px] font-bold uppercase tracking-wider text-neutral-400 mb-1">
-                  URL Gambar Produk
-                </label>
-                <input
-                  type="text"
-                  placeholder="https://images.unsplash.com/photo-..."
-                  value={formData.image}
-                  onChange={(e) =>
-                    setFormData({ ...formData, image: e.target.value })
-                  }
-                  className="w-full px-3 py-2 bg-white border border-neutral-200 text-xs rounded-lg outline-none focus:border-neutral-900 font-mono transition"
-                />
+            <div className="rounded-2xl border border-neutral-200/70 bg-neutral-50/70 p-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-[10px] uppercase tracking-wider font-bold text-neutral-400">
+                    Kategori utama
+                  </p>
+                  <p className="text-2xl font-black text-neutral-900">
+                    {stats.totalCategories}
+                  </p>
+                </div>
+                <div className="p-3 rounded-xl bg-white border border-neutral-200">
+                  <Layers size={18} className="text-neutral-700" />
+                </div>
               </div>
+            </div>
 
-              <div>
-                <label className="block text-[10px] font-bold uppercase tracking-wider text-neutral-400 mb-1">
-                  Deskripsi Produk
-                </label>
-                <textarea
-                  rows="3"
-                  placeholder="Masukkan spesifikasi lengkap produk di sini..."
-                  value={formData.description}
-                  onChange={(e) =>
-                    setFormData({ ...formData, description: e.target.value })
-                  }
-                  className="w-full px-3 py-2 bg-white border border-neutral-200 text-xs rounded-lg outline-none focus:border-neutral-900 font-medium leading-relaxed transition"
-                />
+            <div className="rounded-2xl border border-neutral-200/70 bg-neutral-50/70 p-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-[10px] uppercase tracking-wider font-bold text-neutral-400">
+                    Performa Mingguan
+                  </p>
+                  <p className="text-lg font-black text-neutral-900">
+                    Terus naik
+                  </p>
+                </div>
+                <div className="p-3 rounded-xl bg-emerald-50 text-emerald-700 border border-emerald-100">
+                  <TrendingUp size={18} />
+                </div>
               </div>
-
-              <div className="flex justify-end gap-3 pt-4 border-t border-neutral-100">
-                <button
-                  type="button"
-                  onClick={() => setIsModalOpen(false)}
-                  className="px-4 py-2 border border-neutral-200 text-neutral-500 font-bold uppercase rounded-lg text-[10px] tracking-wider hover:bg-neutral-50 transition"
-                >
-                  Batal
-                </button>
-                <button
-                  type="submit"
-                  className="px-4 py-2 bg-neutral-900 text-white font-bold uppercase rounded-lg text-[10px] tracking-wider hover:bg-neutral-800 transition shadow-xs"
-                >
-                  Simpan ke Database
-                </button>
-              </div>
-            </form>
+            </div>
           </div>
         </div>
-      )}
-    </div>
+      </div>
+    </AdminPageShell>
   );
 }

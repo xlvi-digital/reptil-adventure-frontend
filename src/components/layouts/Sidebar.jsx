@@ -4,11 +4,10 @@ import {
   LayoutDashboard,
   Layers,
   Package,
-  ShoppingBag, // 🆕 Import ikon untuk menu pesanan
+  ShoppingBag,
   LogOut,
   ChevronLeft,
   ChevronRight,
-  ShieldAlert,
 } from "lucide-react";
 import ConfirmModal from "../common/ComfirModal";
 
@@ -16,64 +15,47 @@ export default function Sidebar() {
   const location = useLocation();
   const navigate = useNavigate();
   const [isCollapsed, setIsCollapsed] = useState(false);
-
-  // State khusus untuk mengontrol Modal Konfirmasi Logout
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
 
-  // Daftar menu navigasi admin
   const menuItems = [
     {
       path: "/admin/dashboard",
       name: "Dashboard",
       icon: <LayoutDashboard size={18} />,
     },
-    {
-      path: "/admin/categories",
-      name: "Kategori",
-      icon: <Layers size={18} />,
-    },
-    {
-      path: "/admin/products",
-      name: "Produk",
-      icon: <Package size={18} />,
-    },
-    {
-      path: "/admin/orders", // 🆕 Path rute halaman manajemen pesanan
-      name: "Pesanan",
-      icon: <ShoppingBag size={18} />, // 🆕 Ikon pesanan masuk
-    },
+    { path: "/admin/categories", name: "Kategori", icon: <Layers size={18} /> },
+    { path: "/admin/products", name: "Produk", icon: <Package size={18} /> },
+    { path: "/admin/orders", name: "Pesanan", icon: <ShoppingBag size={18} /> },
   ];
 
-  // Eksekusi ketika konfirmasi logout disetujui
   const handleLogoutConfirm = () => {
-    localStorage.removeItem("token"); // Hapus token autentikasi
-    navigate("/admin/login"); // Tendang kembali ke halaman login
+    localStorage.removeItem("token");
+    navigate("/admin/login");
   };
 
   return (
     <>
       <aside
-        className={`relative min-h-screen bg-[#0a0a0a] border-r border-[#1a1a1a] flex flex-col justify-between transition-all duration-300 z-40
-          ${isCollapsed ? "w-20" : "w-64"}`}
+        className={`relative min-h-screen bg-white border-r border-neutral-200 flex flex-col justify-between transition-all duration-300 z-40 ${
+          isCollapsed ? "w-20" : "w-64"
+        }`}
       >
-        {/* --- BAGIAN ATAS: LOGO BRAND --- */}
         <div>
-          <div className="h-16 flex items-center justify-between px-6 border-b border-[#1a1a1a]">
+          <div className="h-16 flex items-center justify-between px-6 border-b border-neutral-200">
             <div className="flex items-center gap-3 overflow-hidden">
-              <div className="p-1.5 bg-white text-black rounded font-black text-xs tracking-wider flex-shrink-0">
+              <div className="px-2 py-1.5 bg-neutral-900 text-white rounded-md font-black text-[10px] tracking-[0.25em] flex-shrink-0">
                 REPTIL
               </div>
               {!isCollapsed && (
-                <span className="text-xs font-bold tracking-widest uppercase text-white font-mono truncate">
+                <span className="text-[11px] font-semibold tracking-[0.2em] uppercase text-neutral-700 truncate">
                   Admin Panel
                 </span>
               )}
             </div>
 
-            {/* Tombol Collapse (Sembunyikan/Munculkan Sidebar) */}
             <button
               onClick={() => setIsCollapsed(!isCollapsed)}
-              className="hidden md:flex p-1 rounded-md border border-[#222222] text-neutral-400 hover:text-white hover:bg-[#111111] transition-colors"
+              className="hidden md:flex p-1.5 rounded-md border border-neutral-200 text-neutral-500 hover:text-neutral-900 hover:bg-neutral-50 transition-colors"
             >
               {isCollapsed ? (
                 <ChevronRight size={14} />
@@ -83,7 +65,6 @@ export default function Sidebar() {
             </button>
           </div>
 
-          {/* --- BAGIAN TENGAH: MENU NAVIGASI --- */}
           <nav className="p-4 space-y-1.5">
             {menuItems.map((item) => {
               const isActive = location.pathname === item.path;
@@ -91,22 +72,19 @@ export default function Sidebar() {
                 <Link
                   key={item.path}
                   to={item.path}
-                  className={`flex items-center gap-3 px-4 py-3 rounded-lg text-xs font-semibold tracking-wider uppercase transition-all group
-                    ${
-                      isActive
-                        ? "bg-white text-black font-bold shadow-xl shadow-white/5"
-                        : "text-neutral-400 hover:text-white hover:bg-[#111111]"
-                    }`}
+                  className={`flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-semibold tracking-[0.2em] uppercase transition-all group ${
+                    isActive
+                      ? "bg-neutral-900 text-white shadow-sm"
+                      : "text-neutral-600 hover:text-neutral-900 hover:bg-neutral-50"
+                  }`}
                 >
                   <div
-                    className={`flex-shrink-0 ${isActive ? "text-black" : "text-neutral-400 group-hover:text-white"}`}
+                    className={`flex-shrink-0 ${isActive ? "text-white" : "text-neutral-500 group-hover:text-neutral-900"}`}
                   >
                     {item.icon}
                   </div>
                   {!isCollapsed && (
-                    <span className="transition-opacity duration-200 truncate">
-                      {item.name}
-                    </span>
+                    <span className="truncate">{item.name}</span>
                   )}
                 </Link>
               );
@@ -114,25 +92,23 @@ export default function Sidebar() {
           </nav>
         </div>
 
-        {/* --- BAGIAN BAWAH: TOMBOL LOGOUT --- */}
-        <div className="p-4 border-t border-[#1a1a1a]">
+        <div className="p-4 border-t border-neutral-200">
           <button
             onClick={() => setIsLogoutModalOpen(true)}
-            className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-xs font-semibold tracking-wider uppercase text-red-400 hover:text-red-300 hover:bg-red-950/20 border border-transparent hover:border-red-900/30 transition-all group`}
+            className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-xs font-semibold tracking-[0.2em] uppercase text-red-500 hover:text-red-600 hover:bg-red-50 border border-transparent hover:border-red-100 transition-all"
           >
-            <div className="flex-shrink-0 text-red-400 group-hover:text-red-300">
+            <div className="flex-shrink-0">
               <LogOut size={18} />
             </div>
-            {!isCollapsed && <span className="truncate">Keluar Sesi</span>}
+            {!isCollapsed && <span className="truncate">Keluar</span>}
           </button>
         </div>
       </aside>
 
-      {/* --- MODAL KONFIRMASI LOGOUT GLOBAL --- */}
       <ConfirmModal
         isOpen={isLogoutModalOpen}
         title="Keluar dari Panel Admin?"
-        message="Anda harus memasukkan kembali email dan password untuk mengakses dashboard ini di kemudian hari."
+        message="Anda harus masuk kembali untuk mengakses dashboard ini setelahnya."
         type="warning"
         confirmText="Keluar"
         onConfirm={handleLogoutConfirm}

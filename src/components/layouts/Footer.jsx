@@ -1,19 +1,13 @@
 import React from "react";
 
-export default function Footer({ darkMode }) {
+export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer
-      className={`mt-16 pt-6 border-t text-center text-xs tracking-wider transition-colors duration-300 ${
-        darkMode
-          ? "border-[#222222] text-[#555555]"
-          : "border-neutral-200 text-neutral-400"
-      }`}
-    >
+    <footer className="mt-16 pt-6 border-t border-neutral-200 text-center text-xs tracking-[0.2em] uppercase text-neutral-500">
       <p>
-        © {currentYear} xlvi-digital. All Rights Reserved. Terintegrasi ke
-        PostgreSQL Live Database.
+        © {currentYear} Reptil Adventure. Semua data terhubung ke panel admin
+        live.
       </p>
     </footer>
   );

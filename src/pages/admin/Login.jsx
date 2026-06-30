@@ -137,17 +137,21 @@ export default function Login({ onLoginSuccess }) {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-neutral-50 px-4 font-sans select-none selection:bg-neutral-900 selection:text-white">
-      <div className="w-full max-w-sm bg-white border border-neutral-200/60 rounded-2xl p-6 shadow-xs my-8 transition-all duration-300">
+    <div className="min-h-screen flex items-center justify-center bg-[linear-gradient(135deg,#faf8f2_0%,#f5f5f5_100%)] px-4 font-sans select-none selection:bg-neutral-900 selection:text-white">
+      <div className="w-full max-w-sm bg-white border border-neutral-200 rounded-2xl p-6 shadow-sm my-8 transition-all duration-300">
         {/* Header Brand */}
         <div className="text-center mb-6">
-          <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-neutral-400 block mb-1">
-            {isRegister ? "Create Account" : "Secure Access"}
+          <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-neutral-500 block mb-2">
+            {isRegister ? "Buat akun admin" : "Akses panel admin"}
           </span>
-          <h2 className="text-lg font-black text-neutral-900 uppercase tracking-wider">
+          <h2 className="text-lg font-black text-neutral-900 uppercase tracking-[0.25em]">
             REPTIL{" "}
-            <span className="text-neutral-400 font-light">ADVENTURE</span>
+            <span className="text-neutral-500 font-light">ADVENTURE</span>
           </h2>
+          <p className="text-[11px] text-neutral-500 mt-2">
+            Kelola produk, kategori, dan pesanan dengan tampilan yang lebih
+            sederhana.
+          </p>
         </div>
 
         {/* Notifikasi Status/Eror */}

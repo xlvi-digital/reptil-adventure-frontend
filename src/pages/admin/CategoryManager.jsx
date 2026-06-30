@@ -15,7 +15,7 @@ import ConfirmModal from "../../components/common/ComfirModal";
 export default function CategoryManager() {
   const navigate = useNavigate();
   const [categories, setCategories] = useState([]);
-  const [darkMode, setDarkMode] = useState(true);
+  const [darkMode] = useState(false);
 
   const [toast, setToast] = useState({
     show: false,
@@ -176,7 +176,7 @@ export default function CategoryManager() {
       <main className="flex-1 p-8 lg:p-12 overflow-y-auto flex flex-col justify-between">
         <div>
           {/* NAVBAR CORE */}
-          <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
+          <Navbar />
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
             {/* COLUMN 1: FORM TAMBAH KATEGORI */}

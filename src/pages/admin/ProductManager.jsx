@@ -28,7 +28,7 @@ export default function ProductManager() {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [darkMode, setDarkMode] = useState(true);
+  const [darkMode] = useState(false);
   // 🚀 STATE BARU: UNTUK LOADING & SUMMARY IMPORT EXCEL
   const [isImporting, setIsImporting] = useState(false);
   const [importSummary, setImportSummary] = useState(null); // Menyimpan objek { total, success, failed }
@@ -395,7 +395,7 @@ export default function ProductManager() {
 
       <main className="flex-1 p-8 lg:p-12 overflow-y-auto flex flex-col justify-between">
         <div>
-          <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
+          <Navbar />
 
           <div className="grid grid-cols-1 gap-8 items-start">
             <div

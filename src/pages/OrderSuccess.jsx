@@ -7,6 +7,10 @@ import {
   CheckCircle2,
   AlertCircle,
 } from "lucide-react";
+import {
+  getOrderCompletionState,
+  getInvoiceNumber,
+} from "../utils/orderStatus";
 
 export default function OrderSuccess() {
   const navigate = useNavigate();
@@ -15,6 +19,7 @@ export default function OrderSuccess() {
   const queryParams = new URLSearchParams(window.location.search);
   const invoiceNumber = queryParams.get("invoice") || "INV-XXXXXXXXX";
   const paymentStatus = queryParams.get("status") || "pending";
+  const completionState = getOrderCompletionState({ status: paymentStatus });
 
   return (
     <div className="min-h-screen bg-neutral-50/50 flex items-center justify-center p-4 selection:bg-neutral-900 selection:text-white font-sans">
@@ -37,15 +42,15 @@ export default function OrderSuccess() {
 
         {/* Judul & Pesan Utama */}
         <h2 className="text-lg font-black uppercase tracking-wider text-neutral-900 mb-2">
-          {paymentStatus === "paid"
+          {completionState.status === "PAID"
             ? "Pembayaran Dikonfirmasi!"
-            : "Pesanan Berhasil Dicatat"}
+            : completionState.status === "DONE"
+              ? "Pesanan Selesai"
+              : "Pesanan Berhasil Dicatat"}
         </h2>
 
         <p className="text-xs text-neutral-500 font-medium leading-relaxed px-2 mb-6">
-          {paymentStatus === "paid"
-            ? "Terima kasih! Pembayaran Anda telah kami terima secara otomatis. Tim Reptil Adventure akan segera mengemas dan mengirimkan produk pesanan Anda."
-            : "Pesanan Anda berhasil dibuat dan telah dikunci oleh sistem. Produk akan segera diproses masuk antrean pengiriman setelah pembayaran Anda diselesaikan."}
+          {completionState.meta.description}
         </p>
 
         {/* Detail Manifes Invoice (Manifes Minimalis Bersih) */}
@@ -66,14 +71,12 @@ export default function OrderSuccess() {
               Status Pengiriman
             </span>
             <span
-              className={`font-bold uppercase tracking-wider text-[10px] flex items-center gap-1.5 ${paymentStatus === "paid" ? "text-emerald-600" : "text-amber-600"}`}
+              className={`font-bold uppercase tracking-wider text-[10px] flex items-center gap-1.5 ${completionState.meta.badge.includes("emerald") ? "text-emerald-600" : completionState.meta.badge.includes("sky") ? "text-sky-600" : completionState.meta.badge.includes("violet") ? "text-violet-600" : completionState.meta.badge.includes("rose") ? "text-rose-600" : "text-amber-600"}`}
             >
               <span
-                className={`w-1.5 h-1.5 rounded-full ${paymentStatus === "paid" ? "bg-emerald-500 animate-ping" : "bg-amber-500 animate-pulse"}`}
+                className={`w-1.5 h-1.5 rounded-full ${completionState.meta.dot} animate-pulse`}
               />
-              {paymentStatus === "paid"
-                ? "Menunggu Pengemasan"
-                : "Menunggu Pembayaran"}
+              {completionState.meta.label}
             </span>
           </div>
         </div>

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   MapContainer,
   TileLayer,
@@ -24,7 +25,13 @@ let DefaultIcon = L.icon({
 });
 L.Marker.prototype.options.icon = DefaultIcon;
 
-export default function CheckoutComponent({ cart = [], onCheckoutSuccess }) {
+export default function CheckoutComponent({
+  cart = [],
+  onCheckoutSuccess,
+  clearCart,
+}) {
+  const navigate = useNavigate();
+
   // ================= State Form Utama =================
   const [customerName, setCustomerName] = useState("");
   const [customerPhone, setCustomerPhone] = useState("");
@@ -543,12 +550,49 @@ export default function CheckoutComponent({ cart = [], onCheckoutSuccess }) {
         throw new Error(resData.message || "Gagal memproses checkout");
       }
 
-      if (resData.snap_token) {
+      const invoiceNumber =
+        resData.order_invoice ||
+        resData.invoice_number ||
+        resData.invoice ||
+        resData.order?.order_invoice ||
+        resData.order?.invoice ||
+        "INV-UNKNOWN";
+      const statusValue =
+        resData.status ||
+        resData.payment_status ||
+        resData.order_status ||
+        "PENDING";
+
+      if (typeof clearCart === "function") {
+        clearCart();
+      }
+
+      if (typeof onCheckoutSuccess === "function") {
+        onCheckoutSuccess({ invoiceNumber, status: statusValue });
+      }
+
+      if (resData.snap_token && window.snap) {
         window.snap.pay(resData.snap_token, {
-          onSuccess: function (result) {
-            alert("Pembayaran sukses dikonfirmasi!");
+          onSuccess: function () {
+            navigate(
+              `/order-success?invoice=${encodeURIComponent(invoiceNumber)}&status=PAID`,
+            );
+          },
+          onPending: function () {
+            navigate(
+              `/order-success?invoice=${encodeURIComponent(invoiceNumber)}&status=PENDING`,
+            );
+          },
+          onError: function () {
+            navigate(
+              `/order-success?invoice=${encodeURIComponent(invoiceNumber)}&status=PENDING`,
+            );
           },
         });
+      } else {
+        navigate(
+          `/order-success?invoice=${encodeURIComponent(invoiceNumber)}&status=${encodeURIComponent(statusValue)}`,
+        );
       }
     } catch (err) {
       console.error("Error Checkout:", err);

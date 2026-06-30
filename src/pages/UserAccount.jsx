@@ -18,6 +18,10 @@ import {
   Search,
   Camera,
 } from "lucide-react";
+import {
+  getOrderCompletionState,
+  getInvoiceNumber,
+} from "../utils/orderStatus";
 
 // ─── KOMPONEN DROPDOWN DENGAN SEARCH BAR (LUXURY THEME - DYNAMIC DATABASE) ───
 function SearchableSelect({
@@ -565,6 +569,49 @@ export default function UserAccount({ cartCount, onCartOpen, onSearchOpen }) {
     }).format(number);
   };
 
+  const handleUploadPaymentProof = async (order) => {
+    const invoice = getInvoiceNumber(order);
+    const input = document.createElement("input");
+    input.type = "file";
+    input.accept = "image/*";
+    input.onchange = async () => {
+      const file = input.files?.[0];
+      if (!file) return;
+
+      try {
+        const formData = new FormData();
+        formData.append("payment_proof", file);
+
+        const response = await fetch(
+          `http://localhost:8080/api/v1/user/orders/${encodeURIComponent(invoice)}/payment-proof`,
+          {
+            method: "POST",
+            headers: { Authorization: `Bearer ${token}` },
+            body: formData,
+          },
+        );
+
+        if (response.ok) {
+          alert(
+            "Bukti pembayaran berhasil dikirim. Admin akan memverifikasi pesanan Anda.",
+          );
+          await fetchUserOrders();
+        } else {
+          const fallbackKey = `order_payment_proof_${invoice}`;
+          localStorage.setItem(fallbackKey, file.name);
+          alert(
+            "Sistem belum menerima upload bukti pembayaran, tetapi catatan lokal telah disimpan untuk verifikasi manual.",
+          );
+        }
+      } catch (err) {
+        console.error("Gagal mengunggah bukti pembayaran", err);
+        alert("Gagal mengunggah bukti pembayaran. Silakan coba lagi.");
+      }
+    };
+
+    input.click();
+  };
+
   if (pageLoading) {
     return (
       <div className="min-h-screen bg-white flex flex-col justify-center items-center gap-3">
@@ -876,42 +923,9 @@ export default function UserAccount({ cartCount, onCartOpen, onSearchOpen }) {
                   </div>
                 ) : (
                   transactions.map((order) => {
-                    // Pemetaan gaya badge berdasarkan status database kamu
-                    const getStatusStyles = (status) => {
-                      switch (status?.toUpperCase()) {
-                        case "PENDING":
-                          return "bg-amber-50 text-amber-700 border-amber-200/60";
-                        case "PAID":
-                          return "bg-blue-50 text-blue-700 border-blue-200/60";
-                        case "SHIPPED":
-                          return "bg-purple-50 text-purple-700 border-purple-200/60";
-                        case "DONE":
-                        case "SELESAI":
-                          return "bg-emerald-50 text-emerald-700 border-emerald-200/60";
-                        case "CANCELLED":
-                          return "bg-red-50 text-red-700 border-red-200/60";
-                        default:
-                          return "bg-neutral-50 text-neutral-600 border-neutral-200";
-                      }
-                    };
-
-                    // Pemetaan indeks urutan langkah tracking
-                    const statusSteps = [
-                      "PENDING",
-                      "PAID",
-                      "SHIPPED",
-                      "SELESAI",
-                    ];
-                    const currentStatus =
-                      order.status?.toUpperCase() === "DONE"
-                        ? "SELESAI"
-                        : order.status?.toUpperCase();
-                    let currentStepIndex = statusSteps.indexOf(currentStatus);
-                    if (
-                      currentStepIndex === -1 &&
-                      currentStatus === "CANCELLED"
-                    )
-                      currentStepIndex = 0; // proteksi cancel
+                    const completionState = getOrderCompletionState(order);
+                    const statusSteps = completionState.steps;
+                    const currentStepIndex = completionState.meta.step;
 
                     return (
                       <div
@@ -922,7 +936,7 @@ export default function UserAccount({ cartCount, onCartOpen, onSearchOpen }) {
                         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-neutral-100">
                           <div className="space-y-1">
                             <span className="text-[10px] font-mono font-bold text-neutral-400 bg-neutral-50 border border-neutral-200 px-2 py-0.5 rounded">
-                              {order.order_invoice}
+                              {getInvoiceNumber(order)}
                             </span>
                             <h4 className="text-xs font-black text-neutral-900 uppercase tracking-wide pt-1">
                               Total Bayar:{" "}
@@ -933,9 +947,9 @@ export default function UserAccount({ cartCount, onCartOpen, onSearchOpen }) {
                           </div>
                           <div>
                             <span
-                              className={`text-[10px] font-bold uppercase tracking-wider px-3 py-1 border rounded-full ${getStatusStyles(order.status)}`}
+                              className={`text-[10px] font-bold uppercase tracking-wider px-3 py-1 border rounded-full ${completionState.meta.badge}`}
                             >
-                              {order.status}
+                              {completionState.meta.label}
                             </span>
                           </div>
                         </div>
@@ -1056,25 +1070,17 @@ export default function UserAccount({ cartCount, onCartOpen, onSearchOpen }) {
                             <div
                               className="absolute left-0 top-1/2 -translate-y-1/2 h-0.5 bg-neutral-900 transition-all duration-500 -z-10"
                               style={{
-                                width: `${currentStepIndex >= 0 ? (currentStepIndex / (statusSteps.length - 1)) * 100 : 0}%`,
+                                width: `${completionState.progress}%`,
                               }}
                             />
 
                             {statusSteps.map((step, index) => {
                               const isCompleted =
                                 index <= currentStepIndex &&
-                                currentStatus !== "CANCELLED";
+                                currentStepIndex !== -1;
                               const isActive =
                                 index === currentStepIndex &&
-                                currentStatus !== "CANCELLED";
-
-                              // Label ramah dibaca pengguna
-                              const labels = {
-                                PENDING: "Tertunda",
-                                PAID: "Diproses",
-                                SHIPPED: "Dikirim",
-                                SELESAI: "Selesai",
-                              };
+                                currentStepIndex !== -1;
 
                               return (
                                 <div
@@ -1101,7 +1107,7 @@ export default function UserAccount({ cartCount, onCartOpen, onSearchOpen }) {
                                           : "text-neutral-400"
                                     }`}
                                   >
-                                    {labels[step]}
+                                    {step.label}
                                   </span>
                                 </div>
                               );
@@ -1109,10 +1115,25 @@ export default function UserAccount({ cartCount, onCartOpen, onSearchOpen }) {
                           </div>
                         </div>
 
+                        <div className="flex flex-wrap items-center justify-between gap-3 border-t border-neutral-100 pt-4">
+                          <div className="text-[10px] text-neutral-400 font-semibold uppercase tracking-wider">
+                            {completionState.meta.title}
+                          </div>
+                          {completionState.status === "PENDING" && (
+                            <button
+                              type="button"
+                              onClick={() => handleUploadPaymentProof(order)}
+                              className="px-3 py-2 rounded-lg border border-amber-200 bg-amber-50 text-amber-700 text-[10px] font-bold uppercase tracking-wider hover:bg-amber-100"
+                            >
+                              Unggah Bukti Bayar
+                            </button>
+                          )}
+                        </div>
+
                         {/* Blok Manifest Logistik & Resi (Muncul otomatis jika status SHIPPED / tracking_number tersedia) */}
                         {order.tracking_number &&
                           order.tracking_number !== "-" && (
-                            <div className="mt-8 pt-4 bg-neutral-50/50 border border-neutral-200 rounded-xl p-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+                            <div className="mt-4 pt-4 bg-neutral-50/50 border border-neutral-200 rounded-xl p-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
                               <div className="text-[10px] uppercase tracking-wide space-y-0.5">
                                 <p className="text-neutral-400 font-bold">
                                   Ekspedisi
