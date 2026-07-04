@@ -38,20 +38,16 @@ export default function Login({ onLoginSuccess }) {
       // Ambil profile pelengkap ke localStorage
       const fetchUserProfile = async () => {
         try {
-          const res = await API.get("/auth/me", {
-            // Sesuaikan endpoint info user profile Anda jika ada
-            headers: { Authorization: `Bearer ${tokenFromUrl}` },
-          });
+          // Menggunakan instance API langsung, token akan otomatis disisipkan oleh interceptor Axios
+          const res = await API.get("/auth/me");
           localStorage.setItem("user_data", JSON.stringify(res.data.user));
 
-          // Redirect sesuai hak akses role string dari backend Go
           if (["admin", "owner", "developer"].includes(res.data.user?.role)) {
             navigate("/admin/dashboard");
           } else {
             navigate("/account");
           }
         } catch {
-          // Fallback aman jika data profile detail belum siap dari server
           localStorage.setItem(
             "user_data",
             JSON.stringify({ name: "User Google", role: "customer" }),
@@ -133,7 +129,9 @@ export default function Login({ onLoginSuccess }) {
 
   // Handler Memicu Google OAuth Langsung Ke Backend Go
   const handleGoogleLogin = () => {
-    window.location.href = "http://localhost:8080/api/v1/auth/google";
+    // Mengambil baseURL dari config Axios agar otomatis mengikuti status lokal / Hugging Face
+    const baseUrl = API.defaults.baseURL;
+    window.location.href = `${baseUrl}/auth/google`;
   };
 
   return (
