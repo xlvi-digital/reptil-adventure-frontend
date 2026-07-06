@@ -1,17 +1,17 @@
 import axios from "axios";
 
-// Menggunakan URL Hugging Face secara dinamis jika di-deploy, atau localhost jika sedang coding di laptop
+// 1. Naikkan toleransi timeout ke 30 detik (30000ms) agar tidak mudah putus saat Hugging Face bangun tidur
 const BASE_URL_API =
   import.meta.env.VITE_API_BASE_URL ||
   "https://xlvi-digital-reptil-adventure-api.hf.space/api/v1";
+
 const BASE_URL_IMAGE =
   import.meta.env.VITE_IMAGE_BASE_URL ||
   "https://xlvi-digital-reptil-adventure-api.hf.space";
 
-// 1. Buat instance Axios dengan Base URL mengarah ke backend Hugging Face / Lokal
 const API = axios.create({
   baseURL: BASE_URL_API,
-  timeout: 10000,
+  timeout: 30000, // 🔥 DIUBAH DARI 10000 KE 30000
   headers: {
     "Content-Type": "application/json",
   },
