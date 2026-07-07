@@ -1547,24 +1547,21 @@ function Catalog() {
 // 🔑 JADIKAN INI SEBAGAI EXPORT DEFAULT DI PALING BAWAH FILE
 export default function AppRouter() {
   return (
-    // <Router>
     <Routes>
-      {/* 🗺️ Saat akses http://localhost:3000/ maka fungsi Catalog() di atas yang akan muncul */}
-      <Route path="/*" element={<Catalog />} /> {/* 🌟 Ubah / menjadi /* */}
+      {/* 1️⃣ RUTE SPESIFIK UTAMA (Taruh di Paling Atas) */}
+      <Route path="/login" element={<AdminLogin />} />
       <Route path="/events" element={<EventPage />} />
       <Route path="/about" element={<AboutPage />} />
-      // Contoh pendaftaran route baru jika menggunakan react-router-dom:
       <Route path="/order-success" element={<OrderSuccess />} />
-      {/* 🔑 Saat akses http://localhost:3000/admin/login */}
-      <Route path="/login" element={<AdminLogin />} />
-      {/* 🔒 Saat akses http://localhost:3000/admin/dashboard */}
-      {/* 🔒 Jalur Dashboard Admin yang Asli */}
+
+      {/* 2️⃣ RUTE ADMIN (Grup Spesifik) */}
       <Route path="/admin/dashboard" element={<Dashboard />} />
       <Route path="/admin/categories" element={<CategoryManager />} />
       <Route path="/admin/products" element={<ProductManager />} />
       <Route path="/admin/products/import" element={<ProductManager />} />
       <Route path="/admin/orders" element={<AdminOrders />} />
-      {/* Route Terproteksi (Hanya untuk user yang sudah login) */}
+
+      {/* 3️⃣ RUTE TERPROTEKSI */}
       <Route
         path="/account"
         element={
@@ -1573,6 +1570,11 @@ export default function AppRouter() {
           </ProtectedRoute>
         }
       />
+
+      {/* 4️⃣ RUTE CATCH-ALL / HOMEPAGE (WAJIB DI PALING BAWAH) */}
+      {/* Jika tidak ada URL di atas yang cocok, baru dilempar ke Catalog */}
+      <Route path="/" element={<Catalog />} />
+      <Route path="/*" element={<Catalog />} />
     </Routes>
   );
 }
