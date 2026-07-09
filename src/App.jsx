@@ -72,8 +72,16 @@ function Catalog() {
   // Hero slide state
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
   const activeHero = HERO_SLIDES[currentSlideIndex];
+  // Jika menggunakan Vite:
+  const BASE_URL =
+    import.meta.env.MODE === "development"
+      ? "http://localhost:8080"
+      : "https://xlvi-digital-reptil-adventure-api.hf.space";
 
-  const BASE_URL = "http://localhost:8080";
+  // // Jika menggunakan Create React App (CRA):
+  // const BASE_URL = process.env.NODE_ENV === "development"
+  //   ? "http://localhost:8080"
+  //   : "https://xlvi-digital-reptil-adventure-api.hf.space";
 
   // 🌟 TAMBAHKAN LOGIKA TIMEOUT 1 MENIT INI:
   useEffect(() => {
@@ -351,31 +359,42 @@ function Catalog() {
     if (!rawImage) return "https://via.placeholder.com/300";
 
     try {
-      // Jika datanya berupa string JSON (karena dari database seringkali datang sebagai string)
+      // 1. Jika datanya berupa string JSON (karena datang dari Postgres sebagai teks string)
       if (typeof rawImage === "string" && rawImage.startsWith("{")) {
         const parsed = JSON.parse(rawImage);
         if (parsed.primary) {
-          return `${BASE_URL}${parsed.primary}`;
+          // 🚀 BILA SUDAH URL SUPABASE / HTTP, LANGSUNG RETURN UTUH
+          if (parsed.primary.startsWith("http")) {
+            return parsed.primary;
+          }
+          // Fallback jika masih ada path lokal lama, bersihkan slash ganda
+          return `${BASE_URL}/${parsed.primary.replace(/^\//, "")}`;
         }
       }
-      // Jika datanya sudah otomatis menjadi Object di JavaScript
+
+      // 2. Jika datanya sudah otomatis di-parse menjadi Object oleh Axios
       else if (typeof rawImage === "object" && rawImage.primary) {
-        return `${BASE_URL}${rawImage.primary}`;
+        // 🚀 BILA SUDAH URL SUPABASE / HTTP, LANGSUNG RETURN UTUH
+        if (rawImage.primary.startsWith("http")) {
+          return rawImage.primary;
+        }
+        // Fallback jika masih ada path lokal lama
+        return `${BASE_URL}/${rawImage.primary.replace(/^\//, "")}`;
       }
 
-      // Jika ternyata datanya string biasa (bukan JSON objek)
+      // 3. Jika datanya string URL biasa (bukan format JSON Objek)
       if (typeof rawImage === "string") {
         if (rawImage.startsWith("http")) return rawImage;
-        return `${BASE_URL}${rawImage}`;
+        return `${BASE_URL}/${rawImage.replace(/^\//, "")}`;
       }
     } catch (error) {
       console.error("Gagal memparsing gambar:", error);
     }
 
-    return "https://via.placeholder.com/300"; // Gambar cadangan jika gagal
+    return "https://via.placeholder.com/300"; // Gambar cadangan jika gagal total
   };
 
-  // Tulis ini tepat di atas baris "return (" pada komponen Catalog:
+  // 🧱 Tulis ini tepat di atas baris "return (" pada komponen Catalog:
   if (!activeHero) {
     return (
       <div className="min-h-screen flex items-center justify-center text-xs text-neutral-500">
