@@ -75,6 +75,9 @@ export default function CheckoutComponent({
     setToast({ show: true, message, type });
   };
 
+  // 🚀 TAMBAHKAN BARIS INI DI LUAR KOMPONEN / DI ATAS FILE
+  const BASE_URL = "https://xlvi-digital-reptil-adventure-api.hf.space";
+
   // ================= KALKULASI BERDASARKAN DATA CART =================
   const shippingCost = 0;
   const productTotal = cart.reduce(
