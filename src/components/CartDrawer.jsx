@@ -34,7 +34,9 @@ export default function CartDrawer({
     0,
   );
 
-  const BASE_URL = "http://localhost:8080";
+  // 🚀 Ubah BASE_URL ke alamat backend production Hugging Face kamu
+  const BASE_URL = "https://xlvi-digital-reptil-adventure-api.hf.space";
+
   const getProductImage = (product) => {
     if (!product) return "https://via.placeholder.com/300";
 
@@ -44,22 +46,33 @@ export default function CartDrawer({
     if (!rawImage) return "https://via.placeholder.com/300";
 
     try {
-      // Jika datanya berupa string JSON (karena dari database seringkali datang sebagai string)
+      // 1. Jika datanya berupa string JSON (karena datang dari database berupa teks)
       if (typeof rawImage === "string" && rawImage.startsWith("{")) {
         const parsed = JSON.parse(rawImage);
         if (parsed.primary) {
-          return `${BASE_URL}${parsed.primary}`;
+          // 🌟 JIKA SUDAH URL SUPABASE (diawali http/https), LANGSUNG RETURN UTUH
+          if (parsed.primary.startsWith("http")) {
+            return parsed.primary;
+          }
+          // Fallback membersihkan slash ganda jika masih ada path lokal lama
+          return `${BASE_URL}/${parsed.primary.replace(/^\//, "")}`;
         }
       }
-      // Jika datanya sudah otomatis menjadi Object di JavaScript
+
+      // 2. Jika datanya sudah otomatis menjadi Object di JavaScript (di-parse oleh Axios)
       else if (typeof rawImage === "object" && rawImage.primary) {
-        return `${BASE_URL}${rawImage.primary}`;
+        // 🌟 JIKA SUDAH URL SUPABASE (diawali http/https), LANGSUNG RETURN UTUH
+        if (rawImage.primary.startsWith("http")) {
+          return rawImage.primary;
+        }
+        // Fallback membersihkan slash ganda jika masih ada path lokal lama
+        return `${BASE_URL}/${rawImage.primary.replace(/^\//, "")}`;
       }
 
-      // Jika ternyata datanya string biasa (bukan JSON objek)
+      // 3. Jika ternyata datanya string biasa langsung (bukan objek JSON)
       if (typeof rawImage === "string") {
         if (rawImage.startsWith("http")) return rawImage;
-        return `${BASE_URL}${rawImage}`;
+        return `${BASE_URL}/${rawImage.replace(/^\//, "")}`;
       }
     } catch (error) {
       console.error("Gagal memparsing gambar:", error);
