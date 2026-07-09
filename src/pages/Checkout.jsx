@@ -429,7 +429,8 @@ export default function CheckoutComponent({
     setDistricts([]);
 
     if (id) {
-      fetch(`http://127.0.0.1:8080/api/v1/regencies?province_id=${id}`)
+      // 🚀 DIUBAH: Menggunakan BASE_URL Hugging Face
+      fetch(`${BASE_URL}/api/v1/regencies?province_id=${id}`)
         .then((res) => res.json())
         .then((data) => {
           const formatted = data.map((city) => ({
@@ -456,7 +457,8 @@ export default function CheckoutComponent({
     setDistricts([]);
 
     if (id) {
-      fetch(`http://127.0.0.1:8080/api/v1/districts?regency_id=${id}`)
+      // 🚀 DIUBAH: Menggunakan BASE_URL Hugging Face
+      fetch(`${BASE_URL}/api/v1/districts?regency_id=${id}`)
         .then((res) => res.json())
         .then((data) => {
           const formatted = data.map((dist) => ({
