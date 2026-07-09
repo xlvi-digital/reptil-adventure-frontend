@@ -164,14 +164,12 @@ export default function CheckoutComponent({
       }
     }
   }, [formData.mapCoordinates]);
-
   // PERUBAHAN: useEffect hanya mengambil data Provinsi, auto-detect GPS saat pertama kali load dimatikan
   useEffect(() => {
     const initializeForm = async () => {
       try {
-        const provincesRes = await fetch(
-          "http://127.0.0.1:8080/api/v1/provinces",
-        );
+        // 🚀 MENGGUNAKAN BASE_URL PRODUCTION HUGGING FACE
+        const provincesRes = await fetch(`${BASE_URL}/api/v1/provinces`);
         const provincesData = await provincesRes.json();
         const provinceOptions = provincesData.map((prov) => ({
           value: prov.id,
@@ -199,8 +197,9 @@ export default function CheckoutComponent({
             }
 
             if (provinceId) {
+              // 🚀 MENGGUNAKAN BASE_URL PRODUCTION HUGGING FACE
               const citiesRes = await fetch(
-                `http://127.0.0.1:8080/api/v1/regencies?province_id=${provinceId}`,
+                `${BASE_URL}/api/v1/regencies?province_id=${provinceId}`,
               );
               const citiesData = await citiesRes.json();
               const cityOptions = citiesData.map((city) => ({
@@ -217,8 +216,9 @@ export default function CheckoutComponent({
               }
 
               if (cityId) {
+                // 🚀 MENGGUNAKAN BASE_URL PRODUCTION HUGGING FACE
                 const districtsRes = await fetch(
-                  `http://127.0.0.1:8080/api/v1/districts?regency_id=${cityId}`,
+                  `${BASE_URL}/api/v1/districts?regency_id=${cityId}`,
                 );
                 const districtsData = await districtsRes.json();
                 const districtOptions = districtsData.map((dist) => ({
