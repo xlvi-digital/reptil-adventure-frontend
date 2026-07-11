@@ -325,21 +325,26 @@ export default function ProductManager() {
       console.error("Gagal parse data gambar saat edit", e);
     }
 
-    const BASE_URL = "http://localhost:8080";
+    // 🚀 1. Taruh deklarasi ini di bagian atas file (di luar fungsi komponen atau di bagian atas render)
+    const BASE_URL = "https://xlvi-digital-reptil-adventure-api.hf.space";
+    const DEFAULT_IMAGE =
+      "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=100";
+    // Fungsi helper kecil khusus untuk mengecek link preview gambar
+    const resolvePreviewUrl = (path) => {
+      if (!path) return null;
+      // 🌟 Jika sudah berupa URL penuh (Supabase/Internet), langsung return utuh
+      if (path.startsWith("http")) return path;
+      // Fallback untuk path lokal lama, bersihkan slash ganda jika ada
+      return `${BASE_URL}/${path.replace(/^\//, "")}`;
+    };
 
+    // 🚀 2. Terapkan fungsi helper di dalam state preview
     setImagePreviews({
-      primary: imageData?.primary ? `${BASE_URL}${imageData.primary}` : null,
-      support1: imageData?.support?.[0]
-        ? `${BASE_URL}${imageData.support[0]}`
-        : null,
-      support2: imageData?.support?.[1]
-        ? `${BASE_URL}${imageData.support[1]}`
-        : null,
-      support3: imageData?.support?.[2]
-        ? `${BASE_URL}${imageData.support[2]}`
-        : null,
+      primary: resolvePreviewUrl(imageData?.primary),
+      support1: resolvePreviewUrl(imageData?.support?.[0]),
+      support2: resolvePreviewUrl(imageData?.support?.[1]),
+      support3: resolvePreviewUrl(imageData?.support?.[2]),
     });
-
     const existingColors = product.colors || [];
     const existingSizes = product.sizes || [];
     setColors(existingColors);
@@ -559,9 +564,45 @@ export default function ProductManager() {
                           }
                         } catch (e) {}
 
-                        const finalImageSrc = imageData?.primary
-                          ? `http://localhost:8080${imageData.primary}`
-                          : "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=100";
+                        const rawImage = product.image || product.image_url;
+                        let finalImageSrc =
+                          "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=100"; //
+
+                        if (rawImage) {
+                          try {
+                            if (
+                              typeof rawImage === "string" &&
+                              rawImage.startsWith("{")
+                            ) {
+                              const parsed = JSON.parse(rawImage);
+                              if (parsed.primary) {
+                                finalImageSrc = parsed.primary.startsWith(
+                                  "http",
+                                )
+                                  ? parsed.primary
+                                  : `${BASE_URL}/${parsed.primary.replace(/^\//, "")}`;
+                              }
+                            } else if (
+                              typeof rawImage === "object" &&
+                              rawImage.primary
+                            ) {
+                              finalImageSrc = rawImage.primary.startsWith(
+                                "http",
+                              )
+                                ? rawImage.primary
+                                : `${BASE_URL}/${rawImage.primary.replace(/^\//, "")}`;
+                            } else if (typeof rawImage === "string") {
+                              finalImageSrc = rawImage.startsWith("http")
+                                ? rawImage
+                                : `${BASE_URL}/${rawImage.replace(/^\//, "")}`;
+                            }
+                          } catch (error) {
+                            console.error(
+                              "Gagal parsing gambar baris produk:",
+                              error,
+                            );
+                          }
+                        }
 
                         return (
                           <tr
@@ -578,13 +619,12 @@ export default function ProductManager() {
                                 alt={product.name || "Gambar"}
                                 className="w-11 h-11 object-cover rounded-lg border border-[#222222] bg-neutral-900 shadow-sm"
                                 onError={(e) => {
-                                  e.target.src =
-                                    "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=100";
+                                  e.target.src = DEFAULT_IMAGE;
                                 }}
                               />
                             </td>
 
-                            {/* 🚀 FIX: truncate nama agar tidak merusak lebar row */}
+                            {/* 🚀 TRUNCATE NAMA */}
                             <td className="px-6 py-4">
                               <div
                                 className={`font-bold text-sm max-w-[200px] truncate ${darkMode ? "text-white" : "text-neutral-800"}`}
@@ -612,7 +652,6 @@ export default function ProductManager() {
 
                             <td className="px-3 py-2 text-center">
                               <div className="flex justify-center gap-1">
-                                {/* 🚀 BARU: ICON DETAIL VIEW */}
                                 <button
                                   onClick={() =>
                                     setSelectedProductDetail(product)

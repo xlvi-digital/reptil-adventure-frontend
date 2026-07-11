@@ -96,13 +96,20 @@ export default function CheckoutComponent({
     }).format(number);
   };
 
-  // Reverse Geocoding (Hanya dipanggil saat peta diklik atau tombol GPS ditekan)
+  // Reverse Geocoding (Diperbarui dengan Validasi Proteksi Respon)
   const reverseGeocode = async (lat, lng) => {
     try {
       const response = await fetch(
-        `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`,
+        `${BASE_URL}/api/v1/geocode/reverse?lat=${lat}&lon=${lng}`,
       );
+
+      // 🚀 PROTEKSI 1: Jika server merespon selain status 200 (misal 404 atau 500)
+      if (!response.ok) {
+        throw new Error(`Server merespon dengan status ${response.status}`);
+      }
+
       const data = await response.json();
+
       if (data && data.display_name) {
         setFormData((prev) => ({
           ...prev,
@@ -112,7 +119,8 @@ export default function CheckoutComponent({
       }
       setHasPinnedLocation(true);
     } catch (error) {
-      console.error("Gagal mengambil data geocoding:", error);
+      // Sekarang tidak akan memunculkan SyntaxError JSON lagi, melainkan pesan log yang jelas
+      console.error("Gagal mengambil data geocoding:", error.message);
     }
   };
 
