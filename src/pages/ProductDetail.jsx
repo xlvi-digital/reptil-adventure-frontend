@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import { PRODUCTS } from "../data"; // Sesuaikan dengan path file data produk Anda
 import { Minus, Plus, ShoppingBag, ArrowLeft, Star } from "lucide-react";
 
 export default function ProductDetail({
@@ -40,6 +39,34 @@ export default function ProductDetail({
     window.scrollTo(0, 0);
   }, [product]);
 
+  const BASE_URL = "https://xlvi-digital-reptil-adventure-api.hf.space";
+
+  const getProductImage = (product) => {
+    if (!product) return "https://via.placeholder.com/600";
+    const rawImage = product.image || product.image_url;
+    if (!rawImage) return "https://via.placeholder.com/600";
+
+    try {
+      if (typeof rawImage === "string" && rawImage.startsWith("{")) {
+        const parsed = JSON.parse(rawImage);
+        if (parsed.primary) {
+          if (parsed.primary.startsWith("http")) return parsed.primary;
+          return `${BASE_URL}/${parsed.primary.replace(/^\//, "")}`;
+        }
+      } else if (typeof rawImage === "object" && rawImage.primary) {
+        if (rawImage.primary.startsWith("http")) return rawImage.primary;
+        return `${BASE_URL}/${rawImage.primary.replace(/^\//, "")}`;
+      }
+      if (typeof rawImage === "string") {
+        if (rawImage.startsWith("http")) return rawImage;
+        return `${BASE_URL}/${rawImage.replace(/^\//, "")}`;
+      }
+    } catch (error) {
+      console.error("Gagal memparsing gambar detail:", error);
+    }
+    return "https://via.placeholder.com/600";
+  };
+
   // Jika produk tidak ditemukan di database
   if (!product) {
     return (
@@ -70,18 +97,11 @@ export default function ProductDetail({
       {/* Grid Konten Detail */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
         {/* Kolom Kiri: Gambar Produk Premium */}
+        {/* Kolom Kiri: Gambar Produk Premium */}
         <div className="w-full bg-neutral-50 rounded-3xl border border-neutral-100 overflow-hidden flex items-center justify-center p-8 aspect-square">
           <img
-            src={
-              product?.image &&
-              typeof product.image === "string" &&
-              product.image.startsWith("{")
-                ? `http://localhost:8080${JSON.parse(product.image).primary}`
-                : product?.image?.primary
-                  ? `http://localhost:8080${product.image.primary}`
-                  : "https://via.placeholder.com/600"
-            }
-            alt={product?.name || product?.title}
+            src={getProductImage(product)} // 🚀 Panggil fungsi helper di sini
+            alt={product?.name || product?.title || "Gambar Produk"}
             className="w-full h-full object-cover rounded-2xl"
           />
         </div>
