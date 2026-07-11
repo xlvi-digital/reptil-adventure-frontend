@@ -42,6 +42,7 @@ import CartDrawer from "./components/CartDrawer.jsx";
 import SearchModal from "./components/SearchModal.jsx";
 import WatchIntroModal from "./components/WatchIntroModal.jsx";
 import AiStylist from "./components/AiStylist.jsx";
+import { HERO_SLIDES, PRODUCTS, TESTIMONIALS } from "../data";
 
 // 🚀 HUB UTAMA ROUTING: Memanggil file AppRouter baru yang kita buat
 import AppRouter from "./AppRouter.jsx";
