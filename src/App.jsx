@@ -31,44 +31,22 @@ import {
   HelpCircle,
   Truck,
 } from "lucide-react";
-// 🌟 1. Impor Library AOS beserta CSS Bawaannya
+// 🌟 Impor Library AOS beserta CSS Bawaannya (Efek Scroll)
 import AOS from "aos";
 import "aos/dist/aos.css";
 
-import { HERO_SLIDES, PRODUCTS, TESTIMONIALS } from "./data";
-// import { Product, CartItem } from './types';
-import WatchIntroModal from "./components/WatchIntroModal";
-import CartDrawer from "./components/CartDrawer";
-import AiStylist from "./components/AiStylist";
-// 🌟 Tinggal Panggil Komponen Terpisah yang Sudah Dibuat
-import Navbar from "./components/Navbar.jsx"; // Pastikan path ini benar sesuai struktur folder Anda
-import Footer from "./components/Footer";
-import SearchModal from "./components/SearchModal"; // Jika sudah dipisah
+// 🌟 Impor Komponen Global & Layout UI
+import Navbar from "./components/Navbar.jsx";
+import Footer from "./components/Footer.jsx";
+import CartDrawer from "./components/CartDrawer.jsx";
+import SearchModal from "./components/SearchModal.jsx";
+import WatchIntroModal from "./components/WatchIntroModal.jsx";
+import AiStylist from "./components/AiStylist.jsx";
 
-import ProductDetail from "./pages/ProductDetail";
-import AllProducts from "./pages/AllProducts";
+// 🚀 HUB UTAMA ROUTING: Memanggil file AppRouter baru yang kita buat
+import AppRouter from "./AppRouter.jsx";
 
-import AdminLogin from "./pages/admin/Login";
-import Dashboard from "./pages/admin/Dashboard";
-import CategoryManager from "./pages/admin/CategoryManager";
-// 🚀 Pastikan ini tertulis CategoryManager, BUKAN Dashboard
-import ProductManager from "./pages/admin/ProductManager";
-import EventPage from "./pages/Event"; // Sesuaikan path jika berbeda folder
-import AboutPage from "./pages/About"; // 🌟 Impor halaman About yang baru dibuat
-import Checkout from "./pages/Checkout";
-import OrderSuccess from "./pages/OrderSuccess";
-import UserAccount from "./pages/UserAccount";
-// 🌟 Impor halaman Order Success yang baru dibuat
-import AdminOrders from "./pages/admin/AdminOrders";
-import API from "./api/axios";
-
-// Komponen Proteksi Route (Mencegah akses halaman akun jika belum login)
-const ProtectedRoute = ({ children }) => {
-  const isAuthenticated = localStorage.getItem("token") !== null;
-  return isAuthenticated ? children : <Navigate to="/login" replace />;
-};
-
-function Catalog() {
+export default function App() {
   // Hero slide state
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
   const activeHero = HERO_SLIDES[currentSlideIndex];
@@ -1561,39 +1539,5 @@ function Catalog() {
         </div>
       )}
     </div>
-  );
-}
-// 🔑 JADIKAN INI SEBAGAI EXPORT DEFAULT DI PALING BAWAH FILE
-export default function AppRouter() {
-  return (
-    <Routes>
-      {/* 1️⃣ RUTE SPESIFIK UTAMA (Taruh di Paling Atas) */}
-      <Route path="/login" element={<AdminLogin />} />
-      <Route path="/events" element={<EventPage />} />
-      <Route path="/about" element={<AboutPage />} />
-      <Route path="/order-success" element={<OrderSuccess />} />
-
-      {/* 2️⃣ RUTE ADMIN (Grup Spesifik) */}
-      <Route path="/admin/dashboard" element={<Dashboard />} />
-      <Route path="/admin/categories" element={<CategoryManager />} />
-      <Route path="/admin/products" element={<ProductManager />} />
-      <Route path="/admin/products/import" element={<ProductManager />} />
-      <Route path="/admin/orders" element={<AdminOrders />} />
-
-      {/* 3️⃣ RUTE TERPROTEKSI */}
-      <Route
-        path="/account"
-        element={
-          <ProtectedRoute>
-            <UserAccount />
-          </ProtectedRoute>
-        }
-      />
-
-      {/* 4️⃣ RUTE CATCH-ALL / HOMEPAGE (WAJIB DI PALING BAWAH) */}
-      {/* Jika tidak ada URL di atas yang cocok, baru dilempar ke Catalog */}
-      <Route path="/" element={<Catalog />} />
-      <Route path="/*" element={<Catalog />} />
-    </Routes>
   );
 }
