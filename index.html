@@ -4,6 +4,14 @@
     <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="
+  default-src 'self' https://xlvi-digital-reptil-adventure-api.hf.space;
+  connect-src 'self' https://xlvi-digital-reptil-adventure-api.hf.space https://api.sandbox.midtrans.com https://app.sandbox.midtrans.com;
+  frame-src 'self' https://app.sandbox.midtrans.com https://app.midtrans.com;
+"
+    />
     <title>Reptil Adventure</title>
   </head>
   <body>

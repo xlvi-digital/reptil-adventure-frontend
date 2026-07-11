@@ -63,6 +63,7 @@ export default function CheckoutComponent({
   const [isLocating, setIsLocating] = useState(false);
   const [isMapActive, setIsMapActive] = useState(false);
   const [hasPinnedLocation, setHasPinnedLocation] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // State Toast
   const [toast, setToast] = useState({
@@ -491,15 +492,19 @@ export default function CheckoutComponent({
   };
 
   const handleCheckout = async () => {
-    const token = localStorage.getItem("token");
+    // 🚀 CEK: Mencegah eksekusi ganda jika sedang memproses
+    if (isSubmitting) return;
 
+    const token = localStorage.getItem("token");
     if (!token) {
       alert("Sesi Anda habis. Silakan login kembali.");
       return;
     }
 
     try {
-      // 1. Ambil data profil user real-time (🚀 DIUBAH ke BASE_URL)
+      setIsSubmitting(true); // 🚀 KUNCI: Set loading true
+
+      // 1. Ambil data profil user real-time
       const profileRes = await fetch(`${BASE_URL}/api/v1/user/profile`, {
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -514,7 +519,7 @@ export default function CheckoutComponent({
           ? formData.detailAddress
           : formData?.rawMapAddress || "Cianjur";
 
-      // 2. Kirim data pesanan ke Backend (🚀 DIUBAH ke BASE_URL)
+      // 2. Kirim data pesanan ke Backend
       const res = await fetch(`${BASE_URL}/api/v1/user/orders`, {
         method: "POST",
         headers: {
@@ -525,28 +530,21 @@ export default function CheckoutComponent({
           customer_name: dbUser?.name || "Reyhan Tri Ramadan",
           customer_email: dbUser?.email || "reyhan@example.com",
           customer_phone: dbUser?.phone || "081234567890",
-
           province_name: formData?.provinceName || "",
           city_name: formData?.cityName || "",
           district_name: formData?.districtName || "",
           village_name: formData?.villageName || "",
           postal_code: formData?.postalCode || "",
-
           detail_address: detailAddressFinal,
           map_coordinates: formData?.mapCoordinates || "",
           raw_map_address: formData?.rawMapAddress || "",
-
           courier: formData?.courier || "JNE",
           shipping_cost: Number(formData?.shippingCost) || 0,
-
-          // 🚀 KUNCI PERBAIKAN: Amankan ekstraksi ID produk dari array keranjang
           cart_items: cart.map((item) => {
             const rawIdString = item?.id || item?.product_id || "";
-            // Mengambil "PROD-35930505" dari "PROD-35930505_One Size_Earth Green"
             const cleanSku = rawIdString.split("_")[0];
-
             return {
-              product_id: cleanSku, // Dikirim string murni menuju CartItemInput (string)
+              product_id: cleanSku,
               quantity: Number(item?.qty || item?.quantity || 1),
             };
           }),
@@ -561,17 +559,8 @@ export default function CheckoutComponent({
       }
 
       const invoiceNumber =
-        resData.order_invoice ||
-        resData.invoice_number ||
-        resData.invoice ||
-        resData.order?.order_invoice ||
-        resData.order?.invoice ||
-        "INV-UNKNOWN";
-      const statusValue =
-        resData.status ||
-        resData.payment_status ||
-        resData.order_status ||
-        "PENDING";
+        resData.order_invoice || resData.invoice_number || "INV-UNKNOWN";
+      const statusValue = resData.status || "PENDING";
 
       if (typeof clearCart === "function") {
         clearCart();
@@ -598,6 +587,9 @@ export default function CheckoutComponent({
               `/order-success?invoice=${encodeURIComponent(invoiceNumber)}&status=PENDING`,
             );
           },
+          onClose: function () {
+            setIsSubmitting(false); // Buka kunci jika user menutup pop-up
+          },
         });
       } else {
         navigate(
@@ -607,6 +599,8 @@ export default function CheckoutComponent({
     } catch (err) {
       console.error("Error Checkout:", err);
       alert(err.message);
+    } finally {
+      setIsSubmitting(false); // 🚀 BUKA KUNCI: Lepas status loading setelah beres/error
     }
   };
   // Handler Event Klik pada Peta
@@ -1005,12 +999,15 @@ export default function CheckoutComponent({
             </div>
 
             <button
-              type="button"
               onClick={handleCheckout}
-              disabled={cart.length === 0}
-              className="mt-2 w-full bg-slate-900 text-white rounded-xl py-3.5 text-sm font-bold shadow-md hover:bg-slate-800 disabled:bg-slate-200 disabled:text-slate-400 disabled:cursor-not-allowed transition-all"
+              disabled={isSubmitting}
+              className={`w-full py-4 rounded-xl font-bold transition-all ${
+                isSubmitting
+                  ? "bg-neutral-600 cursor-not-allowed"
+                  : "bg-emerald-500 hover:bg-emerald-600"
+              }`}
             >
-              Lanjutkan ke Pembayaran
+              {isSubmitting ? "Memproses Pesanan..." : "Konfirmasi & Bayar"}
             </button>
 
             {toast.show && (
