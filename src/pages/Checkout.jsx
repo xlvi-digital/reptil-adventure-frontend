@@ -499,13 +499,10 @@ export default function CheckoutComponent({
     }
 
     try {
-      // 1. Ambil data profil user real-time untuk mengisi Name, Email, & Phone
-      const profileRes = await fetch(
-        "http://localhost:8080/api/v1/user/profile",
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        },
-      );
+      // 1. Ambil data profil user real-time (🚀 DIUBAH ke BASE_URL)
+      const profileRes = await fetch(`${BASE_URL}/api/v1/user/profile`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
 
       let dbUser = {};
       if (profileRes.ok) {
@@ -517,8 +514,8 @@ export default function CheckoutComponent({
           ? formData.detailAddress
           : formData?.rawMapAddress || "Cianjur";
 
-      // 2. Kirim data pesanan ke Backend
-      const res = await fetch("http://127.0.0.1:8080/api/v1/user/orders", {
+      // 2. Kirim data pesanan ke Backend (🚀 DIUBAH ke BASE_URL)
+      const res = await fetch(`${BASE_URL}/api/v1/user/orders`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -612,7 +609,6 @@ export default function CheckoutComponent({
       alert(err.message);
     }
   };
-
   // Handler Event Klik pada Peta
   function MapEventsHandler() {
     useMapEvents({
