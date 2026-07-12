@@ -9,7 +9,7 @@ const Checkout = lazy(() => import("./pages/Checkout"));
 
 // 🚀 TAMBAHAN: Lazy loading untuk halaman Account dan Login
 const Account = lazy(() => import("./pages/Account"));
-const Login = lazy(() => import("./pages/Login"));
+const Login = lazy(() => import("./pages/admin/Login"));
 
 const PageLoading = () => (
   <div className="flex h-screen w-full items-center justify-center bg-neutral-950 text-neutral-400 text-sm font-mono">
