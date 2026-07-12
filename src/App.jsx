@@ -6,6 +6,7 @@ import { Sparkles, X, ShoppingBagIcon } from "lucide-react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { HERO_SLIDES, PRODUCTS, TESTIMONIALS } from "./data";
+import API, { IMAGE_URL } from "./api/axios";
 
 // Komponen Global Layar Utama
 import Navbar from "./components/Navbar.jsx";
@@ -20,10 +21,6 @@ import AppRouter from "./AppRouter.jsx";
 
 export default function App() {
   const navigate = useNavigate();
-  const BASE_URL =
-    import.meta.env.MODE === "development"
-      ? "http://localhost:8080"
-      : "https://xlvi-digital-reptil-adventure-api.hf.space";
 
   // --- STATE CORE UTAMA ---
   const [cart, setCart] = useState([]);
@@ -43,8 +40,7 @@ export default function App() {
   const [globalSearchQuery, setGlobalSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
 
-  // 🌟 [TAMBAHAN] Inisialisasi AOS & Fetch Data dari Database saat Pertama Dimuat
-  // 🌟 PERBAIKAN: Fungsi Fetch Data Database yang Aman & Akurat
+  // Inisialisasi AOS Efek Scroll
   useEffect(() => {
     AOS.init({ duration: 1200, once: true, offset: 100 });
 
@@ -52,48 +48,41 @@ export default function App() {
       try {
         setLoading(true);
 
-        // 🚀 KUNCI PERBAIKAN: Menghapus '/api' karena backend Hugging Face menggunakan rute langsung
+        // 🚀 2. Tarik data menggunakan AXIOS instance yang sudah kamu buat
+        // Axios otomatis menambahkan '/api/v1' di depannya sehingga menjadi '/api/v1/products'
         const [resProducts, resCategories] = await Promise.all([
-          fetch(`${BASE_URL}/products`),
-          fetch(`${BASE_URL}/categories`),
+          API.get("/products"),
+          API.get("/categories"),
         ]);
 
-        // Jika rute salah atau server down, lempar ke penanganan fallback
-        if (!resProducts.ok || !resCategories.ok) {
-          throw new Error(
-            `Server merespons dengan status error produk: ${resProducts.status}, kategori: ${resCategories.status}`,
-          );
-        }
+        // Axios menyimpan hasil respon data di dalam properti '.data'
+        const dataProducts = resProducts.data;
+        const dataCategories = resCategories.data;
 
-        const dataProducts = await resProducts.json();
-        const dataCategories = await resCategories.json();
-
-        // Amankan jika backend membungkus data dalam objek '.data' atau langsung array
+        // Amankan jika struktur data dari server Go kamu dibungkus lagi dengan objek '.data' atau langsung array
         const finalProducts = dataProducts.data || dataProducts;
         const finalCategories = dataCategories.data || dataCategories;
 
         if (Array.isArray(finalProducts) && finalProducts.length > 0) {
           setProducts(finalProducts);
         } else {
-          // Jika data kosong dari database, gunakan data dummy/lokal
-          setProducts(PRODUCTS);
+          setProducts(PRODUCTS); // Fallback ke data lokal jika kosong
         }
 
         setCategories(finalCategories);
       } catch (error) {
         console.error("Error Database Fetching:", error);
-        showToast("Gagal memuat database online. Menggunakan data cadangan.");
+        showToast("Server sedang bersiap. Menggunakan data cadangan.");
 
-        // ✨ FALLBACK KEAMANAN: Jika API 404/mati, produk lokal tetap tampil, web tidak akan blank!
+        // Fallback jika Hugging Face mati atau timeout
         setProducts(PRODUCTS);
       } finally {
-        // Apapun yang terjadi (sukses atau eror), matikan loading agar halaman langsung muncul
         setLoading(false);
       }
     };
 
     fetchDataDariDatabase();
-  }, [BASE_URL]);
+  }, []); // Kosongkan dependency agar hanya berjalan 1x saat aplikasi dimuat
 
   // Sinkronisasi Halaman Pagination
   useEffect(() => {
@@ -179,7 +168,7 @@ export default function App() {
   const totalPages = Math.ceil(filteredProducts.length / productPerPage);
   const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
-  // --- FUNGSI PEMBANTU UI (HELPERS) ---
+  // --- 🚀 3. PERBARUI FUNGSI PEMBANTU GAMBAR AGAR MEMAKAI 'IMAGE_URL' DARI AXIOS KAMU ---
   const formatRupiah = (number) =>
     new Intl.NumberFormat("id-ID", {
       style: "currency",
@@ -188,13 +177,16 @@ export default function App() {
     }).format(number);
   const getCategoryName = (p) =>
     p?.category_name || p?.category?.name || p?.category || "";
+
   const getProductImage = (p) => {
     if (!p) return "https://via.placeholder.com/300";
     const rawImage = p.image || p.image_url;
     if (!rawImage) return "https://via.placeholder.com/300";
     if (typeof rawImage === "string" && rawImage.startsWith("http"))
       return rawImage;
-    return `${BASE_URL}/${String(rawImage).replace(/^\//, "")}`;
+
+    // Menggunakan IMAGE_URL ("https://xlvi-digital-reptil-adventure-api.hf.space") yang diexport dari file Axios kamu
+    return `${IMAGE_URL}/${String(rawImage).replace(/^\//, "")}`;
   };
 
   return (
