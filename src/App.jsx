@@ -180,13 +180,29 @@ export default function App() {
 
   const getProductImage = (p) => {
     if (!p) return "https://via.placeholder.com/300";
-    const rawImage = p.image || p.image_url;
-    if (!rawImage) return "https://via.placeholder.com/300";
-    if (typeof rawImage === "string" && rawImage.startsWith("http"))
-      return rawImage;
 
-    // Menggunakan IMAGE_URL ("https://xlvi-digital-reptil-adventure-api.hf.space") yang diexport dari file Axios kamu
-    return `${IMAGE_URL}/${String(rawImage).replace(/^\//, "")}`;
+    // 1. Ambil data mentah gambar dari database
+    let rawImage = p.image || p.image_url || p.Image || p.ImageUrl;
+
+    if (!rawImage) return "https://via.placeholder.com/300";
+
+    // 🚀 KUNCI PERBAIKAN: Jika berbentuk OBJECT, langsung incar properti '.primary'
+    if (typeof rawImage === "object") {
+      rawImage = rawImage.primary || rawImage.url || rawImage.path || "";
+    }
+
+    // Jika setelah dibongkar ternyata tipenya bukan string atau kosong, berikan gambar cadangan
+    if (!rawImage || typeof rawImage !== "string")
+      return "https://via.placeholder.com/300";
+
+    // 2. Karena database kamu menyimpan URL penuh Supabase (diawali http/https),
+    // maka langsung kembalikan URL tersebut tanpa digabung dengan IMAGE_URL backend Go.
+    if (rawImage.startsWith("http://") || rawImage.startsWith("https://")) {
+      return rawImage;
+    }
+
+    // 3. Cadangan jika suatu saat ada gambar lokal/nama file saja
+    return `${IMAGE_URL}/${rawImage.replace(/^\//, "")}`;
   };
 
   return (
