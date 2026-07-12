@@ -8,7 +8,7 @@ const ProductDetail = lazy(() => import("./pages/ProductDetail"));
 const Checkout = lazy(() => import("./pages/Checkout"));
 
 // 🚀 TAMBAHAN: Lazy loading untuk halaman Account dan Login
-const Account = lazy(() => import("./pages/Account"));
+const Account = lazy(() => import("./pages/UserAccount"));
 const Login = lazy(() => import("./pages/admin/Login"));
 
 const PageLoading = () => (
