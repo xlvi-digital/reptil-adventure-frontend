@@ -43,10 +43,44 @@ export default function App() {
   const [globalSearchQuery, setGlobalSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
 
-  // Inisialisasi AOS Efek Scroll
+  // 🌟 [TAMBAHAN] Inisialisasi AOS & Fetch Data dari Database saat Pertama Dimuat
   useEffect(() => {
     AOS.init({ duration: 1200, once: true, offset: 100 });
-  }, []);
+
+    const fetchDataDariDatabase = async () => {
+      try {
+        setLoading(true);
+
+        // Tarik data Produk dan Kategori secara paralel dari backend API
+        const [resProducts, resCategories] = await Promise.all([
+          fetch(`${BASE_URL}/api/products`),
+          fetch(`${BASE_URL}/api/categories`),
+        ]);
+
+        if (!resProducts.ok || !resCategories.ok) {
+          throw new Error("Gagal mengambil data dari server API database.");
+        }
+
+        const dataProducts = await resProducts.json();
+        const dataCategories = await resCategories.json();
+
+        setProducts(dataProducts.data || dataProducts);
+        setCategories(dataCategories.data || dataCategories);
+      } catch (error) {
+        console.error("Error Database Fetching:", error);
+        showToast(
+          "Gagal terhubung ke database backend. Menggunakan data lokal cadangan.",
+        );
+
+        // Fallback/cadangan menggunakan data lokal jika API Hugging Face mati
+        setProducts(PRODUCTS);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchDataDariDatabase();
+  }, [BASE_URL]);
 
   // Sinkronisasi Halaman Pagination
   useEffect(() => {
@@ -167,33 +201,41 @@ export default function App() {
         onSearchOpen={() => setSearchModalOpen(true)}
       />
 
-      {/* 🌍 ROUTER FLOW DIRECTORY */}
-      <AppRouter
-        products={products}
-        categories={categories}
-        activeCategory={activeCategory}
-        setActiveCategory={setActiveCategory}
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
-        currentProducts={currentProducts}
-        filteredProducts={filteredProducts}
-        totalPages={totalPages}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-        handleAddToCart={handleAddToCart}
-        formatRupiah={formatRupiah}
-        getProductImage={getProductImage}
-        getCategoryName={getCategoryName}
-        setSelectedQuickViewProduct={setSelectedQuickViewProduct}
-        HERO_SLIDES={HERO_SLIDES}
-        PRODUCTS={PRODUCTS}
-        TESTIMONIALS={TESTIMONIALS}
-        clearCart={clearCart}
-        cart={cart}
-        globalSearchQuery={globalSearchQuery}
-        setGlobalSearchQuery={setGlobalSearchQuery}
-        loading={loading}
-      />
+      {/* 🌟 [LOGIKA LOADING] Tampilkan indikator memuat jika data database belum ditarik */}
+      {loading ? (
+        <div className="min-h-[70vh] flex flex-col items-center justify-center font-mono text-xs text-neutral-500 gap-3">
+          <div className="h-5 w-5 animate-spin rounded-full border-2 border-neutral-900 border-t-transparent"></div>
+          <span>Mengkoneksikan & memuat data dari database online...</span>
+        </div>
+      ) : (
+        /* 🌍 ROUTER FLOW DIRECTORY */
+        <AppRouter
+          products={products}
+          categories={categories}
+          activeCategory={activeCategory}
+          setActiveCategory={setActiveCategory}
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+          currentProducts={currentProducts}
+          filteredProducts={filteredProducts}
+          totalPages={totalPages}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          handleAddToCart={handleAddToCart}
+          formatRupiah={formatRupiah}
+          getProductImage={getProductImage}
+          getCategoryName={getCategoryName}
+          setSelectedQuickViewProduct={setSelectedQuickViewProduct}
+          HERO_SLIDES={HERO_SLIDES}
+          PRODUCTS={PRODUCTS}
+          TESTIMONIALS={TESTIMONIALS}
+          clearCart={clearCart}
+          cart={cart}
+          globalSearchQuery={globalSearchQuery}
+          setGlobalSearchQuery={setGlobalSearchQuery}
+          loading={loading}
+        />
+      )}
 
       <Footer />
 
