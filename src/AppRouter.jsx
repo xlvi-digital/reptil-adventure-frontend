@@ -6,6 +6,8 @@ const Catalog = lazy(() => import("./pages/Catalog"));
 const AllProducts = lazy(() => import("./pages/AllProducts"));
 const ProductDetail = lazy(() => import("./pages/ProductDetail"));
 const Checkout = lazy(() => import("./pages/Checkout"));
+const Event = lazy(() => import("./pages/Event"));
+const About = lazy(() => import("./pages/About"));
 
 // 🚀 TAMBAHAN: Lazy loading untuk halaman Account dan Login
 const Account = lazy(() => import("./pages/UserAccount"));
@@ -130,6 +132,8 @@ export default function AppRouter({
 
         {/* 🔑 Halaman Login */}
         <Route path="/login" element={<Login />} />
+        <Route path="/events" element={<Event />} />
+        <Route path="/about" element={<About />} />
 
         {/* 🔒 Halaman Account (Terproteksi Middleware ProtectedRoute) */}
         <Route
