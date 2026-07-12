@@ -1,17 +1,35 @@
 import React, { lazy, Suspense } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 
-// Lazy loading halaman-halaman utama
+// Lazy loading halaman-halaman utama yang sudah ada
 const Catalog = lazy(() => import("./pages/Catalog"));
 const AllProducts = lazy(() => import("./pages/AllProducts"));
 const ProductDetail = lazy(() => import("./pages/ProductDetail"));
 const Checkout = lazy(() => import("./pages/Checkout"));
+
+// 🚀 TAMBAHAN: Lazy loading untuk halaman Account dan Login
+const Account = lazy(() => import("./pages/Account"));
+const Login = lazy(() => import("./pages/Login"));
 
 const PageLoading = () => (
   <div className="flex h-screen w-full items-center justify-center bg-neutral-950 text-neutral-400 text-sm font-mono">
     <span>Memuat halaman...</span>
   </div>
 );
+
+// 🔒 KOMPONEN PROTEKSI (Protected Route)
+// Memeriksa keberadaan token JWT sebelum mengizinkan akses ke halaman internal
+const ProtectedRoute = ({ children }) => {
+  const token = localStorage.getItem("token");
+
+  // Jika belum login (tidak ada token), belokkan paksa ke halaman /login
+  if (!token) {
+    return <Navigate to="/login" replace={true} />;
+  }
+
+  // Jika sudah login, loloskan menuju halaman tujuan
+  return children;
+};
 
 export default function AppRouter({
   products,
@@ -109,6 +127,22 @@ export default function AppRouter({
             />
           }
         />
+
+        {/* 🔑 Halaman Login */}
+        <Route path="/login" element={<Login />} />
+
+        {/* 🔒 Halaman Account (Terproteksi Middleware ProtectedRoute) */}
+        <Route
+          path="/account"
+          element={
+            <ProtectedRoute>
+              <Account />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* 🔄 Fallback Catch-All Rute Otomatis jika URL Ngawur */}
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Suspense>
   );
