@@ -44,6 +44,7 @@ export default function App() {
   const [currentPage, setCurrentPage] = useState(1);
 
   // 🌟 [TAMBAHAN] Inisialisasi AOS & Fetch Data dari Database saat Pertama Dimuat
+  // 🌟 PERBAIKAN: Fungsi Fetch Data Database yang Aman & Akurat
   useEffect(() => {
     AOS.init({ duration: 1200, once: true, offset: 100 });
 
@@ -51,30 +52,42 @@ export default function App() {
       try {
         setLoading(true);
 
-        // Tarik data Produk dan Kategori secara paralel dari backend API
+        // 🚀 KUNCI PERBAIKAN: Menghapus '/api' karena backend Hugging Face menggunakan rute langsung
         const [resProducts, resCategories] = await Promise.all([
-          fetch(`${BASE_URL}/api/products`),
-          fetch(`${BASE_URL}/api/categories`),
+          fetch(`${BASE_URL}/products`),
+          fetch(`${BASE_URL}/categories`),
         ]);
 
+        // Jika rute salah atau server down, lempar ke penanganan fallback
         if (!resProducts.ok || !resCategories.ok) {
-          throw new Error("Gagal mengambil data dari server API database.");
+          throw new Error(
+            `Server merespons dengan status error produk: ${resProducts.status}, kategori: ${resCategories.status}`,
+          );
         }
 
         const dataProducts = await resProducts.json();
         const dataCategories = await resCategories.json();
 
-        setProducts(dataProducts.data || dataProducts);
-        setCategories(dataCategories.data || dataCategories);
+        // Amankan jika backend membungkus data dalam objek '.data' atau langsung array
+        const finalProducts = dataProducts.data || dataProducts;
+        const finalCategories = dataCategories.data || dataCategories;
+
+        if (Array.isArray(finalProducts) && finalProducts.length > 0) {
+          setProducts(finalProducts);
+        } else {
+          // Jika data kosong dari database, gunakan data dummy/lokal
+          setProducts(PRODUCTS);
+        }
+
+        setCategories(finalCategories);
       } catch (error) {
         console.error("Error Database Fetching:", error);
-        showToast(
-          "Gagal terhubung ke database backend. Menggunakan data lokal cadangan.",
-        );
+        showToast("Gagal memuat database online. Menggunakan data cadangan.");
 
-        // Fallback/cadangan menggunakan data lokal jika API Hugging Face mati
+        // ✨ FALLBACK KEAMANAN: Jika API 404/mati, produk lokal tetap tampil, web tidak akan blank!
         setProducts(PRODUCTS);
       } finally {
+        // Apapun yang terjadi (sukses atau eror), matikan loading agar halaman langsung muncul
         setLoading(false);
       }
     };
