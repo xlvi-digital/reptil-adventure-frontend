@@ -16,6 +16,7 @@ import Select from "react-select";
 import markerIcon from "leaflet/dist/images/marker-icon.png";
 import markerShadow from "leaflet/dist/images/marker-shadow.png";
 import Toast from "../components/common/Toast";
+import API from "../api/axios"; // Pastikan file instance Axios sudah diimport
 
 let DefaultIcon = L.icon({
   iconUrl: markerIcon,
