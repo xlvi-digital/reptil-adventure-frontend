@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Sparkles, X, ShoppingBagIcon } from "lucide-react";
 
 // Library & Assets Global
@@ -39,6 +39,25 @@ export default function App() {
   const [searchQuery, setSearchQuery] = useState("");
   const [globalSearchQuery, setGlobalSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+
+  const location = useLocation();
+
+  // 🚀 KUNCI: Cek apakah URL saat ini dimulai dengan kata "/admin"
+  const isAdminPage = location.pathname.startsWith("/admin");
+
+  return (
+    <div className="app-container">
+      {/* 🌟 Jika BUKAN halaman admin, tampilkan Navbar utama */}
+      {!isAdminPage && <Navbar />}
+
+      <main className="main-content">
+        <AppRouter />
+      </main>
+
+      {/* 🌟 Jika BUKAN halaman admin, tampilkan Footer utama */}
+      {!isAdminPage && <Footer />}
+    </div>
+  );
 
   // Inisialisasi AOS Efek Scroll
   useEffect(() => {

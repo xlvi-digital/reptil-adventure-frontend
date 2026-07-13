@@ -16,6 +16,7 @@ const Login = lazy(() => import("./pages/admin/Login"));
 const Dashboard = lazy(() => import("./pages/admin/Dashboard"));
 const ProductManager = lazy(() => import("./pages/admin/ProductManager"));
 const CategoryManager = lazy(() => import("./pages/admin/CategoryManager"));
+const AdminOrders = lazy(() => import("./pages/admin/AdminOrders"));
 
 // 🔒 KOMPONEN PROTEKSI (User Biasa)
 const ProtectedRoute = ({ children }) => {
@@ -202,6 +203,14 @@ export default function AppRouter({
           element={
             <AdminRoute>
               <CategoryManager />
+            </AdminRoute>
+          }
+        />
+        <Route
+          path="/admin/orders"
+          element={
+            <AdminRoute>
+              <AdminOrders />
             </AdminRoute>
           }
         />
