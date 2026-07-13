@@ -40,8 +40,8 @@ export default function AdminOrders() {
   // 1. READ: Ambil data dari backend (Mendukung filter status)
   const fetchOrders = async () => {
     try {
-      // 🚀 Jalur endpoint disesuaikan ke /api/v1/admin/orders
-      let endpoint = "/api/v1/admin/orders";
+      // 🚀 Jalur endpoint disesuaikan ke /admin/orders
+      let endpoint = "/admin/orders";
       if (filterStatus !== "all") {
         endpoint += `?status=${filterStatus.toUpperCase()}`;
       }
@@ -78,7 +78,7 @@ export default function AdminOrders() {
   // 2. UPDATE: Mengubah Status Utama Cepat (PAID / PENDING / CANCELLED)
   const handleUpdateStatus = async (invoice, newStatus) => {
     try {
-      const response = await API.put(`/api/v1/admin/orders/${invoice}/status`, {
+      const response = await API.put(`/admin/orders/${invoice}/status`, {
         status: newStatus,
       });
 
@@ -102,7 +102,7 @@ export default function AdminOrders() {
 
     try {
       const response = await API.put(
-        `/api/v1/admin/orders/${selectedOrder.order_invoice}/shipping`,
+        `/admin/orders/${selectedOrder.order_invoice}/shipping`,
         {
           courier: inputCourier,
           receipt_number: inputReceipt, // Diterima backend sebagai tracking_number
@@ -131,7 +131,7 @@ export default function AdminOrders() {
       )
     ) {
       try {
-        const response = await API.delete(`/api/v1/admin/orders/${invoice}`);
+        const response = await API.delete(`/admin/orders/${invoice}`);
 
         if (response.status === 200) {
           alert("Data pesanan berhasil dihapus.");
