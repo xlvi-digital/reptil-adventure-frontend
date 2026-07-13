@@ -13,11 +13,11 @@ const About = lazy(() => import("./pages/About"));
 const Account = lazy(() => import("./pages/UserAccount"));
 const Login = lazy(() => import("./pages/admin/Login"));
 
-const PageLoading = () => (
-  <div className="flex h-screen w-full items-center justify-center bg-neutral-950 text-neutral-400 text-sm font-mono">
-    <span>Memuat halaman...</span>
-  </div>
-);
+// const PageLoading = () => (
+//   <div className="flex h-screen w-full items-center justify-center bg-neutral-950 text-neutral-400 text-sm font-mono">
+//     <span>Memuat halaman...</span>
+//   </div>
+// );
 
 // 🔒 KOMPONEN PROTEKSI (Protected Route)
 // Memeriksa keberadaan token JWT sebelum mengizinkan akses ke halaman internal
