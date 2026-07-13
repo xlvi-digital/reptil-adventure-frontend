@@ -6,6 +6,8 @@ import {
 } from "../../utils/orderStatus";
 import AdminPageShell from "../../components/layouts/AdminPageShell";
 
+import API from "../../api/axios"; // Pastikan path ini sesuai dengan struktur proyekmu
+
 export default function AdminOrders() {
   const [orders, setOrders] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
