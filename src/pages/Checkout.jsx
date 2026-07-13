@@ -178,15 +178,20 @@ export default function CheckoutComponent({
     }
   }, [formData.mapCoordinates]);
 
-  // Load Provinsi via Axios Instance saat component did-mount
   useEffect(() => {
     const initializeForm = async () => {
       try {
-        // 🚀 PERBAIKAN: Menggunakan instance API. Jika routing backendmu adalah `/shippings/provinces`
-        // tanpa `/api/v1` (karena sudah dihandle di baseURL axios), ini akan otomatis memanggil endpoint yang tepat.
-        const provincesRes = await API.get("/shippings/provinces");
-        const provincesData =
-          provincesRes.data?.data || provincesRes.data || [];
+        // 💡 Kita tembak langsung ke root domain tanpa "/api/v1"
+        const response = await fetch(
+          "https://xlvi-digital-reptil-adventure-api.hf.space/shippings/provinces",
+        );
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const resData = await response.json();
+        const provincesData = resData.data || resData || [];
 
         const provinceOptions = provincesData.map((prov) => ({
           value: prov.province_id,
