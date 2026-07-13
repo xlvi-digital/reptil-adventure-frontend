@@ -16,7 +16,7 @@ import Select from "react-select";
 import markerIcon from "leaflet/dist/images/marker-icon.png";
 import markerShadow from "leaflet/dist/images/marker-shadow.png";
 import Toast from "../components/common/Toast";
-import API from "../api/axios"; // Pastikan file instance Axios sudah diimport
+import API from "../api/axios"; // 🚀 Menggunakan instance Axios bawaan agar base URL & interceptor seragam
 
 let DefaultIcon = L.icon({
   iconUrl: markerIcon,
@@ -33,9 +33,6 @@ export default function CheckoutComponent({
 }) {
   const navigate = useNavigate();
 
-  // 🚀 BASE_URL PRODUCTION HUGGING FACE
-  const BASE_URL = "https://xlvi-digital-reptil-adventure-api.hf.space";
-
   // ================= State Form Utama =================
   const [customerName, setCustomerName] = useState("");
   const [customerPhone, setCustomerPhone] = useState("");
@@ -46,28 +43,26 @@ export default function CheckoutComponent({
     provinceName: "",
     cityId: "",
     cityName: "",
-    districtId: "",
-    districtName: "",
+    districtName: "", // 🚀 Input teks mandiri untuk Kecamatan
+    villageName: "", // 🚀 Input teks mandiri untuk Kelurahan / Desa
     postalCode: "",
-    villageName: "",
     detailAddress: "",
-    courier: "jne", // 🚀 Default huruf kecil untuk kebutuhan payload RajaOngkir
+    courier: "jne",
     mapCoordinates: "",
     rawMapAddress: "",
   });
 
-  // State Data Wilayah untuk Dropdown
+  // State Data Wilayah untuk Dropdown RajaOngkir
   const [provinces, setProvinces] = useState([]);
   const [cities, setCities] = useState([]);
-  const [districts, setDistricts] = useState([]);
 
-  // 🚀 State Baru untuk Layanan Kurir & Ongkir RajaOngkir
+  // State Layanan Kurir & Ongkir RajaOngkir
   const [shippingOptions, setShippingOptions] = useState([]);
   const [selectedService, setSelectedService] = useState(null);
   const [shippingCost, setShippingCost] = useState(0);
   const [loadingOngkir, setLoadingOngkir] = useState(false);
 
-  // State Koordinat Peta (Default ke titik tengah Indonesia jika belum ada interaksi)
+  // State Koordinat Peta
   const [position, setPosition] = useState([-2.5489, 118.0149]);
   const [zoomLevel, setZoomLevel] = useState(5);
   const [isLocating, setIsLocating] = useState(false);
@@ -75,7 +70,6 @@ export default function CheckoutComponent({
   const [hasPinnedLocation, setHasPinnedLocation] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // State Toast
   const [toast, setToast] = useState({
     show: false,
     message: "",
@@ -87,7 +81,6 @@ export default function CheckoutComponent({
   };
 
   // ================= KALKULASI BERDASARKAN DATA CART =================
-  // 🚀 1. HITUNG TOTAL BERAT BELANJAAN SECARA OTOMATIS (Dalam Satuan Gram)
   const totalWeight = cart.reduce((sum, item) => {
     const weight =
       item.product?.weight && item.product?.weight > 0
@@ -102,7 +95,6 @@ export default function CheckoutComponent({
     0,
   );
 
-  // 🚀 2. GRAND TOTAL SEKARANG MENJUMLAHKAN ONGKIR DARI RAJAONGKIR
   const grandTotal = productTotal + shippingCost;
 
   const formatRupiah = (number) => {
@@ -117,15 +109,9 @@ export default function CheckoutComponent({
   // Reverse Geocoding
   const reverseGeocode = async (lat, lng) => {
     try {
-      const response = await fetch(
-        `${BASE_URL}/api/v1/geocode/reverse?lat=${lat}&lon=${lng}`,
-      );
-
-      if (!response.ok) {
-        throw new Error(`Server merespon dengan status ${response.status}`);
-      }
-
-      const data = await response.json();
+      // Menggunakan API instance agar mengarah ke base URL production yang benar
+      const response = await API.get(`/geocode/reverse?lat=${lat}&lon=${lng}`);
+      const data = response.data;
 
       if (data && data.display_name) {
         setFormData((prev) => ({
@@ -192,15 +178,16 @@ export default function CheckoutComponent({
     }
   }, [formData.mapCoordinates]);
 
-  // Load Provinsi RajaOngkir saat component dipasang
+  // Load Provinsi via Axios Instance saat component did-mount
   useEffect(() => {
     const initializeForm = async () => {
       try {
-        // 🚀 DIUBAH: Menuju ke Endpoint Khusus RajaOngkir (shippings/provinces)
-        const provincesRes = await fetch(
-          `${BASE_URL}/api/v1/shippings/provinces`,
-        );
-        const provincesData = await provincesRes.json();
+        // 🚀 PERBAIKAN: Menggunakan instance API. Jika routing backendmu adalah `/shippings/provinces`
+        // tanpa `/api/v1` (karena sudah dihandle di baseURL axios), ini akan otomatis memanggil endpoint yang tepat.
+        const provincesRes = await API.get("/shippings/provinces");
+        const provincesData =
+          provincesRes.data?.data || provincesRes.data || [];
+
         const provinceOptions = provincesData.map((prov) => ({
           value: prov.province_id,
           label: prov.province,
@@ -215,15 +202,12 @@ export default function CheckoutComponent({
             const provinceName = parsed.provinceName || "";
             let cityId = parsed.cityId || "";
             const cityName = parsed.cityName || "";
-            let districtId = parsed.districtId || "";
-            const districtName = parsed.districtName || "";
 
             if (provinceId) {
-              // 🚀 DIUBAH: Menuju ke Endpoint Khusus RajaOngkir (shippings/cities)
-              const citiesRes = await fetch(
-                `${BASE_URL}/api/v1/shippings/cities?province=${provinceId}`,
+              const citiesRes = await API.get(
+                `/shippings/cities?province=${provinceId}`,
               );
-              const citiesData = await citiesRes.json();
+              const citiesData = citiesRes.data?.data || citiesRes.data || [];
               const cityOptions = citiesData.map((city) => ({
                 value: city.city_id,
                 label: `${city.type} ${city.city_name}`,
@@ -237,8 +221,7 @@ export default function CheckoutComponent({
               provinceName: provinceName || prev.provinceName,
               cityId,
               cityName: cityName || prev.cityName,
-              districtId,
-              districtName: districtName || prev.districtName,
+              districtName: parsed.districtName || prev.districtName,
               villageName: parsed.villageName || prev.villageName,
               postalCode: parsed.postalCode || prev.postalCode,
               detailAddress: parsed.detailAddress || prev.detailAddress,
@@ -248,7 +231,7 @@ export default function CheckoutComponent({
           }
         }
       } catch (err) {
-        console.error("Gagal load provinsi:", err);
+        console.error("Gagal load data provinsi awal:", err);
       }
 
       const savedUser = localStorage.getItem("user_data");
@@ -267,25 +250,26 @@ export default function CheckoutComponent({
     initializeForm();
   }, []);
 
-  // 🚀 TRIGGER OTOMATIS: Hitung Ongkir Setiap Kali Kota Tujuan / Kurir Berubah
+  // Hitung Ongkir Otomatis saat Kota atau Kurir Berubah
   useEffect(() => {
     if (formData.cityId && formData.courier && totalWeight > 0) {
       const fetchShippingCost = async () => {
         setLoadingOngkir(true);
         try {
-          // Panggil API hitung biaya ongkir
           const response = await API.post("/shippings/cost", {
             destination: formData.cityId,
             weight: totalWeight,
             courier: formData.courier,
           });
-          setShippingOptions(response.data || []);
+          const costData = response.data?.data || response.data || [];
+          setShippingOptions(costData);
           setSelectedService(null);
-          setShippingCost(0); // Reset total ongkir sebelum user memilih service baru
+          setShippingCost(0);
         } catch (error) {
           console.error("Gagal mengambil tarif ongkir:", error);
           showToast("Gagal memuat biaya pengiriman.", "warning");
         } finally {
+          // 💡 Pastikan double 'l' di sini ya!
           setLoadingOngkir(false);
         }
       };
@@ -295,30 +279,19 @@ export default function CheckoutComponent({
   }, [formData.cityId, formData.courier, totalWeight]);
 
   const loadAddressFromAccount = async () => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      alert("Silakan login terlebih dahulu untuk mengambil alamat akun.");
-      return;
-    }
-
     try {
-      const profileRes = await fetch(`${BASE_URL}/api/v1/user/profile`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-
-      if (!profileRes.ok) throw new Error("Gagal memuat profil akun.");
-
-      const profileData = await profileRes.json();
+      const profileRes = await API.get("/user/profile");
+      const profileData = profileRes.data?.data || profileRes.data || {};
       const address = profileData?.shipping_address || {};
 
       let selectedProvinceId = address.province_id || "";
       let selectedCityId = address.city_id || "";
 
       if (selectedProvinceId) {
-        const citiesRes = await fetch(
-          `${BASE_URL}/api/v1/shippings/cities?province=${selectedProvinceId}`,
+        const citiesRes = await API.get(
+          `/shippings/cities?province=${selectedProvinceId}`,
         );
-        const citiesData = await citiesRes.json();
+        const citiesData = citiesRes.data?.data || citiesRes.data || [];
         const cityOptions = citiesData.map((city) => ({
           value: city.city_id,
           label: `${city.type} ${city.city_name}`,
@@ -332,7 +305,6 @@ export default function CheckoutComponent({
         provinceName: address.province || prev.provinceName,
         cityId: selectedCityId,
         cityName: address.city || prev.cityName,
-        districtId: address.district_id || prev.districtId,
         districtName: address.district || prev.districtName,
         villageName: address.village || prev.villageName,
         postalCode: address.postal_code || prev.postalCode,
@@ -346,12 +318,11 @@ export default function CheckoutComponent({
       showToast("Alamat akun berhasil diterapkan ke checkout.", "success");
     } catch (err) {
       console.error("Gagal memuat alamat akun:", err);
-      alert(err.message || "Gagal mengambil alamat akun.");
+      alert("Gagal mengambil alamat akun. Pastikan Anda sudah login.");
     }
   };
 
-  // Handler Perubahan Dropdown Wilayah
-  const handleProvinceChange = (selectedOption) => {
+  const handleProvinceChange = async (selectedOption) => {
     const id = selectedOption ? selectedOption.value : "";
     const name = selectedOption ? selectedOption.label : "";
 
@@ -367,16 +338,17 @@ export default function CheckoutComponent({
     setShippingCost(0);
 
     if (id) {
-      fetch(`${BASE_URL}/api/v1/shippings/cities?province=${id}`)
-        .then((res) => res.json())
-        .then((data) => {
-          const formatted = data.map((city) => ({
-            value: city.city_id,
-            label: `${city.type} ${city.city_name}`,
-          }));
-          setCities(formatted);
-        })
-        .catch((err) => console.error("Gagal load kabupaten/kota:", err));
+      try {
+        const res = await API.get(`/shippings/cities?province=${id}`);
+        const data = res.data?.data || res.data || [];
+        const formatted = data.map((city) => ({
+          value: city.city_id,
+          label: `${city.type} ${city.city_name}`,
+        }));
+        setCities(formatted);
+      } catch (err) {
+        console.error("Gagal load kabupaten/kota:", err);
+      }
     }
   };
 
@@ -384,16 +356,11 @@ export default function CheckoutComponent({
     const id = selectedOption ? selectedOption.value : "";
     const name = selectedOption ? selectedOption.label : "";
 
-    setFormData((prev) => ({
-      ...prev,
-      cityId: id,
-      cityName: name,
-    }));
+    setFormData((prev) => ({ ...prev, cityId: id, cityName: name }));
     setShippingOptions([]);
     setShippingCost(0);
   };
 
-  // Handler Pemilihan Jenis Service Pengiriman (misal: REG / OKE)
   const handleServiceSelect = (option) => {
     setSelectedService(option);
     setShippingCost(option.cost[0].value);
@@ -406,12 +373,6 @@ export default function CheckoutComponent({
       alert(
         "Silakan lengkapi alamat dan pilih opsi pengiriman kurir terlebih dahulu.",
       );
-      return;
-    }
-
-    const token = localStorage.getItem("token");
-    if (!token) {
-      alert("Sesi Anda habis. Silakan login kembali.");
       return;
     }
 
@@ -431,21 +392,20 @@ export default function CheckoutComponent({
           ? formData.detailAddress
           : formData?.rawMapAddress || "Cianjur";
 
-      // Kirim pesanan ke Backend Go
       const res = await API.post("/user/orders", {
         customer_name: dbUser?.name || customerName || "Customer",
         customer_email: dbUser?.email || customerEmail || "",
         customer_phone: dbUser?.phone || customerPhone || "",
         province_name: formData?.provinceName || "",
         city_name: formData?.cityName || "",
-        district_name: formData?.districtName || "",
-        village_name: formData?.villageName || "",
+        district_name: formData?.districtName || "", // 🚀 Mengirim nilai Kecamatan mandiri
+        village_name: formData?.villageName || "", // 🚀 Mengirim nilai Kelurahan / Desa mandiri
         postal_code: formData?.postalCode || "",
         detail_address: `${detailAddressFinal} (Kurir: ${formData.courier.toUpperCase()} - ${selectedService.service})`,
         map_coordinates: formData?.mapCoordinates || "",
         raw_map_address: formData?.rawMapAddress || "",
         courier: formData?.courier.toUpperCase(),
-        shipping_cost: Number(shippingCost), // 🚀 Mengirim Ongkir Nyata dari RajaOngkir
+        shipping_cost: Number(shippingCost),
         cart_items: cart.map((item) => {
           const rawIdString = item?.id || item?.product_id || "";
           const cleanSku = rawIdString.split("_")[0];
@@ -467,24 +427,19 @@ export default function CheckoutComponent({
 
       if (resData.snap_token && window.snap) {
         window.snap.pay(resData.snap_token, {
-          onSuccess: function (result) {
+          onSuccess: () =>
             navigate(
               `/order-success?invoice=${encodeURIComponent(invoiceNumber)}&status=PAID`,
-            );
-          },
-          onPending: function (result) {
+            ),
+          onPending: () =>
             navigate(
               `/order-success?invoice=${encodeURIComponent(invoiceNumber)}&status=PENDING`,
-            );
-          },
-          onError: function (result) {
+            ),
+          onError: () =>
             navigate(
               `/order-success?invoice=${encodeURIComponent(invoiceNumber)}&status=PENDING`,
-            );
-          },
-          onClose: function () {
-            setIsSubmitting(false);
-          },
+            ),
+          onClose: () => setIsSubmitting(false),
         });
       } else {
         navigate(
@@ -562,14 +517,14 @@ export default function CheckoutComponent({
               <button
                 type="button"
                 onClick={loadAddressFromAccount}
-                className="self-start sm:self-center text-xs bg-amber-50 text-amber-700 font-bold px-4 py-2 rounded-xl border border-amber-200 hover:bg-amber-100/80 active:scale-95 transition-all flex items-center gap-1.5 shadow-sm"
+                className="text-xs bg-amber-50 text-amber-700 font-bold px-4 py-2 rounded-xl border border-amber-200 hover:bg-amber-100/80 active:scale-95 transition-all flex items-center gap-1.5 shadow-sm"
               >
                 <span>📍</span> Gunakan Alamat Akun
               </button>
               <button
                 type="button"
                 onClick={activateMapAndDetectLocation}
-                className="self-start sm:self-center text-xs bg-slate-900 text-white font-bold px-4 py-2 rounded-xl border border-slate-900 hover:bg-slate-800 active:scale-95 transition-all flex items-center gap-1.5 shadow-sm"
+                className="text-xs bg-slate-900 text-white font-bold px-4 py-2 rounded-xl border border-slate-900 hover:bg-slate-800 active:scale-95 transition-all flex items-center gap-1.5 shadow-sm"
               >
                 <span>📡</span>{" "}
                 {isLocating ? "Mendeteksi..." : "Gunakan Lokasi Saya"}
@@ -577,7 +532,6 @@ export default function CheckoutComponent({
             </div>
           </div>
 
-          {/* Berat Total Info Panel */}
           <div className="bg-slate-50 p-3 rounded-xl border border-slate-200 flex justify-between items-center text-xs">
             <span className="text-slate-500 font-medium">
               ⚖️ Total Berat Paket:
@@ -662,10 +616,11 @@ export default function CheckoutComponent({
               </div>
             </div>
 
+            {/* 🚀 SEKARANG DIPISAH: Input Mandiri Kecamatan & Kelurahan/Desa */}
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-              <div className="sm:col-span-2">
+              <div>
                 <label className="block text-xs font-semibold text-slate-600 mb-1.5">
-                  Kecamatan / Kelurahan
+                  Kecamatan <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
@@ -674,7 +629,21 @@ export default function CheckoutComponent({
                     setFormData((p) => ({ ...p, districtName: e.target.value }))
                   }
                   className="w-full rounded-xl border-slate-200 p-3 border text-sm focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 outline-none"
-                  placeholder="Contoh: Karangtengah / Desa Bojong"
+                  placeholder="Contoh: Karangtengah"
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-semibold text-slate-600 mb-1.5">
+                  Kelurahan / Desa <span className="text-red-500">*</span>
+                </label>
+                <input
+                  type="text"
+                  value={formData.villageName || ""}
+                  onChange={(e) =>
+                    setFormData((p) => ({ ...p, villageName: e.target.value }))
+                  }
+                  className="w-full rounded-xl border-slate-200 p-3 border text-sm focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 outline-none"
+                  placeholder="Contoh: Desa Bojong"
                 />
               </div>
               <div>
@@ -721,7 +690,6 @@ export default function CheckoutComponent({
               ))}
             </div>
 
-            {/* Pilihan Paket Layanan Ongkir */}
             {loadingOngkir && (
               <p className="text-xs text-amber-600 italic">
                 Sedang mengecek tarif kurir...
@@ -841,9 +809,7 @@ export default function CheckoutComponent({
                         {item.product?.name}
                       </span>
                       <span className="text-xs text-slate-400 mt-0.5">
-                        Qty: {item.quantity} pcs{" "}
-                        {item.size && `| Size: ${item.size}`}{" "}
-                        {item.color && `| Color: ${item.color}`}
+                        Qty: {item.quantity} pcs
                       </span>
                     </div>
                     <span className="font-semibold text-slate-900 shrink-0">
