@@ -45,20 +45,6 @@ export default function App() {
   // 🚀 KUNCI: Cek apakah URL saat ini dimulai dengan kata "/admin"
   const isAdminPage = location.pathname.startsWith("/admin");
 
-  return (
-    <div className="app-container">
-      {/* 🌟 Jika BUKAN halaman admin, tampilkan Navbar utama */}
-      {!isAdminPage && <Navbar />}
-
-      <main className="main-content">
-        <AppRouter />
-      </main>
-
-      {/* 🌟 Jika BUKAN halaman admin, tampilkan Footer utama */}
-      {!isAdminPage && <Footer />}
-    </div>
-  );
-
   // Inisialisasi AOS Efek Scroll
   useEffect(() => {
     AOS.init({ duration: 1200, once: true, offset: 100 });
@@ -235,11 +221,13 @@ export default function App() {
       )}
 
       {/* 🧭 NAVIGATION */}
-      <Navbar
-        cartCount={cartCount}
-        onCartOpen={() => setCartOpen(true)}
-        onSearchOpen={() => setSearchModalOpen(true)}
-      />
+      {!isAdminPage && (
+        <Navbar
+          cartCount={cartCount}
+          onCartOpen={() => setCartOpen(true)}
+          onSearchOpen={() => setSearchModalOpen(true)}
+        />
+      )}
 
       {/* 🌟 [LOGIKA LOADING] Tampilkan indikator memuat jika data database belum ditarik */}
       {loading ? (
@@ -277,7 +265,7 @@ export default function App() {
         />
       )}
 
-      <Footer />
+      {!isAdminPage && <Footer />}
 
       {/* Modals & Overlays */}
       <SearchModal
