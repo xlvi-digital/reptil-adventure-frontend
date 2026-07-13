@@ -573,15 +573,25 @@ export default function CheckoutComponent({
         window.snap.pay(resData.snap_token, {
           onSuccess: function (result) {
             console.log("Midtrans Success:", result);
+
+            // 🚀 PERBAIKAN: Lakukan navigasi terlebih dahulu
             navigate(
               `/order-success?invoice=${encodeURIComponent(invoiceNumber)}&status=PAID`,
             );
+
+            // Beri jeda 500ms sebelum menghapus keranjang agar React Router tidak interupsi/crash
+            setTimeout(() => {
+              if (typeof clearCart === "function") clearCart();
+            }, 500);
           },
           onPending: function (result) {
             console.log("Midtrans Pending:", result);
             navigate(
               `/order-success?invoice=${encodeURIComponent(invoiceNumber)}&status=PENDING`,
             );
+            setTimeout(() => {
+              if (typeof clearCart === "function") clearCart();
+            }, 500);
           },
           onError: function (result) {
             console.error("Midtrans Error:", result);
@@ -590,7 +600,6 @@ export default function CheckoutComponent({
             );
           },
           onClose: function () {
-            // Hanya ubah status submitting jika user membatalkan/menutup pop-up secara sadar
             setIsSubmitting(false);
           },
         });
