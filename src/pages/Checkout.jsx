@@ -491,6 +491,9 @@ export default function CheckoutComponent({
     }));
   };
 
+  // 🚀 PASTIKAN file instance Axios kamu sudah diimport di bagian atas file ini, contoh:
+  // import API from "../api/axios";
+
   const handleCheckout = async () => {
     // 🚀 CEK: Mencegah eksekusi ganda jika sedang memproses
     if (isSubmitting) return;
@@ -504,14 +507,16 @@ export default function CheckoutComponent({
     try {
       setIsSubmitting(true); // 🚀 KUNCI: Set loading true
 
-      // 1. Ambil data profil user real-time
-      const profileRes = await fetch(`${BASE_URL}/api/v1/user/profile`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-
+      // 1. Ambil data profil user real-time menggunakan AXIOS (Token otomatis disuntik oleh interceptor)
       let dbUser = {};
-      if (profileRes.ok) {
-        dbUser = await profileRes.json();
+      try {
+        const profileRes = await API.get("/user/profile");
+        dbUser = profileRes.data?.data || profileRes.data || {};
+      } catch (profileErr) {
+        console.warn(
+          "Gagal mengambil profil real-time, menggunakan fallback data manual:",
+          profileErr,
+        );
       }
 
       const detailAddressFinal =
@@ -519,49 +524,41 @@ export default function CheckoutComponent({
           ? formData.detailAddress
           : formData?.rawMapAddress || "Cianjur";
 
-      // 2. Kirim data pesanan ke Backend
-      const res = await fetch(`${BASE_URL}/api/v1/user/orders`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          customer_name: dbUser?.name || "Reyhan Tri Ramadan",
-          customer_email: dbUser?.email || "reyhan@example.com",
-          customer_phone: dbUser?.phone || "081234567890",
-          province_name: formData?.provinceName || "",
-          city_name: formData?.cityName || "",
-          district_name: formData?.districtName || "",
-          village_name: formData?.villageName || "",
-          postal_code: formData?.postalCode || "",
-          detail_address: detailAddressFinal,
-          map_coordinates: formData?.mapCoordinates || "",
-          raw_map_address: formData?.rawMapAddress || "",
-          courier: formData?.courier || "JNE",
-          shipping_cost: Number(formData?.shippingCost) || 0,
-          cart_items: cart.map((item) => {
-            const rawIdString = item?.id || item?.product_id || "";
-            const cleanSku = rawIdString.split("_")[0];
-            return {
-              product_id: cleanSku,
-              quantity: Number(item?.qty || item?.quantity || 1),
-            };
-          }),
+      // 2. Kirim data pesanan ke Backend Go menggunakan AXIOS instance
+      // Cukup panggil rute relatifnya saja karena baseURL sudah diatur di file Axios
+      const res = await API.post("/user/orders", {
+        customer_name: dbUser?.name || "Reyhan Tri Ramadan",
+        customer_email: dbUser?.email || "reyhan@example.com",
+        customer_phone: dbUser?.phone || "081234567890",
+        province_name: formData?.provinceName || "",
+        city_name: formData?.cityName || "",
+        district_name: formData?.districtName || "",
+        village_name: formData?.villageName || "",
+        postal_code: formData?.postalCode || "",
+        detail_address: detailAddressFinal,
+        map_coordinates: formData?.mapCoordinates || "",
+        raw_map_address: formData?.rawMapAddress || "",
+        courier: formData?.courier || "JNE",
+        shipping_cost: Number(formData?.shippingCost) || 0,
+        cart_items: cart.map((item) => {
+          const rawIdString = item?.id || item?.product_id || "";
+          const cleanSku = rawIdString.split("_")[0];
+          return {
+            product_id: cleanSku,
+            quantity: Number(item?.qty || item?.quantity || 1),
+          };
         }),
       });
 
-      const resData = await res.json();
+      // Axios otomatis mengubah response ke objek JSON di dalam properti '.data'
+      const resData = res.data;
       console.log("Response Akhir Backend:", resData);
-
-      if (!res.ok) {
-        throw new Error(resData.message || "Gagal memproses checkout");
-      }
 
       const invoiceNumber =
         resData.order_invoice || resData.invoice_number || "INV-UNKNOWN";
       const statusValue = resData.status || "PENDING";
 
+      // Kosongkan keranjang jika order berhasil dibuat di backend
       if (typeof clearCart === "function") {
         clearCart();
       }
@@ -570,37 +567,47 @@ export default function CheckoutComponent({
         onCheckoutSuccess({ invoiceNumber, status: statusValue });
       }
 
+      // 3. Integrasi Snap Midtrans Pop-up
       if (resData.snap_token && window.snap) {
         window.snap.pay(resData.snap_token, {
-          onSuccess: function () {
+          onSuccess: function (result) {
+            console.log("Midtrans Success:", result);
             navigate(
               `/order-success?invoice=${encodeURIComponent(invoiceNumber)}&status=PAID`,
             );
           },
-          onPending: function () {
+          onPending: function (result) {
+            console.log("Midtrans Pending:", result);
             navigate(
               `/order-success?invoice=${encodeURIComponent(invoiceNumber)}&status=PENDING`,
             );
           },
-          onError: function () {
+          onError: function (result) {
+            console.error("Midtrans Error:", result);
             navigate(
               `/order-success?invoice=${encodeURIComponent(invoiceNumber)}&status=PENDING`,
             );
           },
           onClose: function () {
-            setIsSubmitting(false); // Buka kunci jika user menutup pop-up
+            // Hanya ubah status submitting jika user membatalkan/menutup pop-up secara sadar
+            setIsSubmitting(false);
           },
         });
       } else {
+        // Fallback jika payment gateway dinonaktifkan di backend
         navigate(
           `/order-success?invoice=${encodeURIComponent(invoiceNumber)}&status=${encodeURIComponent(statusValue)}`,
         );
       }
     } catch (err) {
       console.error("Error Checkout:", err);
-      alert(err.message);
-    } finally {
-      setIsSubmitting(false); // 🚀 BUKA KUNCI: Lepas status loading setelah beres/error
+      // Tangani pesan error response dari Axios jika ada
+      const errorMessage =
+        err.response?.data?.message ||
+        err.message ||
+        "Gagal memproses checkout";
+      alert(errorMessage);
+      setIsSubmitting(false); // Buka kunci jika terjadi kegagalan request API
     }
   };
   // Handler Event Klik pada Peta
