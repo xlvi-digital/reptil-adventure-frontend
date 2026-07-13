@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom"; // 🌟 Ditambahkan useSearchParams
-import API from "../../api/axios"; // 🌟 Menggunakan relasi mundur 3 tingkat dari folder admin
+import { useNavigate, useSearchParams } from "react-router-dom";
+import API from "../../api/axios";
 import {
   Lock,
   Mail,
@@ -12,15 +12,13 @@ import {
 } from "lucide-react";
 
 export default function Login({ onLoginSuccess }) {
-  // IsRegister true = Tampilan Register, false = Tampilan Login
   const [isRegister, setIsRegister] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const [searchParams] = useSearchParams(); // 🌟 Mendeteksi parameter URL (?token=...)
+  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
-  // State Form Gabungan
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -29,32 +27,46 @@ export default function Login({ onLoginSuccess }) {
     address: "",
   });
 
-  // 🌟 OLEH-OLEH GOOGLE OAUTH: Deteksi otomatis token kiriman dari Backend Go
+  // 🌟 OLEH-OLEH GOOGLE OAUTH
   useEffect(() => {
     const tokenFromUrl = searchParams.get("token");
     if (tokenFromUrl) {
       localStorage.setItem("token", tokenFromUrl);
 
-      // Ambil profile pelengkap ke localStorage
       const fetchUserProfile = async () => {
         try {
-          // Menggunakan instance API langsung, token akan otomatis disisipkan oleh interceptor Axios
           const res = await API.get("/auth/me");
-          localStorage.setItem("user_data", JSON.stringify(res.data.user));
+          const user = res.data.user || res.data;
 
-          if (["admin", "owner", "developer"].includes(res.data.user?.role)) {
-            navigate("/admin/dashboard");
+          localStorage.setItem("user_data", JSON.stringify(user));
+
+          const userRole = user?.role || "";
+          const roleId = user?.role_id || "";
+
+          // 🚀 Kirim data via state dan hindari hard reload halaman
+          if (
+            ["admin", "owner", "developer"].includes(userRole) ||
+            String(roleId) === "1"
+          ) {
+            navigate("/admin/dashboard", {
+              state: { authUser: user },
+              replace: true,
+            });
           } else {
-            navigate("/account");
+            navigate("/account", { replace: true });
           }
-        } catch {
+        } catch (err) {
+          console.error("Gagal mengambil profil Google OAuth:", err);
           localStorage.setItem(
             "user_data",
-            JSON.stringify({ name: "User Google", role: "customer" }),
+            JSON.stringify({
+              name: "User Google",
+              role: "customer",
+              role_id: "2",
+            }),
           );
-          navigate("/account");
+          navigate("/account", { replace: true });
         }
-        window.location.reload();
       };
 
       fetchUserProfile();
@@ -85,19 +97,28 @@ export default function Login({ onLoginSuccess }) {
       );
 
       const token = response.data.token;
-      const user = response.data.user;
+      const user =
+        response.data.user || response.data.data?.user || response.data;
 
       if (token) {
         localStorage.setItem("token", token);
         localStorage.setItem("user_data", JSON.stringify(user));
 
-        // 🔒 Navigasi pintar membaca string role ("admin", "owner", "developer", "customer")
+        const userRole = user?.role || "";
+        const roleId = user?.role_id || "";
+
+        // 🔒 Navigasi pintar membaca string role atau role_id dari backend Go
         if (
-          user?.role === "admin" ||
-          user?.role === "owner" ||
-          user?.role === "developer"
+          userRole === "admin" ||
+          userRole === "owner" ||
+          userRole === "developer" ||
+          String(roleId) === "1"
         ) {
-          navigate("/admin/dashboard");
+          // 🚀 KUNCI: Kirim state authUser dan HAPUS window.location.reload() agar memori router terjaga!
+          navigate("/admin/dashboard", {
+            state: { authUser: user },
+            replace: true,
+          });
         } else {
           if (user?.address_info) {
             localStorage.setItem(
@@ -106,11 +127,9 @@ export default function Login({ onLoginSuccess }) {
             );
           }
           if (onLoginSuccess) onLoginSuccess(user);
-          navigate("/account");
+          navigate("/account", { replace: true });
         }
-        window.location.reload(); // Refresh layout global
       } else if (isRegister) {
-        // Jika register berhasil tanpa auto-login dari backend, alihkan ke tab login
         setIsRegister(false);
         setError(
           "Registrasi berhasil! Silakan masuk menggunakan akun baru Anda.",
@@ -120,6 +139,7 @@ export default function Login({ onLoginSuccess }) {
       console.error(err);
       setError(
         err.response?.data?.error ||
+          err.response?.data?.message ||
           "Terjadi kesalahan pada sistem, coba lagi!",
       );
     } finally {
@@ -127,9 +147,7 @@ export default function Login({ onLoginSuccess }) {
     }
   };
 
-  // Handler Memicu Google OAuth Langsung Ke Backend Go
   const handleGoogleLogin = () => {
-    // Mengambil baseURL dari config Axios agar otomatis mengikuti status lokal / Hugging Face
     const baseUrl = API.defaults.baseURL;
     window.location.href = `${baseUrl}/auth/google`;
   };
@@ -137,7 +155,6 @@ export default function Login({ onLoginSuccess }) {
   return (
     <div className="min-h-screen flex items-center justify-center bg-[linear-gradient(135deg,#faf8f2_0%,#f5f5f5_100%)] px-4 font-sans select-none selection:bg-neutral-900 selection:text-white">
       <div className="w-full max-w-sm bg-white border border-neutral-200 rounded-2xl p-6 shadow-sm my-8 transition-all duration-300">
-        {/* Header Brand */}
         <div className="text-center mb-6">
           <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-neutral-500 block mb-2">
             {isRegister ? "Buat akun admin" : "Akses panel admin"}
@@ -152,7 +169,6 @@ export default function Login({ onLoginSuccess }) {
           </p>
         </div>
 
-        {/* Notifikasi Status/Eror */}
         {error && (
           <div
             className={`mb-4 flex items-center gap-2 p-3 rounded-xl text-xs font-semibold ${
@@ -166,7 +182,6 @@ export default function Login({ onLoginSuccess }) {
           </div>
         )}
 
-        {/* Form Input Dinamis */}
         <form onSubmit={handleSubmit} className="space-y-3.5">
           {isRegister && (
             <>
@@ -281,7 +296,6 @@ export default function Login({ onLoginSuccess }) {
           </button>
         </form>
 
-        {/* ─── PEMBATAL / DIVIDER OAUTH ─── */}
         <div className="relative flex py-4 items-center">
           <div className="flex-grow border-t border-neutral-100"></div>
           <span className="flex-shrink mx-3 text-[10px] font-mono text-neutral-300 uppercase tracking-wider">
@@ -290,7 +304,6 @@ export default function Login({ onLoginSuccess }) {
           <div className="flex-grow border-t border-neutral-100"></div>
         </div>
 
-        {/* 🌐 LAYANAN TOMBOL OAUTH SINGLE GOOGLE */}
         <div className="w-full">
           <button
             type="button"
@@ -319,7 +332,6 @@ export default function Login({ onLoginSuccess }) {
           </button>
         </div>
 
-        {/* Toggle Navigasi Bawah */}
         <div className="text-center mt-5">
           <button
             type="button"

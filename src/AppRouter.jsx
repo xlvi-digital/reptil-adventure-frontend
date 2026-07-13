@@ -30,27 +30,25 @@ const ProtectedRoute = ({ children }) => {
   return children;
 };
 
-// 👑 KOMPONEN PROTEKSI KHUSUS ADMIN (Sudah Sinkron dengan LocalStorage & Go Backend)
 const AdminRoute = ({ children }) => {
   const token = localStorage.getItem("token");
+  const location = useLocation();
 
-  // 1. Ambil data dengan KEY yang benar: "user_data"
-  const userData = JSON.parse(localStorage.getItem("user_data") || "{}");
+  // Ambil data user dari State Navigasi atau LocalStorage
+  const stateUser = location.state?.authUser;
+  const localUser = JSON.parse(localStorage.getItem("user_data") || "{}");
+  const userData = stateUser || localUser;
 
-  // 2. Ambil nilai role (string) dan role_id (angka/string dari backend Go)
   const userRole = userData?.role || "";
   const roleId = userData?.role_id || "";
 
-  // Jika belum login, tendang ke halaman login utama
   if (!token) {
     return <Navigate to="/login" replace={true} />;
   }
 
-  // 🚀 KUNCI SINCRONISASI: Izinkan masuk jika role-nya adalah admin/owner/developer, ATAU role_id-nya bernilai 1
+  // Evaluasi kecocokan dengan backend Go
   const isAdminAuthorized =
-    userRole === "admin" ||
-    userRole === "owner" ||
-    userRole === "developer" ||
+    ["admin", "owner", "developer"].includes(userRole) ||
     String(roleId) === "1";
 
   if (!isAdminAuthorized) {
@@ -58,7 +56,6 @@ const AdminRoute = ({ children }) => {
     return <Navigate to="/account" replace={true} />;
   }
 
-  // Jika lolos verifikasi, izinkan masuk ke Dashboard Admin
   return children;
 };
 export default function AppRouter({
