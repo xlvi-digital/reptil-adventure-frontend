@@ -10,19 +10,12 @@ const Event = lazy(() => import("./pages/Event"));
 const About = lazy(() => import("./pages/About"));
 const OrderSuccess = lazy(() => import("./pages/OrderSuccess"));
 
-// 🚀 TAMBAHAN: Lazy loading untuk halaman Account dan Login
+// 🚀 Lazy loading untuk halaman Account, Login, dan Admin Dashboard
 const Account = lazy(() => import("./pages/UserAccount"));
 const Login = lazy(() => import("./pages/admin/Login"));
 const Dashboard = lazy(() => import("./pages/admin/dashboard/"));
 
-// const PageLoading = () => (
-//   <div className="flex h-screen w-full items-center justify-center bg-neutral-950 text-neutral-400 text-sm font-mono">
-//     <span>Memuat halaman...</span>
-//   </div>
-// );
-
-// 🔒 KOMPONEN PROTEKSI (Protected Route)
-// Memeriksa keberadaan token JWT sebelum mengizinkan akses ke halaman internal
+// 🔒 KOMPONEN PROTEKSI (User Biasa)
 const ProtectedRoute = ({ children }) => {
   const token = localStorage.getItem("token");
 
@@ -32,6 +25,29 @@ const ProtectedRoute = ({ children }) => {
   }
 
   // Jika sudah login, loloskan menuju halaman tujuan
+  return children;
+};
+
+// 👑 KOMPONEN PROTEKSI KHUSUS ADMIN (Admin Route)
+const AdminRoute = ({ children }) => {
+  const token = localStorage.getItem("token");
+
+  // Ambil data user objek dari localStorage dan baca field role-nya
+  const userData = JSON.parse(localStorage.getItem("user") || "{}");
+  const userRole = userData?.role || localStorage.getItem("role") || "user";
+
+  // Jika belum login, arahkan ke login
+  if (!token) {
+    return <Navigate to="/login" replace={true} />;
+  }
+
+  // Jika sudah login tapi perannya BUKAN admin, kunci akses dan buang ke halaman akun pembeli
+  if (userRole !== "admin") {
+    alert("Akses ditolak! Halaman ini hanya dapat diakses oleh Administrator.");
+    return <Navigate to="/account" replace={true} />;
+  }
+
+  // Jika lolos, izinkan masuk ke Dashboard Admin
   return children;
 };
 
@@ -62,7 +78,13 @@ export default function AppRouter({
   loading,
 }) {
   return (
-    <Suspense>
+    <Suspense
+      fallback={
+        <div className="flex h-screen w-full items-center justify-center bg-neutral-950 text-neutral-400 text-sm font-mono">
+          <span>Memuat halaman...</span>
+        </div>
+      }
+    >
       <Routes>
         {/* 🏠 Halaman Utama (Katalog Lengkap) */}
         <Route
@@ -132,19 +154,32 @@ export default function AppRouter({
           }
         />
 
-        {/* 🔑 Halaman Login */}
+        {/* 🔑 Halaman Informasi & Autentikasi */}
         <Route path="/login" element={<Login />} />
         <Route path="/events" element={<Event />} />
         <Route path="/about" element={<About />} />
-        <Route path="/admin/dashboard" element={<Dashboard />} />
-        <Route path="/order-success" element={<OrderSuccess />} />
-        {/* 🔒 Halaman Account (Terproteksi Middleware ProtectedRoute) */}
+        <Route
+          path="/order-success"
+          element={<OrderSuccess clearCart={clearCart} />}
+        />
+
+        {/* 🔒 Halaman Account (Terproteksi User Biasa) */}
         <Route
           path="/account"
           element={
             <ProtectedRoute>
               <Account />
             </ProtectedRoute>
+          }
+        />
+
+        {/* 👑 Halaman Dashboard Admin (Terproteksi Middleware AdminRoute) */}
+        <Route
+          path="/admin/dashboard"
+          element={
+            <AdminRoute>
+              <Dashboard />
+            </AdminRoute>
           }
         />
 
