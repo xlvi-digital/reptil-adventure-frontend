@@ -30,29 +30,37 @@ const ProtectedRoute = ({ children }) => {
   return children;
 };
 
-// 👑 KOMPONEN PROTEKSI KHUSUS ADMIN (Admin Route)
+// 👑 KOMPONEN PROTEKSI KHUSUS ADMIN (Sudah Sinkron dengan LocalStorage & Go Backend)
 const AdminRoute = ({ children }) => {
   const token = localStorage.getItem("token");
 
-  // Ambil data user objek dari localStorage dan baca field role-nya
-  const userData = JSON.parse(localStorage.getItem("user") || "{}");
-  const userRole = userData?.role || localStorage.getItem("role") || "user";
+  // 1. Ambil data dengan KEY yang benar: "user_data"
+  const userData = JSON.parse(localStorage.getItem("user_data") || "{}");
 
-  // Jika belum login, arahkan ke login
+  // 2. Ambil nilai role (string) dan role_id (angka/string dari backend Go)
+  const userRole = userData?.role || "";
+  const roleId = userData?.role_id || "";
+
+  // Jika belum login, tendang ke halaman login utama
   if (!token) {
     return <Navigate to="/login" replace={true} />;
   }
 
-  // Jika sudah login tapi perannya BUKAN admin, kunci akses dan buang ke halaman akun pembeli
-  if (userRole !== "admin") {
+  // 🚀 KUNCI SINCRONISASI: Izinkan masuk jika role-nya adalah admin/owner/developer, ATAU role_id-nya bernilai 1
+  const isAdminAuthorized =
+    userRole === "admin" ||
+    userRole === "owner" ||
+    userRole === "developer" ||
+    String(roleId) === "1";
+
+  if (!isAdminAuthorized) {
     alert("Akses ditolak! Halaman ini hanya dapat diakses oleh Administrator.");
     return <Navigate to="/account" replace={true} />;
   }
 
-  // Jika lolos, izinkan masuk ke Dashboard Admin
+  // Jika lolos verifikasi, izinkan masuk ke Dashboard Admin
   return children;
 };
-
 export default function AppRouter({
   products,
   categories,
