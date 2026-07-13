@@ -16,8 +16,15 @@ export default function AdminOrders() {
   const [inputCourier, setInputCourier] = useState("");
   const [inputReceipt, setInputReceipt] = useState("");
 
-  // Konfigurasi Base URL API Backend (Sesuaikan port jika berbeda)
-  const API_URL = "http://localhost:8080/api/v1/admin/orders";
+  // Otomatis mendeteksi apakah Frontend berjalan di Vercel (Production) atau Laptop Sendiri (Localhost)
+  const API_URL = () => {
+    if (import.meta.env.PROD) {
+      // 🚀 Menggunakan URL Hugging Face milikmu untuk Production
+      return "https://xlvi-digital-reptil-adventure-api.hf.space";
+    }
+    // Tetap mengarah ke localhost jika kamu sedang testing di komputer sendiri
+    return "http://localhost:8080";
+  };
 
   // Fungsi Pembantu untuk mengambil Token JWT Admin dari LocalStorage/Session
   const getAuthHeader = () => {
