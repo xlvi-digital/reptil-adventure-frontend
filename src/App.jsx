@@ -226,7 +226,7 @@ export default function App() {
       {loading ? (
         <div className="min-h-[70vh] flex flex-col items-center justify-center font-mono text-xs text-neutral-500 gap-3">
           <div className="h-5 w-5 animate-spin rounded-full border-2 border-neutral-900 border-t-transparent"></div>
-          <span>Mengkoneksikan & memuat data dari database online...</span>
+          <span>Loading ...</span>
         </div>
       ) : (
         /* 🌍 ROUTER FLOW DIRECTORY */
