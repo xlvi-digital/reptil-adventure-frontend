@@ -35,29 +35,26 @@ export default function AdminOrders() {
     };
   };
 
-  // 1. READ: Ambil data dari backend (Mendukung filter status PENDING/PAID/SHIPPED/CANCELLED)
+  // 1. READ: Ambil data dari backend (Mendukung filter status)
   const fetchOrders = async () => {
     try {
-      let url = API_URL;
+      // 🚀 Jalur endpoint disesuaikan ke /api/v1/admin/orders
+      let endpoint = "/api/v1/admin/orders";
       if (filterStatus !== "all") {
-        url += `?status=${filterStatus.toUpperCase()}`;
+        endpoint += `?status=${filterStatus.toUpperCase()}`;
       }
 
-      const response = await fetch(url, {
-        method: "GET",
-        headers: getAuthHeader(),
-      });
+      // 🌟 Menggunakan API dari Axios, tidak perlu repot setup headers manual lagi
+      const response = await API.get(endpoint);
 
-      if (!response.ok) {
-        throw new Error(
-          "Gagal mengambil data, pastikan Anda sudah login sebagai Admin.",
-        );
-      }
-
-      const data = await response.json();
+      // Sesuaikan jika data bersarang, misal response.data.data atau langsung response.data
+      const data = response.data?.data || response.data;
       setOrders(data || []);
     } catch (error) {
       console.error("Error fetchOrders:", error);
+      alert(
+        "Gagal mengambil data pesanan. Pastikan Anda memiliki hak akses admin.",
+      );
     }
   };
 
@@ -79,13 +76,11 @@ export default function AdminOrders() {
   // 2. UPDATE: Mengubah Status Utama Cepat (PAID / PENDING / CANCELLED)
   const handleUpdateStatus = async (invoice, newStatus) => {
     try {
-      const response = await fetch(`${API_URL}/${invoice}/status`, {
-        method: "PUT",
-        headers: getAuthHeader(),
-        body: JSON.stringify({ status: newStatus }),
+      const response = await API.put(`/api/v1/admin/orders/${invoice}/status`, {
+        status: newStatus,
       });
 
-      if (response.ok) {
+      if (response.status === 200) {
         alert(`Status invoice ${invoice} berhasil diubah menjadi ${newStatus}`);
         fetchOrders(); // Refresh tabel utama
         setSelectedOrder(null); // Tutup modal
@@ -93,29 +88,26 @@ export default function AdminOrders() {
         alert("Gagal mengubah status pesanan.");
       }
     } catch (error) {
-      console.error(error);
+      console.error("Error update status:", error);
+      alert(error.response?.data?.error || "Gagal mengubah status pesanan.");
     }
   };
 
-  // 3. UPDATE: Menginput Manifest Kurir & Resi (Otomatis mengubah status jadi SHIPPED)
+  // 3. UPDATE: Menginput Kurir & Resi (Otomatis mengubah status jadi SHIPPED)
   const handleSaveShippingDetails = async (e) => {
     e.preventDefault();
     if (!selectedOrder) return;
 
     try {
-      const response = await fetch(
-        `${API_URL}/${selectedOrder.order_invoice}/shipping`,
+      const response = await API.put(
+        `/api/v1/admin/orders/${selectedOrder.order_invoice}/shipping`,
         {
-          method: "PUT",
-          headers: getAuthHeader(),
-          body: JSON.stringify({
-            courier: inputCourier,
-            receipt_number: inputReceipt, // Diterima backend sebagai tracking_number
-          }),
+          courier: inputCourier,
+          receipt_number: inputReceipt, // Diterima backend sebagai tracking_number
         },
       );
 
-      if (response.ok) {
+      if (response.status === 200) {
         alert("Manifest pengiriman dan nomor resi berhasil disimpan!");
         fetchOrders();
         setSelectedOrder(null);
@@ -123,10 +115,12 @@ export default function AdminOrders() {
         alert("Gagal memperbarui manifest pengiriman.");
       }
     } catch (error) {
-      console.error(error);
+      console.error("Error save shipping:", error);
+      alert(
+        error.response?.data?.error || "Gagal memperbarui manifest pengiriman.",
+      );
     }
   };
-
   // 4. DELETE: Menghapus / Membatalkan pesanan permanen
   const handleDeleteOrder = async (invoice) => {
     if (
@@ -135,12 +129,9 @@ export default function AdminOrders() {
       )
     ) {
       try {
-        const response = await fetch(`${API_URL}/${invoice}`, {
-          method: "DELETE",
-          headers: getAuthHeader(),
-        });
+        const response = await API.delete(`/api/v1/admin/orders/${invoice}`);
 
-        if (response.ok) {
+        if (response.status === 200) {
           alert("Data pesanan berhasil dihapus.");
           fetchOrders();
           setSelectedOrder(null);
@@ -148,7 +139,8 @@ export default function AdminOrders() {
           alert("Gagal menghapus pesanan.");
         }
       } catch (error) {
-        console.error(error);
+        console.error("Error delete order:", error);
+        alert(error.response?.data?.error || "Gagal menghapus pesanan.");
       }
     }
   };
