@@ -60,7 +60,7 @@ export default function AppRouter({
   loading,
 }) {
   return (
-    <Suspense fallback={<PageLoading />}>
+    <Suspense>
       <Routes>
         {/* 🏠 Halaman Utama (Katalog Lengkap) */}
         <Route
