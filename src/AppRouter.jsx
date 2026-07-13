@@ -8,10 +8,12 @@ const ProductDetail = lazy(() => import("./pages/ProductDetail"));
 const Checkout = lazy(() => import("./pages/Checkout"));
 const Event = lazy(() => import("./pages/Event"));
 const About = lazy(() => import("./pages/About"));
+const OrderSuccess = lazy(() => import("./pages/OrderSuccess"));
 
 // 🚀 TAMBAHAN: Lazy loading untuk halaman Account dan Login
 const Account = lazy(() => import("./pages/UserAccount"));
 const Login = lazy(() => import("./pages/admin/Login"));
+const Dashboard = lazy(() => import("./pages/admin/dashboard/"));
 
 // const PageLoading = () => (
 //   <div className="flex h-screen w-full items-center justify-center bg-neutral-950 text-neutral-400 text-sm font-mono">
@@ -134,7 +136,8 @@ export default function AppRouter({
         <Route path="/login" element={<Login />} />
         <Route path="/events" element={<Event />} />
         <Route path="/about" element={<About />} />
-
+        <Route path="/admin/dashboard" element={<Dashboard />} />
+        <Route path="/order-success" element={<OrderSuccess />} />
         {/* 🔒 Halaman Account (Terproteksi Middleware ProtectedRoute) */}
         <Route
           path="/account"
