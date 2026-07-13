@@ -13,9 +13,9 @@ const OrderSuccess = lazy(() => import("./pages/OrderSuccess"));
 // 🚀 Lazy loading untuk halaman Account, Login, dan Admin Dashboard
 const Account = lazy(() => import("./pages/UserAccount"));
 const Login = lazy(() => import("./pages/admin/Login"));
-const Dashboard = lazy(() => import("./pages/admin/Dashboard/"));
-const ProductManager = lazy(() => import("./pages/admin/ProductManager/"));
-const CategoryManager = lazy(() => import("./pages/admin/CategoryManager/"));
+const Dashboard = lazy(() => import("./pages/admin/Dashboard"));
+const ProductManager = lazy(() => import("./pages/admin/ProductManager"));
+const CategoryManager = lazy(() => import("./pages/admin/CategoryManager"));
 
 // 🔒 KOMPONEN PROTEKSI (User Biasa)
 const ProtectedRoute = ({ children }) => {
