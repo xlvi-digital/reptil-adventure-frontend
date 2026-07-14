@@ -273,6 +273,101 @@ export default function CheckoutComponent({
     initializeForm();
   }, []);
 
+  // ================= FUNGSI LOAD ALAMAT DARI AKUN =================
+  const loadAddressFromAccount = async () => {
+    try {
+      // 1. Ambil data profil terbaru dari database API
+      const res = await API.get("/user/profile");
+      const profile = res.data?.data || res.data || {};
+
+      if (profile) {
+        setCustomerName(profile.name || customerName);
+        setCustomerPhone(profile.phone || customerPhone);
+        setCustomerEmail(profile.email || customerEmail);
+
+        // Update form data berdasarkan alamat yang tersimpan di profile DB
+        setFormData((prev) => ({
+          ...prev,
+          provinceId: profile.province_id || prev.provinceId,
+          provinceName: profile.province_name || prev.provinceName,
+          cityId: profile.city_id || prev.cityId,
+          cityName: profile.city_name || prev.cityName,
+          districtId: profile.district_id || prev.districtId,
+          districtName: profile.district_name || prev.districtName,
+          villageName: profile.village_name || prev.villageName,
+          postalCode: profile.postal_code || prev.postalCode,
+          detailAddress: profile.detail_address || prev.detailAddress,
+          mapCoordinates: profile.map_coordinates || prev.mapCoordinates,
+          rawMapAddress: profile.raw_map_address || prev.rawMapAddress,
+        }));
+
+        // 2. Jika profil memiliki ID provinsi & kota, load opsi dropdown bertingkatnya
+        if (profile.province_id) {
+          const citiesRes = await fetch(
+            `${BASE_URL}/api/v1/shippings/cities?province=${profile.province_id}`,
+          );
+          if (citiesRes.ok) {
+            const citiesJson = await citiesRes.json();
+            const citiesData = citiesJson.data || citiesJson || [];
+            const cityOptions = citiesData.map((city) => ({
+              value: city.city_id || city.id,
+              label: city.city_name
+                ? `${city.type || ""} ${city.city_name}`
+                : city.nama,
+            }));
+            setCities(cityOptions);
+          }
+        }
+
+        if (profile.city_id) {
+          const districtsRes = await fetch(
+            `${BASE_URL}/api/v1/districts?regency_id=${profile.city_id}`,
+          );
+          if (districtsRes.ok) {
+            const districtsJson = await districtsRes.json();
+            const districtsData = districtsJson.data || districtsJson || [];
+            const districtOptions = districtsData.map((dist) => ({
+              value: dist.id || dist.district_id,
+              label: dist.nama || dist.district_name,
+            }));
+            setDistricts(districtOptions);
+          }
+        }
+
+        showToast("Alamat akun berhasil diterapkan!", "success");
+      }
+    } catch (err) {
+      console.error("Gagal load alamat akun dari API:", err);
+
+      // Fallback ke penyimpanan lokal (local storage) jika API profil bermasalah
+      const savedAddress = localStorage.getItem("user_saved_address");
+      if (savedAddress) {
+        try {
+          const parsed = JSON.parse(savedAddress);
+          setFormData((prev) => ({
+            ...prev,
+            provinceId: parsed.provinceId || prev.provinceId,
+            provinceName: parsed.provinceName || prev.provinceName,
+            cityId: parsed.cityId || prev.cityId,
+            cityName: parsed.cityName || prev.cityName,
+            districtId: parsed.districtId || prev.districtId,
+            districtName: parsed.districtName || prev.districtName,
+            villageName: parsed.villageName || prev.villageName,
+            postalCode: parsed.postalCode || prev.postalCode,
+            detailAddress: parsed.detailAddress || prev.detailAddress,
+            mapCoordinates: parsed.mapCoordinates || prev.mapCoordinates,
+            rawMapAddress: parsed.rawMapAddress || prev.rawMapAddress,
+          }));
+          showToast("Alamat dimuat dari penyimpanan lokal.", "success");
+        } catch (e) {
+          showToast("Gagal memuat alamat akun.", "warning");
+        }
+      } else {
+        showToast("Belum ada alamat yang tersimpan di profil Anda.", "warning");
+      }
+    }
+  };
+
   // 2. Ketika Provinsi Berubah
   const handleProvinceChange = (selectedOption) => {
     const id = selectedOption ? selectedOption.value : "";
