@@ -33,7 +33,7 @@ export default function CheckoutComponent({
 }) {
   const navigate = useNavigate();
 
-  // ================= STATE FORM UTAMA =================
+  // ================= State Form Utama =================
   const [customerName, setCustomerName] = useState("");
   const [customerPhone, setCustomerPhone] = useState("");
   const [customerEmail, setCustomerEmail] = useState("");
@@ -46,7 +46,7 @@ export default function CheckoutComponent({
     districtId: "",
     districtName: "",
     postalCode: "",
-    villageName: "", // Kelurahan berupa teks mandiri
+    villageName: "", // Kelurahan berupa text input manual
     detailAddress: "",
     courier: "JNE",
     mapCoordinates: "",
@@ -79,7 +79,7 @@ export default function CheckoutComponent({
 
   const BASE_URL = "https://xlvi-digital-reptil-adventure-api.hf.space";
 
-  // ================= KALKULASI TOTAL BELANJA =================
+  // ================= KALKULASI BERDASARKAN DATA CART =================
   const shippingCost = 0;
   const productTotal = cart.reduce(
     (sum, item) =>
@@ -97,7 +97,7 @@ export default function CheckoutComponent({
     }).format(number);
   };
 
-  // Reverse Geocoding Map
+  // Reverse Geocoding
   const reverseGeocode = async (lat, lng) => {
     try {
       const response = await fetch(
@@ -120,6 +120,7 @@ export default function CheckoutComponent({
     }
   };
 
+  // GPS Deteksi Manual
   const autoDetectLocation = () => {
     if (!navigator.geolocation) {
       showToast(
@@ -171,24 +172,25 @@ export default function CheckoutComponent({
 
   // ================= AMBIL DATA WILAYAH DARI DATABASE BACKEND =================
 
-  // 1. Ambil Data Provinsi Saat Halaman Pertama Kali Dimuat
+  // 1. Load Provinsi Pertama Kali
   useEffect(() => {
     const initializeForm = async () => {
       try {
+        // 🚀 DISELARASKAN: Menggunakan /api/v1/shippings/provinces sesuai routes.go
         const provincesRes = await fetch(
           `${BASE_URL}/api/v1/shippings/provinces`,
         );
+        if (!provincesRes.ok) throw new Error(`Status: ${provincesRes.status}`);
+
         const provincesJson = await provincesRes.json();
         const provincesData = provincesJson.data || provincesJson || [];
 
-        // Sesuaikan mapping key database RajaOngkir kamu (province_id & province)
         const provinceOptions = provincesData.map((prov) => ({
           value: prov.province_id || prov.id,
           label: prov.province || prov.nama,
         }));
         setProvinces(provinceOptions);
 
-        // Load alamat jika tersimpan di local storage
         const savedAddress = localStorage.getItem("user_saved_address");
         if (savedAddress) {
           try {
@@ -201,31 +203,37 @@ export default function CheckoutComponent({
             const districtName = parsed.districtName || "";
 
             if (provinceId) {
+              // 🚀 DISELARASKAN: Menggunakan /api/v1/shippings/cities?province=...
               const citiesRes = await fetch(
                 `${BASE_URL}/api/v1/shippings/cities?province=${provinceId}`,
               );
-              const citiesJson = await citiesRes.json();
-              const citiesData = citiesJson.data || citiesJson || [];
-              const cityOptions = citiesData.map((city) => ({
-                value: city.city_id || city.id,
-                label: city.city_name
-                  ? `${city.type || ""} ${city.city_name}`
-                  : city.nama,
-              }));
-              setCities(cityOptions);
-
-              if (cityId) {
-                // Sesuai routes.go kamu: v1.GET("/districts", controllers.GetDistricts)
-                const districtsRes = await fetch(
-                  `${BASE_URL}/api/v1/districts?regency_id=${cityId}`,
-                );
-                const districtsJson = await districtsRes.json();
-                const districtsData = districtsJson.data || districtsJson || [];
-                const districtOptions = districtsData.map((dist) => ({
-                  value: dist.id || dist.district_id,
-                  label: dist.nama || dist.district_name,
+              if (citiesRes.ok) {
+                const citiesJson = await citiesRes.json();
+                const citiesData = citiesJson.data || citiesJson || [];
+                const cityOptions = citiesData.map((city) => ({
+                  value: city.city_id || city.id,
+                  label: city.city_name
+                    ? `${city.type || ""} ${city.city_name}`
+                    : city.nama,
                 }));
-                setDistricts(districtOptions);
+                setCities(cityOptions);
+
+                if (cityId) {
+                  // 🚀 DISELARASKAN: Menggunakan /api/v1/districts?regency_id=... sesuai routes.go
+                  const districtsRes = await fetch(
+                    `${BASE_URL}/api/v1/districts?regency_id=${cityId}`,
+                  );
+                  if (districtsRes.ok) {
+                    const districtsJson = await districtsRes.json();
+                    const districtsData =
+                      districtsJson.data || districtsJson || [];
+                    const districtOptions = districtsData.map((dist) => ({
+                      value: dist.id || dist.district_id,
+                      label: dist.nama || dist.district_name,
+                    }));
+                    setDistricts(districtOptions);
+                  }
+                }
               }
             }
 
@@ -265,7 +273,7 @@ export default function CheckoutComponent({
     initializeForm();
   }, []);
 
-  // 2. Ketika Provinsi Diubah -> Ambil data Kota/Kabupaten
+  // 2. Ketika Provinsi Berubah
   const handleProvinceChange = (selectedOption) => {
     const id = selectedOption ? selectedOption.value : "";
     const name = selectedOption ? selectedOption.label : "";
@@ -283,8 +291,12 @@ export default function CheckoutComponent({
     setDistricts([]);
 
     if (id) {
+      // 🚀 DISELARASKAN: Menggunakan /api/v1/shippings/cities?province=...
       fetch(`${BASE_URL}/api/v1/shippings/cities?province=${id}`)
-        .then((res) => res.json())
+        .then((res) => {
+          if (!res.ok) throw new Error();
+          return res.json();
+        })
         .then((json) => {
           const data = json.data || json || [];
           const formatted = data.map((city) => ({
@@ -299,7 +311,7 @@ export default function CheckoutComponent({
     }
   };
 
-  // 3. Ketika Kota/Kabupaten Diubah -> Ambil data Kecamatan (Menembak rute /api/v1/districts)
+  // 3. Ketika Kota Berubah
   const handleCityChange = (selectedOption) => {
     const id = selectedOption ? selectedOption.value : "";
     const name = selectedOption ? selectedOption.label : "";
@@ -314,8 +326,12 @@ export default function CheckoutComponent({
     setDistricts([]);
 
     if (id) {
+      // 🚀 DISELARASKAN: Menggunakan /api/v1/districts?regency_id=...
       fetch(`${BASE_URL}/api/v1/districts?regency_id=${id}`)
-        .then((res) => res.json())
+        .then((res) => {
+          if (!res.ok) throw new Error();
+          return res.json();
+        })
         .then((json) => {
           const data = json.data || json || [];
           const formatted = data.map((dist) => ({
@@ -328,7 +344,7 @@ export default function CheckoutComponent({
     }
   };
 
-  // 4. Ketika Dropdown Kecamatan Pilih (Kembali menggunakan Select Otomatis)
+  // 4. Ketika Dropdown Kecamatan Dipilih
   const handleDistrictChange = (selectedOption) => {
     const id = selectedOption ? selectedOption.value : "";
     const name = selectedOption ? selectedOption.label : "";
@@ -340,7 +356,7 @@ export default function CheckoutComponent({
     }));
   };
 
-  // ================= PROSES KIRIM DATA ORDER =================
+  // ================= PROSES KIRIM ORDER VIA AXIOS =================
   const handleCheckout = async () => {
     if (isSubmitting) return;
 
@@ -437,7 +453,7 @@ export default function CheckoutComponent({
     }
   };
 
-  // React Leaflet Config
+  // Map Events
   function MapEventsHandler() {
     useMapEvents({
       click(e) {
@@ -468,6 +484,7 @@ export default function CheckoutComponent({
         : "0 1px 2px 0 rgba(0, 0, 0, 0.05)",
       fontSize: "0.875rem",
       backgroundColor: "white",
+      outline: "none",
       "&:hover": { borderColor: state.isFocused ? "#f59e0b" : "#cbd5e1" },
     }),
     placeholder: (provided) => ({ ...provided, color: "#94a3b8" }),
@@ -486,15 +503,34 @@ export default function CheckoutComponent({
   return (
     <div className="min-h-screen bg-slate-50/50 py-10 px-4 sm:px-6 lg:px-8 font-sans text-slate-800 antialiased">
       <div className="max-w-7xl mx-auto lg:grid lg:grid-cols-12 lg:gap-x-8 gap-y-8">
-        {/* ================= SEKSI KIRI: FORM ALAMAT ================= */}
+        {/* ================= KIRI: FORM ALAMAT ================= */}
         <div className="lg:col-span-7 bg-white p-6 sm:p-8 rounded-2xl border border-slate-100 shadow-sm space-y-8">
-          <div>
-            <h2 className="text-xl font-bold tracking-tight text-slate-900">
-              Alamat Pengiriman
-            </h2>
-            <p className="text-xs text-slate-400 mt-0.5">
-              Lengkapi informasi lokasi pengiriman dengan benar
-            </p>
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-4">
+            <div>
+              <h2 className="text-xl font-bold tracking-tight text-slate-900">
+                Alamat Pengiriman
+              </h2>
+              <p className="text-xs text-slate-400 mt-0.5">
+                Lengkapi informasi lokasi pengiriman pesanan Anda dengan benar
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-3">
+              <button
+                type="button"
+                onClick={loadAddressFromAccount}
+                className="self-start sm:self-center text-xs bg-amber-50 text-amber-700 font-bold px-4 py-2 rounded-xl border border-amber-200 hover:bg-amber-100/80 active:scale-95 transition-all flex items-center gap-1.5 shadow-sm"
+              >
+                <span>📍</span> Gunakan Alamat Akun
+              </button>
+              <button
+                type="button"
+                onClick={activateMapAndDetectLocation}
+                className="self-start sm:self-center text-xs bg-slate-900 text-white font-bold px-4 py-2 rounded-xl border border-slate-900 hover:bg-slate-800 active:scale-95 transition-all flex items-center gap-1.5 shadow-sm"
+              >
+                <span>📡</span>{" "}
+                {isLocating ? "Mendeteksi..." : "Gunakan Lokasi Saya"}
+              </button>
+            </div>
           </div>
 
           <div className="space-y-4">
@@ -528,7 +564,7 @@ export default function CheckoutComponent({
             </div>
           </div>
 
-          {/* Wilayah Administrasi Dropdown Bertingkat */}
+          {/* Wilayah Administrasi */}
           <div className="space-y-4">
             <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider">
               Wilayah Administrasi
@@ -578,7 +614,6 @@ export default function CheckoutComponent({
                 <label className="block text-xs font-semibold text-slate-600 mb-1.5">
                   Kecamatan <span className="text-red-500">*</span>
                 </label>
-                {/* 🔄 KEMBALI MENGGUNAKAN SELECT OTOMATIS */}
                 <Select
                   options={districts}
                   styles={customSelectStyles}
@@ -599,13 +634,11 @@ export default function CheckoutComponent({
               </div>
             </div>
 
-            {/* Kelurahan & Kode Pos Terpisah */}
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
               <div className="sm:col-span-2">
                 <label className="block text-xs font-semibold text-slate-600 mb-1.5">
                   Kelurahan / Desa <span className="text-red-500">*</span>
                 </label>
-                {/* 📝 Input teks mandiri agar mencegah data macet / mencegah typo parah */}
                 <input
                   type="text"
                   value={formData.villageName || ""}
@@ -637,7 +670,92 @@ export default function CheckoutComponent({
             </div>
           </div>
 
-          {/* Rincian Alamat Fisik Manual */}
+          {/* Peta Pinpoint */}
+          <div className="space-y-2">
+            <div className="flex justify-between items-center">
+              <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider">
+                Pinpoint Lokasi Kurir
+              </label>
+              {isMapActive && (
+                <span className="text-[10px] text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-md font-bold border border-emerald-200">
+                  ● Peta Aktif
+                </span>
+              )}
+            </div>
+
+            <div className="h-56 w-full rounded-2xl overflow-hidden border border-slate-100 shadow-inner relative z-10 bg-slate-50">
+              {!isMapActive ? (
+                <div
+                  onClick={activateMapAndDetectLocation}
+                  className="w-full h-full flex flex-col items-center justify-center cursor-pointer group hover:bg-slate-100/70 transition-all duration-300"
+                >
+                  <div className="w-12 h-12 rounded-full bg-amber-50 text-amber-600 flex items-center justify-center text-xl shadow-sm group-hover:scale-110 transition-transform duration-300">
+                    🗺️
+                  </div>
+                  <p className="text-sm font-semibold text-slate-700 mt-3">
+                    Klik di sini untuk mengaktifkan peta pinpoint dan deteksi
+                    lokasi Anda
+                  </p>
+                </div>
+              ) : (
+                <MapContainer
+                  center={position}
+                  zoom={zoomLevel}
+                  style={{ height: "100%", width: "100%" }}
+                >
+                  <TileLayer
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                    attribution="© OpenStreetMap"
+                  />
+                  {(hasPinnedLocation || formData.mapCoordinates) && (
+                    <Marker position={position} />
+                  )}
+                  <MapEventsHandler />
+                  <ChangeMapView center={position} zoom={zoomLevel} />
+                </MapContainer>
+              )}
+            </div>
+
+            <div className="mt-3 bg-slate-50 border border-slate-200/60 rounded-xl p-3.5 space-y-2.5">
+              <div className="flex items-center gap-1.5 text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+                🛰️ Data Hasil Deteksi Peta Digital
+              </div>
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+                <div>
+                  <label className="block text-[10px] font-bold text-slate-500 mb-1">
+                    Titik Koordinat (GPS)
+                  </label>
+                  <input
+                    type="text"
+                    readOnly
+                    disabled
+                    value={
+                      formData.mapCoordinates || "Belum memilih lokasi di peta"
+                    }
+                    className="w-full rounded-lg bg-slate-100 border border-slate-200 p-2 text-xs font-mono text-slate-500 cursor-not-allowed"
+                  />
+                </div>
+                <div className="sm:col-span-2">
+                  <label className="block text-[10px] font-bold text-slate-500 mb-1">
+                    Alamat Acuan Peta Bumi
+                  </label>
+                  <input
+                    type="text"
+                    readOnly
+                    disabled
+                    value={
+                      formData.rawMapAddress ||
+                      "Silakan klik area di dalam peta untuk menandai titik..."
+                    }
+                    className="w-full rounded-lg bg-slate-100 border border-slate-200 p-2 text-xs text-slate-500 cursor-not-allowed truncate"
+                    title={formData.rawMapAddress}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Rincian Alamat Manual */}
           <div className="space-y-3">
             <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider">
               Rincian Alamat Fisik Manual{" "}
@@ -655,7 +773,7 @@ export default function CheckoutComponent({
           </div>
         </div>
 
-        {/* ================= SEKSI KANAN: RINGKASAN BELANJA ================= */}
+        {/* ================= KANAN: RINGKASAN BELANJA ================= */}
         <div className="mt-8 lg:mt-0 lg:col-span-5">
           <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 space-y-5 sticky top-6">
             <h3 className="text-lg font-bold text-slate-900 pb-2 border-b border-slate-100">
@@ -678,7 +796,9 @@ export default function CheckoutComponent({
                         {item.product?.name}
                       </span>
                       <span className="text-xs text-slate-400 mt-0.5">
-                        Qty: {item.quantity} pcs
+                        Qty: {item.quantity} pcs{" "}
+                        {item.size && `| Size: ${item.size}`}{" "}
+                        {item.color && `| Color: ${item.color}`}
                       </span>
                     </div>
                     <span className="font-semibold text-slate-900 shrink-0">
@@ -687,6 +807,21 @@ export default function CheckoutComponent({
                   </div>
                 ))
               )}
+            </div>
+
+            <div className="border-t border-slate-100 pt-4 space-y-2.5 text-sm">
+              <div className="flex justify-between text-slate-500">
+                <span>Subtotal ({cart.length} Jenis Produk)</span>
+                <span className="font-medium text-slate-700">
+                  {formatRupiah(productTotal)}
+                </span>
+              </div>
+              <div className="flex justify-between text-slate-500">
+                <span>Total Ongkos Kirim</span>
+                <span className="text-emerald-600 font-bold text-xs uppercase tracking-wider">
+                  FREE
+                </span>
+              </div>
             </div>
 
             <div className="border-t border-slate-100 pt-4 flex justify-between items-center">
@@ -705,6 +840,14 @@ export default function CheckoutComponent({
             >
               {isSubmitting ? "Memproses Pesanan..." : "Konfirmasi & Bayar"}
             </button>
+
+            {toast.show && (
+              <Toast
+                message={toast.message}
+                type={toast.type}
+                onClose={() => setToast({ ...toast, show: false })}
+              />
+            )}
           </div>
         </div>
       </div>
