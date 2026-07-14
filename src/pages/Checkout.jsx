@@ -38,6 +38,11 @@ export default function CheckoutComponent({
   const [customerPhone, setCustomerPhone] = useState("");
   const [customerEmail, setCustomerEmail] = useState("");
 
+  const [shippingCost, setShippingCost] = useState(0);
+  const [shippingOptions, setShippingOptions] = useState([]); // Untuk menampung layanan kurir (misal: JNE OKE, REG, YES)
+  const [selectedService, setSelectedService] = useState(""); // Layanan kurir terpilih
+  const [isCalculatingShipping, setIsCalculatingShipping] = useState(false);
+
   const [formData, setFormData] = useState({
     provinceId: "",
     provinceName: "",
@@ -80,7 +85,7 @@ export default function CheckoutComponent({
   const BASE_URL = "https://xlvi-digital-reptil-adventure-api.hf.space";
 
   // ================= KALKULASI BERDASARKAN DATA CART =================
-  const shippingCost = 0;
+  // const shippingCost = 0;
   const productTotal = cart.reduce(
     (sum, item) =>
       sum + Number(item.product?.price || 0) * Number(item.quantity || 1),
@@ -155,6 +160,63 @@ export default function CheckoutComponent({
   const activateMapAndDetectLocation = () => {
     setIsMapActive(true);
     if (!hasPinnedLocation) autoDetectLocation();
+  };
+
+  const calculateShipping = async (destinationCityId, courierName) => {
+    if (!destinationCityId) return;
+
+    setIsCalculatingShipping(true);
+    try {
+      // Hitung total berat barang belanjaan (default 1000 gram per jenis barang jika kosong)
+      const totalWeight = cart.reduce(
+        (sum, item) =>
+          sum +
+          Number(item.product?.weight || 1000) * Number(item.quantity || 1),
+        0,
+      );
+
+      const response = await fetch(`${BASE_URL}/api/v1/shippings/cost`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify({
+          origin: "103", // Ganti dengan ID Kota asal tokomu (Contoh: 103 untuk Cianjur)
+          destination: destinationCityId,
+          weight: totalWeight,
+          courier: courierName.toLowerCase(), // RajaOngkir biasanya menggunakan huruf kecil (jne, pos, tiki)
+        }),
+      });
+
+      if (!response.ok) throw new Error("Gagal menghitung ongkos kirim");
+
+      const json = await response.json();
+      // Mengambil data cost dari response RajaOngkir
+      const results = json.data?.[0]?.costs || json?.[0]?.costs || [];
+
+      setShippingOptions(results);
+
+      if (results.length > 0) {
+        // Pilih layanan pertama secara default (misal: REG)
+        const defaultService = results[0];
+        setSelectedService(
+          `${defaultService.service} - ${defaultService.description}`,
+        );
+        setShippingCost(defaultService.cost[0].value);
+      } else {
+        setShippingCost(0);
+        showToast("Kurir tidak melayani rute ini.", "warning");
+      }
+    } catch (err) {
+      console.error("Error shipping cost:", err);
+      showToast(
+        "Gagal memuat ongkos kirim. Silakan coba kurir lain.",
+        "warning",
+      );
+    } finally {
+      setIsCalculatingShipping(false);
+    }
   };
 
   useEffect(() => {
@@ -406,7 +468,6 @@ export default function CheckoutComponent({
     }
   };
 
-  // 3. Ketika Kota Berubah
   const handleCityChange = (selectedOption) => {
     const id = selectedOption ? selectedOption.value : "";
     const name = selectedOption ? selectedOption.label : "";
@@ -419,14 +480,13 @@ export default function CheckoutComponent({
       districtName: "",
     }));
     setDistricts([]);
+    setShippingOptions([]);
+    setShippingCost(0);
 
     if (id) {
-      // 🚀 DISELARASKAN: Menggunakan /api/v1/districts?regency_id=...
+      // Ambil data kecamatan
       fetch(`${BASE_URL}/api/v1/districts?regency_id=${id}`)
-        .then((res) => {
-          if (!res.ok) throw new Error();
-          return res.json();
-        })
+        .then((res) => res.json())
         .then((json) => {
           const data = json.data || json || [];
           const formatted = data.map((dist) => ({
@@ -436,6 +496,9 @@ export default function CheckoutComponent({
           setDistricts(formatted);
         })
         .catch((err) => console.error("Gagal load kecamatan:", err));
+
+      // 🚀 HITUNG ONGKIR SEKALIGUS
+      calculateShipping(id, formData.courier);
     }
   };
 
@@ -449,6 +512,14 @@ export default function CheckoutComponent({
       districtId: id,
       districtName: name,
     }));
+  };
+
+  const handleCourierChange = (e) => {
+    const courier = e.target.value;
+    setFormData((prev) => ({ ...prev, courier }));
+    if (formData.cityId) {
+      calculateShipping(formData.cityId, courier);
+    }
   };
 
   // ================= PROSES KIRIM ORDER VIA AXIOS =================
@@ -490,7 +561,7 @@ export default function CheckoutComponent({
         map_coordinates: formData?.mapCoordinates || "",
         raw_map_address: formData?.rawMapAddress || "",
         courier: formData?.courier || "JNE",
-        shipping_cost: 0,
+        shipping_cost: shippingCost,
         cart_items: cart.map((item) => {
           const rawIdString = item?.id || item?.product_id || "";
           const cleanSku = rawIdString.split("_")[0];
@@ -763,6 +834,58 @@ export default function CheckoutComponent({
                 />
               </div>
             </div>
+          </div>
+
+          {/* Pilihan Kurir & Layanan */}
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <div>
+              <label className="block text-xs font-semibold text-slate-600 mb-1.5">
+                Pilih Kurir <span className="text-red-500">*</span>
+              </label>
+              <select
+                value={formData.courier}
+                onChange={handleCourierChange}
+                className="w-full rounded-xl border-slate-200 p-3 border text-sm focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 outline-none transition-all shadow-sm bg-white"
+              >
+                <option value="JNE">JNE (Jalur Nugraha Ekakurir)</option>
+                <option value="POS">POS Indonesia</option>
+                <option value="TIKI">TIKI</option>
+              </select>
+            </div>
+
+            {shippingOptions.length > 0 && (
+              <div>
+                <label className="block text-xs font-semibold text-slate-600 mb-1.5">
+                  Layanan Pengiriman <span className="text-red-500">*</span>
+                </label>
+                <select
+                  value={selectedService}
+                  onChange={(e) => {
+                    const selected = shippingOptions.find(
+                      (opt) =>
+                        `${opt.service} - ${opt.description}` ===
+                        e.target.value,
+                    );
+                    if (selected) {
+                      setSelectedService(e.target.value);
+                      setShippingCost(selected.cost[0].value);
+                    }
+                  }}
+                  className="w-full rounded-xl border-slate-200 p-3 border text-sm focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 outline-none transition-all shadow-sm bg-white"
+                >
+                  {shippingOptions.map((opt, idx) => (
+                    <option
+                      key={idx}
+                      value={`${opt.service} - ${opt.description}`}
+                    >
+                      {opt.service} ({opt.description}) -{" "}
+                      {formatRupiah(opt.cost[0].value)} (Est: {opt.cost[0].etd}{" "}
+                      hari)
+                    </option>
+                  ))}
+                </select>
+              </div>
+            )}
           </div>
 
           {/* Peta Pinpoint */}
