@@ -205,7 +205,7 @@ export default function CheckoutComponent({
             if (provinceId) {
               // 🚀 DISELARASKAN: Menggunakan /api/v1/shippings/cities?province=...
               const citiesRes = await fetch(
-                `${BASE_URL}/api/v1/shippings/cities?province=${provinceId}`,
+                `${BASE_URL}/api/v1/shippings/cities?province_id=${provinceId}`,
               );
               if (citiesRes.ok) {
                 const citiesJson = await citiesRes.json();
@@ -304,7 +304,7 @@ export default function CheckoutComponent({
         // 2. Jika profil memiliki ID provinsi & kota, load opsi dropdown bertingkatnya
         if (profile.province_id) {
           const citiesRes = await fetch(
-            `${BASE_URL}/api/v1/shippings/cities?province=${profile.province_id}`,
+            `${BASE_URL}/api/v1/shippings/cities?province_id=${profile.province_id}`,
           );
           if (citiesRes.ok) {
             const citiesJson = await citiesRes.json();
@@ -387,7 +387,7 @@ export default function CheckoutComponent({
 
     if (id) {
       // 🚀 DISELARASKAN: Menggunakan /api/v1/shippings/cities?province=...
-      fetch(`${BASE_URL}/api/v1/shippings/cities?province=${id}`)
+      fetch(`${BASE_URL}/api/v1/shippings/cities?province_id=${id}`)
         .then((res) => {
           if (!res.ok) throw new Error();
           return res.json();
