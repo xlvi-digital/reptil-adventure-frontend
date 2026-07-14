@@ -181,11 +181,18 @@ export default function CheckoutComponent({
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
+        // Ubah bagian body di dalam fetch /api/v1/shippings/cost menjadi seperti ini:
         body: JSON.stringify({
-          origin: "103", // Ganti dengan ID Kota asal tokomu (Contoh: 103 untuk Cianjur)
-          destination: destinationCityId,
-          weight: totalWeight,
-          courier: courierName.toLowerCase(), // RajaOngkir biasanya menggunakan huruf kecil (jne, pos, tiki)
+          origin: "103", // Tetap String (ID Kota Asal)
+          origin_id: 103, // Versi Integer jika Go butuh angka
+
+          destination: String(destinationCityId), // Dipaksa jadi String
+          destination_id: Number(destinationCityId), // Versi Integer jika Go butuh angka
+
+          weight: Number(totalWeight), // Angka murni (Integer)
+          weight_str: String(totalWeight), // Versi String jika Go butuh string
+
+          courier: courierName.toLowerCase(), // String huruf kecil (jne/pos/tiki)
         }),
       });
 
